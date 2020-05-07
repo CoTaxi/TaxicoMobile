@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/services/RdvService.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ListeDemandes.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/AddRdvMaintenanceForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/AffecterColis.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ReserveRdvMaintenanceForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/mycompany/myapp/MyApplication.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/AjoutColis.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ChauffeurForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/services/ServicesVehicule.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/login.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/models/Colis.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ColisForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ArchiveColis.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/AfficherColis.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/DeleteVecForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ShowDetailsColis.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/services/ColisService.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/MaintenanceForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/addvehicule.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/HomeForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/SearchbyIdVec.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/services/ServiceService.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/signup.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/VecForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/AddRecForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/services/UserService.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ReclamationForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/Demande.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/utils/Statics.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/models/Reclamation.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/services/ReclamationServices.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/MapForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ClientForm.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ModifierColis.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/models/category.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/services/GarageService.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/models/User.java</file>
+            <file>file:/C:/Users/dell/Documents/NetBeansProjects/Unplugged/src/com/esprit/pidev/forms/ListVehicule.java</file>
+        </group>
+    </open-files>
+</project-private>
