@@ -43,6 +43,9 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.pidev.forms.vehicule.FindTaxi;
 import com.esprit.pidev.forms.colis.AjoutColis;
+import com.esprit.pidev.forms.colis.Map;
+//import com.esprit.pidev.forms.colis.Map;
+import com.esprit.pidev.forms.colis.combo;
 import com.esprit.pidev.forms.forum.AjoutForum;
 import com.esprit.pidev.forms.reclamation.AjoutRec;
 import com.esprit.pidev.forms.vehicule.AjoutVehicule;
@@ -186,7 +189,8 @@ public class NosServices extends BaseForm {
            System.out.println(ta.getText());
            if(ta.getText().equals("ENVOYER COLIS."))
            {
-            new  AjoutColis(res).show();
+           // new  AjoutColis(res).show();
+               new Map(res).show();
            }
            else if(ta.getText().equals("TROUVER TAXI."))
            {
