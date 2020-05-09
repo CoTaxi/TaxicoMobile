@@ -48,6 +48,7 @@ public class UserService {
                 
                     for (int i = 0; i < users.size(); i++) {
                     Statics.sessionID=users.get(i).getId();
+                    Statics.type=users.get(i).getType();
                 }
                 responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
                 request.removeResponseListener(this);
@@ -56,6 +57,22 @@ public class UserService {
         
             NetworkManager.getInstance().addToQueueAndWait(request);
            return responseResult;
+    }
+     public ArrayList<User> lastcnx(int id){
+//      Boolean test = false;
+        String url =  Statics.BASE_URL+"/T/findlastcnx/"+id;
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                users = parseUser(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return users;
     }
 
     public boolean register(String prenom, String nom, int tel, String email, String username, String dtn, int permis, int exp, int rib, String pwd) {
@@ -103,12 +120,33 @@ public class UserService {
             //System.out.println(list.size());
             for (Map<String, Object> obj : list) {
                 int idU = (int)Float.parseFloat(obj.get("id").toString());
-                users.add(new User(idU));
+                String type=obj.get("type").toString();
+                users.add(new User(idU,type));
             }
 
         } catch (IOException ex) {
         }
         return users;
     }
-    
+    public ArrayList<User> parseUser(String jsonText) {
+        try {
+            users = new ArrayList<>();
+             System.out.println(jsonText);   
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            //System.out.println(list.size());
+            for (Map<String, Object> obj : list) {
+                int idU = (int)Float.parseFloat(obj.get("id").toString());
+                String type=obj.get("type").toString();
+                String username=obj.get("username").toString();
+                String email=obj.get("email").toString();
+                users.add(new User(idU,type,username,email));
+            }
+
+        } catch (IOException ex) {
+        }
+        return users;
+    }   
 }

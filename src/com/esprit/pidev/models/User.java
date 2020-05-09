@@ -45,7 +45,8 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username) 
+    {
         this.username = username;
     }
 
@@ -65,12 +66,21 @@ public class User {
         this.email = email;
     }
 
-    public User(int id) {
+    public User(int id,String type) 
+    {
         this.id = id;
+        this.type=type;
     }
 
     public String getEmail_canonical() {
         return email_canonical;
+    }
+
+    public User(int id, String type, String username, String email) {
+        this.id = id;
+        this.type = type;
+        this.username = username;
+        this.email = email;
     }
 
     public void setEmail_canonical(String email_canonical) {
