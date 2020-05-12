@@ -1,9 +1,11 @@
+package com.esprit.pidev.models;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.myapp.entities;
+
 
 /**
  *
@@ -11,7 +13,7 @@ package com.mycompany.myapp.entities;
  */
 public class Vehicule {
  String matricule,marque,modele,cartegrise,couleur,type,position,destination,dateco,zone,accept_c; 
- int id,dispo,etat,archive;
+ int id,dispo,etat,archive,user;
  int places = 0;
 
     public Vehicule(String matricule, String marque, String modele, String cartegrise, String couleur,int places, String position, String accept_c, String destination) {
@@ -25,6 +27,14 @@ public class Vehicule {
         this.accept_c = accept_c;
         this.destination = destination;
         
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 
     public void setMatricule(String matricule) {

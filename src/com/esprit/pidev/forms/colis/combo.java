@@ -66,7 +66,7 @@ public class combo extends Form
 }
  };
  adresse.setMinimumElementsShownInPopup(5);
-       AutoCompleteTextField name = new AutoCompleteTextField("chasse des vertebres ", "chasse des mollusques", "chasse des amphibiens", "chasse des reptiles" , " nom saison ");
+ AutoCompleteTextField name = new AutoCompleteTextField("chasse des vertebres ", "chasse des mollusques", "chasse des amphibiens", "chasse des reptiles" , " nom saison ");
 name.setMinimumElementsShownInPopup(5);
 this.addAll(adresse,name);
 }

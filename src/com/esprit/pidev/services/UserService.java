@@ -75,10 +75,10 @@ public class UserService {
         return users;
     }
 
-    public boolean register(String prenom, String nom, int tel, String email, String username, String dtn, int permis, int exp, int rib, String pwd) {
+    public boolean register(String prenom, String nom, int tel, String email, String username, String dtn, int permis, int exp, int rib, String pwd,String type) {
         String url = Statics.BASE_URL+"/T/MobileRegister?prenom="+prenom+"&nom="+nom+"&tel="+tel+
                 "&email="+email+"&usern="+username+"&dtn="+dtn+"&permis="+permis+
-                "&exp="+exp+"&rib="+rib+"&pwd="+pwd;
+                "&exp="+exp+"&rib="+rib+"&pwd="+pwd+"&type="+type;
         
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {

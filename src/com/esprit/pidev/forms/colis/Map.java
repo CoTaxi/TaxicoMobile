@@ -105,6 +105,7 @@ go.addActionListener(l->{
            Form hi = new Form("Browser", new BorderLayout());
            BrowserComponent browser = new BrowserComponent();
            browser.setURL("http://maps.google.com/?q=" + lat + "," + lng);
+          //browser.setURL("https://www.codenameone.com/");
            hi.add(BorderLayout.CENTER, browser);
            hi.show();
 });

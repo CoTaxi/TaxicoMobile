@@ -55,7 +55,7 @@ public class MyApplication {
             return;
         }
         // new SplashForm(theme,theme1).show();
-        new WalkthruForm().show();
+        new WalkthruForm(theme1).show();
     }
 
     public void stop() {

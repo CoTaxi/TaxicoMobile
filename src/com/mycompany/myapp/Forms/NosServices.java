@@ -46,7 +46,6 @@ import com.esprit.pidev.forms.colis.AjoutColis;
 import com.esprit.pidev.forms.colis.Map;
 //import com.esprit.pidev.forms.colis.Map;
 import com.esprit.pidev.forms.colis.combo;
-import com.esprit.pidev.forms.forum.AjoutForum;
 import com.esprit.pidev.forms.reclamation.AjoutRec;
 import com.esprit.pidev.forms.vehicule.AjoutVehicule;
 /**
@@ -190,17 +189,17 @@ public class NosServices extends BaseForm {
            if(ta.getText().equals("ENVOYER COLIS."))
            {
            // new  AjoutColis(res).show();
-               new Map(res).show();
+             //  new Map(res).show();
            }
            else if(ta.getText().equals("TROUVER TAXI."))
            {
-            // new AjoutVehicule(res).show();
-               new FindTaxi(res).show();
+             new AjoutVehicule(res).show();
+              
            }
            else if(ta.getText().equals("TROUVER CO-VOITURAGE."))
            {
-             //new AjoutRec(res).show();
-               new AjoutForum().show();
+             new AjoutRec(res).show();
+             //  new AjoutForum().show();
            }
            
            

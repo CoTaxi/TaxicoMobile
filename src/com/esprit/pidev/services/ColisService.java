@@ -233,6 +233,19 @@ return responseResult;
 
         return Colis;
     }
-
+public ArrayList<Colis> TriColis(  ) {
+            String url =Statics.BASE_URL +"/C/triColis";
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                Colis = parseColis(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+        return Colis;
+    }
 
 }

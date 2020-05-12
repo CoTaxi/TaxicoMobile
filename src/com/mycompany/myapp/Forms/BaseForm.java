@@ -19,6 +19,7 @@
 
 package com.mycompany.myapp.Forms;
 
+import com.esprit.pidev.forms.colis.conv;
 import com.esprit.pidev.forms.user.SignInForm;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Button;
@@ -37,7 +38,11 @@ import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.colis.AfficherColis;
+import com.esprit.pidev.forms.colis.ListeVoituresForm;
+import com.esprit.pidev.forms.reclamation.ReclamationForm;
 import com.esprit.pidev.forms.user.Lastcnx;
+import com.esprit.pidev.forms.vehicule.AfficherVehicule;
 import com.esprit.pidev.utils.Statics;
 
 /**
@@ -89,6 +94,8 @@ public class BaseForm extends Form {
         if(Statics.type.equals("client"))
         {
         tb.addMaterialCommandToSideMenu("Nos Services", FontImage.MATERIAL_UPDATE, e -> new NosServices(res1).show());
+        tb.addMaterialCommandToSideMenu("Mes Colis", FontImage.MATERIAL_UPDATE, e -> new AfficherColis(res1).show());
+        tb.addMaterialCommandToSideMenu("Raclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res1).show());
         tb.addMaterialCommandToSideMenu("Inbox", FontImage.MATERIAL_UPDATE, e -> new InboxForm(res1).show());
         tb.addMaterialCommandToSideMenu("Trending", FontImage.MATERIAL_SETTINGS, e -> new TrendingForm(res1).show());
@@ -98,6 +105,8 @@ public class BaseForm extends Form {
         }
         if(Statics.type.equals("chauffeur"))
         {
+       tb.addMaterialCommandToSideMenu("Gestion Colis", FontImage.MATERIAL_UPDATE, e -> new ListeVoituresForm(res1).show());
+       tb.addMaterialCommandToSideMenu("Mes Vehicule", FontImage.MATERIAL_UPDATE, e -> new AfficherVehicule(res1).show());
        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e ->
        {
            

@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  *
- * @author aissa
+ * @author Asus
  */
 public class ReclamationServices {
 
@@ -41,7 +41,8 @@ public class ReclamationServices {
     }
 
     public boolean addrec(Reclamation rec, int id) {
-        String url = Statics.BASE_URL + "/T/addMobileRec?message=" + rec.getMessage() + "&IdType=" + id;
+        String url = Statics.BASE_URL + "/T/addMobileRec?message=" + rec.getMessage() + "&IdType=" + id+ 
+                "&idu="+Statics.sessionID;
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -88,8 +89,8 @@ public class ReclamationServices {
         return responseResult;
     }
 
-    public ArrayList<Reclamation> getAllTasks() {
-        String url = Statics.BASE_URL +"/T/listJsonRec";
+    public ArrayList<Reclamation> getAllRec() {
+        String url = Statics.BASE_URL +"/T/listJsonRec?idu="+Statics.sessionID;
 
         request.setUrl(url);
         request.setPost(false);

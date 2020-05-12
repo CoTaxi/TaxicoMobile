@@ -34,6 +34,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextArea;
+import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.layouts.BorderLayout;
@@ -43,6 +44,9 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.colis.AjoutColis;
+import com.esprit.pidev.forms.vehicule.AfficherVehicule;
+import com.esprit.pidev.forms.vehicule.FindTaxi;
 
 /**
  * The newsfeed form
@@ -54,89 +58,131 @@ public class NewsfeedForm extends BaseForm {
     public NewsfeedForm(Resources res) {
         super("Newsfeed", BoxLayout.y());
        
-        
+        setUIID("Maps");
         super.installSidemenu(res);
         
+        Container cnt  =addButton(res.getImage("news-item-1.jpg"), "Reserver Taxi", false, 26, 32);
+        Container cnt1 =addButton(res.getImage("news-item-2.jpg"), "Reserver Covoiturage", true, 15, 21);
+        Container cnt2 =addButton(res.getImage("news-item-3.jpg"), "Envoyer Colis", false, 36, 15);
+        TextField Depart = new TextField();
+        TextField Destination = new TextField();
+         TextField Depart1 = new TextField();
+        TextField Destination1 = new TextField();
+         TextField Depart2 = new TextField();
+        TextField Destination2 = new TextField();
+        Image img1=res.getImage("marker2.png");
+        Image img=res.getImage("marker1.png");
+        Button searchtaxi = new Button(); 
+        Button searchcov = new Button();
+        Button searchcolis = new Button();
+        int height = Display.getInstance().convertToPixels(9f);
+        int width = Display.getInstance().convertToPixels(10f);
+        Container dep = BorderLayout.centerEastWest(Depart, new Label(img.fill(width, height)), null);
+        Container dest = BorderLayout.centerEastWest(Destination, new Label(img.fill(width, height)), null);
+        Container dep1 = BorderLayout.centerEastWest(Depart1, new Label(img.fill(width, height)), null);
+        Container dest1 = BorderLayout.centerEastWest(Destination1, new Label(img.fill(width, height)), null);
+        Container dep2 = BorderLayout.centerEastWest(Depart2, new Label(img.fill(width, height)), null);
+        Container dest2 = BorderLayout.centerEastWest(Destination2, new Label(img.fill(width, height)), null);
+       
         Tabs swipe = new Tabs();
 
-        Label spacer1 = new Label();
-        Label spacer2 = new Label();
-        addTab(swipe, res.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, res.getImage("bg.png"), spacer2, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();
+
         
-        ButtonGroup bg = new ButtonGroup();
-        int size = Display.getInstance().convertToPixels(1);
-        Image unselectedWalkthru = Image.createImage(size, size, 0);
-        Graphics g = unselectedWalkthru.getGraphics();
-        g.setColor(0xffffff);
-        g.setAlpha(100);
-        g.setAntiAliased(true);
-        g.fillArc(0, 0, size, size, 0, 360);
-        Image selectedWalkthru = Image.createImage(size, size, 0);
-        g = selectedWalkthru.getGraphics();
-        g.setColor(0xffffff);
-        g.setAntiAliased(true);
-        g.fillArc(0, 0, size, size, 0, 360);
-        RadioButton[] rbs = new RadioButton[swipe.getTabCount()];
-        FlowLayout flow = new FlowLayout(CENTER);
-        flow.setValign(BOTTOM);
-        Container radioContainer = new Container(flow);
-        for(int iter = 0 ; iter < rbs.length ; iter++) {
-            rbs[iter] = RadioButton.createToggle(unselectedWalkthru, bg);
-            rbs[iter].setPressedIcon(selectedWalkthru);
-            rbs[iter].setUIID("Label");
-            radioContainer.add(rbs[iter]);
-        }
-                
-        rbs[0].setSelected(true);
-        swipe.addSelectionListener((i, ii) -> {
-            if(!rbs[ii].isSelected()) {
-                rbs[ii].setSelected(true);
-            }
-        });
-        
-        Component.setSameSize(radioContainer, spacer1, spacer2);
-        add(LayeredLayout.encloseIn(swipe, radioContainer));
         
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton all = RadioButton.createToggle("All", barGroup);
+        RadioButton all = RadioButton.createToggle("Tout", barGroup);
         all.setUIID("SelectBar");
-        RadioButton Services = RadioButton.createToggle("Our Services", barGroup);
+        RadioButton Services = RadioButton.createToggle("Taxi", barGroup);
         Services.setUIID("SelectBar");
-        RadioButton Events = RadioButton.createToggle("Events", barGroup);
+        RadioButton Events = RadioButton.createToggle("Colis", barGroup);
         Events.setUIID("SelectBar");
-        RadioButton Blog = RadioButton.createToggle("Fresh News", barGroup);
+        RadioButton Blog = RadioButton.createToggle("Co-Voiturage", barGroup);
         Blog.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
-        Services.addActionListener(l->{
-            System.out.println("services");
-        });
-        
         add(LayeredLayout.encloseIn(
                 GridLayout.encloseIn(4, all, Services, Events, Blog),
                 FlowLayout.encloseBottom(arrow)
         ));
-        Events.addActionListener(l->{
-        System.out.println("Events");
+        Services.addActionListener(l->{
+            if(Services.isSelected())
+            {
+            System.out.println("Taxi");
+            this.removeComponent(cnt);
+            this.removeComponent(cnt1);
+            this.removeComponent(cnt2);
+            this.removeComponent(dep1);
+            this.removeComponent(dest1);
+            this.removeComponent(searchcolis);
+            this.removeComponent(dep2);
+            this.removeComponent(dest2);
+            this.removeComponent(searchcov);
+            searchtaxi.setText("Trouver Taxi");
+            this.addAll(dep,dest,searchtaxi);
+            this.refreshTheme();
+            }
         });
-        Container cnt  =addButton(res.getImage("news-item-1.jpg"), "Pourqoui Choisir TaxiCo ? ..", false, 26, 32);
-        Container cnt1 =addButton(res.getImage("news-item-2.jpg"), "Devenir Chauffeur Avec TaxiCo..", true, 15, 21);
-        Container cnt2 =addButton(res.getImage("news-item-3.jpg"), "Lancement De La Platforme TaxiCo..", false, 36, 15);
         
+        Events.addActionListener(l->{
+            if(Events.isSelected())
+            {
+        System.out.println("Colis");
+        this.removeComponent(cnt);
+        this.removeComponent(cnt1);
+        this.removeComponent(cnt2);
+        this.removeComponent(dep);
+        this.removeComponent(dest);
+        this.removeComponent(searchtaxi);
+        this.removeComponent(dep2);
+        this.removeComponent(dest2);
+        this.removeComponent(searchcov);
+        searchcolis.setText("Envoyer Colis");
+        this.addAll(dep1,dest1,searchcolis);
+        this.refreshTheme();
+            }
+        });
+        searchcolis.addActionListener(l->{
+          new AjoutColis(res).show();
+         //new AfficherVehicule(res).show();
+        });
+        searchtaxi.addActionListener(l->{
+           new FindTaxi(res,Depart.getText(),Destination.getText()).show();
+        });
         all.addActionListener(l->{
             if(all.isSelected())
             {
+            this.removeComponent(dep);
+            this.removeComponent(dest);
+            this.removeComponent(searchtaxi);
+            this.removeComponent(dep1);
+            this.removeComponent(dest1);
+            this.removeComponent(searchcolis);
+            this.removeComponent(dep2);
+            this.removeComponent(dest2);
+            this.removeComponent(searchcov);
+            this.addAll(cnt,cnt1,cnt2);
+            this.refreshTheme();
             System.out.println("all");
             }
         });
         Blog.addChangeListener(l->
-        {
+        {   System.out.println("co-voiturage");
             if(Blog.isSelected())
             {
-              this.addAll(cnt,cnt1,cnt2);
+            this.removeComponent(cnt);
+            this.removeComponent(cnt1);
+            this.removeComponent(cnt2);
+            this.removeComponent(dep);
+            this.removeComponent(dest);
+            this.removeComponent(searchtaxi);
+            this.removeComponent(dep1);
+            this.removeComponent(dest1);
+            this.removeComponent(searchcolis);
+            searchcov.setText("Trouver Co-Voiturage");
+            this.addAll(dep2,dest2,searchcov);
+            this.refreshTheme();
             }
         });
          }

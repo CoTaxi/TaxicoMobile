@@ -28,6 +28,7 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.Slider;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextComponent;
+import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -42,7 +43,6 @@ import com.esprit.pidev.models.typeReclamation;
 import com.esprit.pidev.services.ReclamationServices;
 import com.esprit.pidev.services.ServicesVehicule;
 import com.mycompany.myapp.Forms.BaseForm;
-import com.mycompany.myapp.entities.Vehicule;
 import java.util.ArrayList;
 
 /**
@@ -116,7 +116,9 @@ public class AjoutRec extends BaseForm
         RadioButton featured = RadioButton.createToggle("Reclamation", barGroup);
         featured.setUIID("SelectBar");
         
-        TextComponent Message = new TextComponent().label("Message");
+        
+        TextComponent Message = new TextComponent().label("Message") ;
+        
         ComboBox Type = new ComboBox();
         Label lMsg = new Label("Message : ");
         lMsg.getStyle().setMarginTop(10);
@@ -149,6 +151,7 @@ public class AjoutRec extends BaseForm
         });
 
         this.addAll(lType,Type,lMsg,Message,btn);
+
 
         
         

@@ -71,9 +71,28 @@ public class SignInForm extends BaseForm {
         password.setSingleLineTextArea(false);
         Button signIn = new Button("Se connecter");
         Button signUp = new Button("Créer un compte");
-        signUp.addActionListener(e -> new SignUpForm(res).show());
         signUp.setUIID("Link");
         Label doneHaveAnAccount = new Label("Vous n'avez pas un compte?");
+        Button Driver = new Button("🚖 Chauffeur");
+        Button user = new Button("🙋‍ Client -");
+        Driver.setUIID("Link");
+        Driver.setUIID("Bold");
+        user.setUIID("Link");
+        user.setUIID("Bold");
+        Driver.getStyle().setFgColor(0xf99f1b);
+        user.getStyle().setFgColor(0xf99f1b);
+        user.addActionListener(u->{
+            String prenom="", nom="", dtn="" ;
+             int numT=0;
+            new SignUpForm(res,prenom, nom, numT,dtn).show();
+        });
+        
+        Driver.addActionListener(D->{
+            String prenom="", nom="", email="", dtn="" ;
+             int numT=0, permis=0;
+            new SignUpFormDriver(res,prenom, nom, 
+                    numT, email, dtn, permis).show();
+        });
         
         Container content = BoxLayout.encloseY(
                 new FloatingHint(username),
@@ -81,7 +100,8 @@ public class SignInForm extends BaseForm {
                 new FloatingHint(password),
                 createLineSeparator(),
                 signIn,
-                FlowLayout.encloseCenter(doneHaveAnAccount, signUp)
+                FlowLayout.encloseCenter(doneHaveAnAccount, signUp),
+                FlowLayout.encloseCenter(user, Driver)
         );
         content.setScrollableY(true);
         add(BorderLayout.SOUTH, content);

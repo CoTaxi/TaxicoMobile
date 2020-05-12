@@ -24,7 +24,6 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.Slider;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextComponent;
-import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -34,9 +33,9 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.services.ServicesVehicule;
 import com.mycompany.myapp.Forms.BaseForm;
-import com.mycompany.myapp.entities.Vehicule;
 
 /**
  *
@@ -155,6 +154,7 @@ public class AjoutVehicule extends BaseForm
                         Vehicule t = new Vehicule(matricule.getText(), cbmarquee.getSelectedItem().toString(), cbmodele.getSelectedItem().toString(), cartegrise.getText(), couleur.getSelectedItem().toString(), splace.getProgress(), position.getText(), lcoli.getText(), destination.getText());
                         if (ServicesVehicule.getInstance().addvehicule(t)) {
                             Dialog.show("Success", "Connection accepted", new Command("OK"));
+                            new AfficherVehicule(res).show();
                         } else {
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                         }

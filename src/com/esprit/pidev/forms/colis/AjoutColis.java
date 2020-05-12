@@ -35,6 +35,7 @@ import com.codename1.ui.validation.LengthConstraint;
 import com.codename1.ui.validation.NumericConstraint;
 import com.codename1.ui.validation.RegexConstraint;
 import com.codename1.ui.validation.Validator;
+import com.esprit.pidev.forms.vehicule.AfficherVehicule;
 import com.esprit.pidev.models.Colis;
 import com.esprit.pidev.services.ColisService;
 import com.esprit.pidev.utils.Statics;
@@ -114,7 +115,7 @@ public class AjoutColis extends BaseForm
                 ComboBox<String> cat = new ComboBox<>();
         Button btn = new Button("Envoyer Colis");
         TextModeLayout tl = new TextModeLayout(3, 2);
-        TextComponent tfDepart = new TextComponent().label("Depart");
+        TextComponent tfDepart = new TextComponent().label("Depart") ;
         //.errorMessage("Input is essential in this field");
         TextComponent tfDestination = new TextComponent().label("Destination");
         TextComponent tfNomExpediteur = new TextComponent().label("Nom Expediteur");
@@ -146,6 +147,7 @@ public class AjoutColis extends BaseForm
                     Colis t = new Colis(tfDepart.getText(),tfDestination.getText(),tfNomExpediteur.getText(),tfMailExpediteur.getText(),Float.parseFloat(tfPoids.getText()),tfNomDestinataire.getText(),tfMailDestinataire.getText(),Integer.parseInt(tfTelDestinataire.getText()));
                     if (new ColisService().addcolis(t,Statics.sessionID)) {
                         Dialog.show("SUCCESS", "Colis Envoyé", "OK", null);
+                        new AfficherColis(res).show();
                     } else {
                         Dialog.show("ERROR", "Server error", "OK", null);
                     }
