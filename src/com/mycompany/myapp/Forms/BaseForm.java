@@ -38,6 +38,7 @@ import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.maintenance.MaintenanceForm;
 import com.esprit.pidev.forms.colis.AfficherColis;
 import com.esprit.pidev.forms.colis.ListeVoituresForm;
 import com.esprit.pidev.forms.reclamation.ReclamationForm;
@@ -107,6 +108,8 @@ public class BaseForm extends Form {
         {
        tb.addMaterialCommandToSideMenu("Gestion Colis", FontImage.MATERIAL_UPDATE, e -> new ListeVoituresForm(res1).show());
        tb.addMaterialCommandToSideMenu("Mes Vehicule", FontImage.MATERIAL_UPDATE, e -> new AfficherVehicule(res1).show());
+       tb.addMaterialCommandToSideMenu("Raclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
+        tb.addMaterialCommandToSideMenu("Service Maintenance", FontImage.MATERIAL_UPDATE, e -> new MaintenanceForm(res1).show());
        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e ->
        {
            

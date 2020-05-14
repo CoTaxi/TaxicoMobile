@@ -10,17 +10,20 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
+import com.codename1.ui.Calendar;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.events.ActionListener;
 import com.esprit.pidev.models.Rdv;
+import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.utils.DataSource;
 import com.esprit.pidev.utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.esprit.pidev.services.ServiceService;
-import com.esprit.pidev.services.GarageService;
+import java.util.Date;
 
 /**
  *
@@ -34,7 +37,7 @@ public class RdvService {
         request = DataSource.getInstance().getRequest();
     }
     public boolean updateRdv(Rdv rdv) {
-        String url = Statics.BASE_URL + "/T/rdvs/update/"+rdv.getId_rdv();
+        String url = Statics.BASE_URL + "/T/rdvs/update/"+rdv.getId_rdv()+"?idChauffeur="+Statics.sessionID;
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -65,7 +68,7 @@ public boolean annulerRdv(Rdv rdv) {
     }
 
 public ArrayList<Rdv> getAllRdvsReserved() {
-        String url = Statics.BASE_URL + "/T/rdvs?status=nondisponible";
+        String url = Statics.BASE_URL + "/T/rdvs?status=nondisponible&idChauffeur="+ Statics.sessionID;
 
         request.setUrl(url);
         request.setPost(false);
@@ -81,9 +84,10 @@ public ArrayList<Rdv> getAllRdvsReserved() {
         return rdvs;
     }
 
-public ArrayList<Rdv> FindRdvsSelected(ComboBox c) {
-        
-        String url = Statics.BASE_URL + "/T/rdvs/findselected?dateRdv=" + c.getSelectedItem();
+
+
+public ArrayList<Rdv> FindRdvsSelected(String date) {
+        String url = Statics.BASE_URL + "/T/rdvs/findselected?dateRdv=" +date;
 
         request.setUrl(url);
         request.setPost(false);
@@ -132,12 +136,23 @@ public ArrayList<Rdv> FindRdvs(ComboBox c,ComboBox c2) {
                 int idChauffeur = (int)Float.parseFloat(obj.get("idChauffeur").toString());
                 int idService = (int)Float.parseFloat(obj.get("service").toString());
                 int idGarage = (int)Float.parseFloat(obj.get("garage").toString());
-                String dateRdv = (obj.get("dateRdv").toString());
-                String status = obj.get("status").toString();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateRdv = (Date)format.parse( obj.get("dateRdv").toString() ) ;
+//String dateRdv = obj.get("dateRdv").toString();
+                System.out.println(obj.get("dateRdv").toString());
+                System.out.println(dateRdv);
+        
+            // DateFormatPatterns.ISO8601
+                    String status = obj.get("status").toString();
                 rdvs.add(new Rdv(idRdv, idChauffeur, idService, idGarage, dateRdv, status));
+               
+                
             }
 
         } catch (IOException ex) {
+        } 
+        catch (ParseException ex) {
+            
         }
 
         return rdvs;
@@ -155,14 +170,18 @@ public ArrayList<Rdv> FindRdvs(ComboBox c,ComboBox c2) {
                 int idChauffeur = (int)Float.parseFloat(obj.get("idChauffeur").toString());
                 String NameService = obj.get("service").toString();
                 String NameGarage = obj.get("garage").toString();
-                String dateRdv = (obj.get("dateRdv").toString());
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateRdv = (Date)format.parse( obj.get("dateRdv").toString() ) ;
+
                 String status = obj.get("status").toString();
                 rdvs.add(new Rdv(idRdv, idChauffeur, NameService, NameGarage, dateRdv, status));
             }
 
         } catch (IOException ex) {
         }
-
+catch (ParseException ex) {
+            
+        }
         return rdvs;
     }
 }

@@ -109,7 +109,7 @@ public class ReclamationListForm extends BaseForm {
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton featured = RadioButton.createToggle("Reclamation", barGroup);
         featured.setUIID("SelectBar");
-        Container listRec = new Container();
+            Container listRec = new Container(BoxLayout.y());
         listRec.setScrollableY(true);
         //listRec.setScrollableX(true);
         ArrayList<Reclamation> List = new ReclamationServices().getAllRec();
@@ -119,8 +119,8 @@ public class ReclamationListForm extends BaseForm {
             MultiButton mBtn = new MultiButton("Réc n°"+i+":");
             mBtn.setTextLine1(List.get(i).getType());
             mBtn.setTextLine2(List.get(i).getMessage());
-            mBtn.setTextLine3(List.get(i).getEtat());
-            mBtn.setTextLine4(List.get(i).getDate());
+            mBtn.setTextLine3(List.get(i).getEtat()+" -  👨‍ "+List.get(i).getPrename());
+            mBtn.setTextLine4("📅  " +List.get(i).getDate_rec());
             String res = List.get(i).getReponse();
             String state = List.get(i).getEtat();
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_COMMENT);

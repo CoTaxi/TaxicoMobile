@@ -120,37 +120,91 @@ public class AjoutRec extends BaseForm
         TextComponent Message = new TextComponent().label("Message") ;
         
         ComboBox Type = new ComboBox();
+        ComboBox C_prenom= new ComboBox();
+        ComboBox C_nom= new ComboBox();
+        C_prenom.setEnabled(false);
+        C_nom.setEnabled(false);
+        Label lprenom = new Label("Prenom : ");
+        Label lnom = new Label("Nom : ");
         Label lMsg = new Label("Message : ");
         lMsg.getStyle().setMarginTop(10);
         Label lType = new Label("Objet : ");
+        
         Type.getStyle().setMarginTop(10);
-        //Type.getStyle().setBgColor(0xf99f1b);
+        lnom.getStyle().setMarginTop(10);
+        lprenom.getStyle().setMarginTop(10);
+       
         FontImage.setMaterialIcon(lMsg, FontImage.MATERIAL_MESSAGE);
         FontImage.setMaterialIcon(lType, FontImage.MATERIAL_SUBJECT);
+        FontImage.setMaterialIcon(lprenom, FontImage.MATERIAL_PERSON);
+        FontImage.setMaterialIcon(lnom, FontImage.MATERIAL_PERSON);
         Button btn = new Button("Envoyer");
         btn.getStyle().setMarginTop(10);
         FontImage.setMaterialIcon(btn, FontImage.MATERIAL_SEND);
         ArrayList<typeReclamation> List = new ReclamationServices().getAllType();
-        
-        for (int i = 0; i < List.size(); i++) {
+        ArrayList<Reclamation> ListPrename = new ReclamationServices().getPrename();   
+
+            for (int i = 0; i < List.size(); i++) {
             Type.addItem(List.get(i).getTitre());
+            }
+        
+        // Test sur le type :
+        Type.addActionListener(ct->{
+            if(Type.getSelectedItem().toString().equals("Application TaxiCo")||Type.getSelectedItem().toString().equals("Autres")){
+                C_prenom.setEnabled(false);
+                C_nom.setEnabled(false);
+              
+        }else if(Type.getSelectedItem().toString().equals("Voiture/Chauffeur")){
+            C_prenom.setEnabled(true);
+            C_nom.setEnabled(true);
+                for (int i = 0; i < ListPrename.size(); i++) {
+             
+                 C_prenom.addItem(ListPrename.get(i).getPrenameChauff());
+                }
+            C_prenom.addActionListener(pre->{
+            String selected = C_prenom.getSelectedItem().toString();
+             ArrayList<Reclamation> listName = new ReclamationServices().getName(selected);
+            for (int i = 0; i < listName.size(); i++) {
+                C_nom.addItem(listName.get(i).getPrenameChauff());
+            }
+        });
         }
+        });
+        
         btn.addActionListener((evt) -> {
             
                 if ((Message.getText().length() == 0)) {
                 Dialog.show("Alerte", "Veuillez entrer tous les champs", "OK", null);
-            } else {
-              ArrayList<typeReclamation> ListId = new ReclamationServices().getAllIdType(Type);
-                    Reclamation t = new Reclamation(Message.getText());
-                    if (new ReclamationServices().addrec(t,ListId.get(0).getId())) {
-                        ToastBar.showInfoMessage("Votre réclamation est ajoutée avec succée");
-                    } else {
-                       Dialog.show("Erreur", "Server error", "OK", null);
-                }
+                } else if(Message.getText().length()!=0) {
+//                  ArrayList<typeReclamation> ListId = new ReclamationServices().getAllIdType(Type);
+//                    Reclamation t = new Reclamation(Message.getText());
+                    if(C_nom.isEnabled()){
+                        String boxName = C_nom.getSelectedItem().toString();
+                        String boxPrename = C_prenom.getSelectedItem().toString();
+                        Reclamation t = new Reclamation(Message.getText());
+                        
+                        ArrayList<typeReclamation> ListId = new ReclamationServices().getAllIdType(Type);
+                        if (new ReclamationServices().addrec(t,ListId.get(0).getId(),boxPrename,boxName)) {
+                            ToastBar.showInfoMessage("Votre réclamation est ajoutée avec succée");
+                        } else {
+                           Dialog.show("Erreur", "Server error", "OK", null);
+                        }
+                    }else{
+                        Reclamation t = new Reclamation(Message.getText());
+                        ArrayList<typeReclamation> ListId = new ReclamationServices().getAllIdType(Type);
+                        String boxName = "None";
+                        String boxPrename = "None";
+                         
+                        if (new ReclamationServices().addrec(t,ListId.get(0).getId(),boxPrename,boxName)) {
+                            ToastBar.showInfoMessage("Votre réclamation est ajoutée avec succée");
+                        } else {
+                           Dialog.show("Erreur", "Server error", "OK", null);
+                        } 
+                    }     
             }
         });
 
-        this.addAll(lType,Type,lMsg,Message,btn);
+        this.addAll(lType,Type,lprenom,C_prenom,lnom,C_nom,lMsg,Message,btn);
 
 
         

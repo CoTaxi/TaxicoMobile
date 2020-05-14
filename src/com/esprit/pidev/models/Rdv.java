@@ -13,17 +13,17 @@ import java.util.Date;
  */
 public class Rdv {
     private int id_rdv,id_chauffeur,id_garage,id_service ;
-    private String date_rdv;
+    private Date date_rdv;
     private String status,name_garage,name_service;
 
     public Rdv() {
     }
 
-    public Rdv(String date_rdv) {
+    public Rdv(Date date_rdv) {
         this.date_rdv = date_rdv;
     }
 
-    public Rdv(int id_rdv, int id_chauffeur, String date_rdv, int id_garage, int id_service, String status) {
+    public Rdv(int id_rdv, int id_chauffeur, Date date_rdv, int id_garage, int id_service, String status) {
         this.id_rdv = id_rdv;
         this.id_chauffeur = id_chauffeur;
         this.date_rdv = date_rdv;
@@ -32,7 +32,7 @@ public class Rdv {
         this.status = status;
     }
 
-    public Rdv(int id_rdv, int id_chauffeur, int id_service, int id_garage, String date_rdv, String status) {
+    public Rdv(int id_rdv, int id_chauffeur, int id_service, int id_garage, Date date_rdv, String status) {
         this.id_rdv = id_rdv;
         this.id_chauffeur = id_chauffeur;
         this.id_service = id_service;
@@ -42,7 +42,7 @@ public class Rdv {
     }
     
 
-    public Rdv(int id_rdv, int id_chauffeur, String name_service, String name_garage,String date_rdv, String status) {
+    public Rdv(int id_rdv, int id_chauffeur, String name_service, String name_garage,Date date_rdv, String status) {
         this.id_rdv = id_rdv;
         this.id_chauffeur = id_chauffeur;
         this.name_service = name_service;
@@ -51,7 +51,7 @@ public class Rdv {
         this.status = status;
     }
 
-    public Rdv(int id_chauffeur, String date_rdv, int id_garage, int id_service,  String status) {
+    public Rdv(int id_chauffeur, Date date_rdv, int id_garage, int id_service,  String status) {
         this.id_chauffeur = id_chauffeur;
         this.id_garage = id_garage;
         this.id_service = id_service;
@@ -64,7 +64,7 @@ public class Rdv {
         this.status = status;
     }
 
-    public Rdv(String date_rdv,int id_garage, int id_service, String status) {
+    public Rdv(Date date_rdv,int id_garage, int id_service, String status) {
         this.id_garage = id_garage;
         this.id_service = id_service;
         this.date_rdv = date_rdv;
@@ -112,7 +112,7 @@ public class Rdv {
         return id_service;
     }
 
-    public String getDate_rdv() {
+    public Date getDate_rdv() {
         return date_rdv;
     }
 
@@ -136,7 +136,7 @@ public class Rdv {
         this.id_service = id_service;
     }
 
-    public void setDate_rdv(String date_rdv) {
+    public void setDate_rdv(Date date_rdv) {
         this.date_rdv = date_rdv;
     }
 
@@ -146,5 +146,5 @@ public class Rdv {
     public String toString() {
         return "Rdv{" + "idRdv= " + id_rdv + ", idChauffeur= " + id_chauffeur + ", Service= " + name_service +", Garage= " + name_garage +", dateRdv= " + date_rdv +", Status= " + status + '}';
     }
-    
+     
 }

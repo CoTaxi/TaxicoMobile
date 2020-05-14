@@ -5,9 +5,11 @@
  */
 package com.esprit.pidev.forms.vehicule;
 
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.Component;
@@ -23,6 +25,8 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
+import com.codename1.ui.TextComponent;
+import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
@@ -105,30 +109,72 @@ public class AfficherVehicule extends BaseForm
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton featured = RadioButton.createToggle("Reclamation", barGroup);
         featured.setUIID("SelectBar");
+
         Container listvec = new Container(BoxLayout.y());
         listvec.setScrollableY(true);
         ArrayList<Vehicule> List = new ServicesVehicule().getAllVehicules();
         for (int i = 0; i < List.size(); i++) {
-            MultiButton mBtn = new MultiButton("Réc n°" + i + ":");
+            int id = List.get(i).getId();
+            MultiButton mBtn = new MultiButton("vec n°" + i + ":");
             mBtn.setTextLine1(List.get(i).getMatricule());
             mBtn.setTextLine2(List.get(i).getCartegrise());
+            Button btndel = new Button();
+            FontImage.setMaterialIcon(btndel, FontImage.MATERIAL_DELETE_SWEEP);
+            Button btnup = new Button();
+            FontImage.setMaterialIcon(btnup, FontImage.MATERIAL_UPDATE);
             Label lp = new Label(List.get(i).getPosition());
-             Label ld = new Label(List.get(i).getDestination());
-             Label lmodele = new Label(List.get(i).getModele());
-             Label lmarque = new Label(List.get(i).getMarque());
-             Button btn=new Button();
-            Label l = new Label("details");
+            Label ld = new Label(List.get(i).getDestination());
+            Label lmodele = new Label(List.get(i).getModele());
+            Label lmarque = new Label(List.get(i).getMarque());
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_ADD_LOCATION);
-            listvec.add(mBtn);
+            listvec.addAll(mBtn, btndel, btnup);
             mBtn.addActionListener(al -> {
-                    
-                  Dialog.show("Vehicule:", "Position : " + lp.getText()+ " \n Destination: : " + ld.getText()+ " \n Marque : " + lmarque.getText()+ " \n Modele : " + lmodele.getText(), "Ok",null);
-                  
+
+                Dialog.show("Vehicule:", "Position : " + lp.getText() + " \n Destination: : " + ld.getText() + " \n Marque : " + lmarque.getText() + " \n Modele : " + lmodele.getText(), "Ok", null);
+
             });
-            
-          
+            btndel.addActionListener(r -> {
+                if (new ServicesVehicule().deletevehicule(id)) {
+                    ToastBar.showInfoMessage("Suppression avec succès");
+                } else {
+                    ToastBar.showErrorMessage("Erreur de suppression");
+                }
+                mBtn.remove();
+                btndel.remove();
+                btnup.remove();
+                this.refreshTheme();
+            });
+
+            btnup.addActionListener(update -> {
+                InteractionDialog d = new InteractionDialog();
+                TextComponent mat = new TextComponent().label("Matricule");
+                Button valid = new Button("Modifier vehicule");
+                d.getStyle().setBgColor(0xC40C0C);
+                d.setLayout(new FlowLayout());
+                d.add(new Label("Modifier"));
+                d.addComponent(mat);
+                d.addComponent(valid);
+                d.show(TOP, BOTTOM, LEFT, RIGHT);
+                valid.addActionListener(va -> {
+                    if (new ServicesVehicule().updatevec(id,mat.getText())) {
+                        ToastBar.showInfoMessage("Votre matricule a été modifiée avec succès");
+
+                    } else {
+                        ToastBar.showErrorMessage("Erreur de serveur");
+                    }
+
+                });
+            });
 
         }
+//               getToolbar().addCommandToOverflowMenu("Vérifier", null, new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//               SearchbyId a = new SearchbyId(previous);
+//                a.show();
+//            }
+//        });
         Button ajout = new Button ("Ajouter Vehicule");
         ajout.addActionListener(l->{
             new AjoutVehicule(res).show();

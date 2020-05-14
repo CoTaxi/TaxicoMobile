@@ -13,6 +13,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.esprit.pidev.models.Commande;
+import com.esprit.pidev.utils.DataSource;
 import com.esprit.pidev.utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,20 +28,13 @@ import java.util.Map;
 public class ServiceCommande {
     public ArrayList<Commande> commande;
     
-    public static ServiceCommande instance=null;
     public boolean resultOK;
     private ConnectionRequest req;
 
-    private ServiceCommande() {
-         req = new ConnectionRequest();
+    public ServiceCommande() {
+         req =DataSource.getInstance().getRequest();
     }
 
-    public static ServiceCommande getInstance() {
-        if (instance == null) {
-            instance = new ServiceCommande();
-        }
-        return instance;
-    }
 
     public boolean addCommande(Commande c) {
         String url = Statics.BASE_URL + "/T/newcmd?ptDepart=" + c.getPtDepart() + 
@@ -115,5 +109,41 @@ public class ServiceCommande {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return commande;
     }
-    
+ public ArrayList<Commande> getCommande(int id) {
+        String url = Statics.BASE_URL + "/T/findwa/"+ id;
+
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                commande = parseCommande(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return commande;
+    }
+ public ArrayList<Commande> parseCommande(String jsonText) {
+        try {
+            commande = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                int client = (int)Float.parseFloat(obj.get("client").toString());
+                
+           
+                
+                commande.add(new Commande(client));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return commande;
+    }    
 }

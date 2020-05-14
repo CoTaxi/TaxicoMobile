@@ -61,7 +61,10 @@ public class FindTaxi extends BaseForm
        {
        Accordion accr = new Accordion();
        Button book = new Button("Reserver");
-        accr.addContent("Item3", BoxLayout.encloseY(new Label(List.get(i).getMarque()), new TextField(List.get(i).getCouleur()),book, new CheckBox("CheckBox")));
+       
+        int height = Display.getInstance().convertToPixels(9f);
+        int width = Display.getInstance().convertToPixels(10f);
+        accr.addContent(BoxLayout.encloseY(new Label(res.getImage("logo.png").fill(width, height)),new Label("Meriam Mhadhebi")), BoxLayout.encloseY(new Label(List.get(i).getMarque()), new TextField(List.get(i).getCouleur()),book, new CheckBox("CheckBox")));
         book.addActionListener(l->{
             System.out.println("book now");
         });

@@ -20,6 +20,8 @@ public class Reclamation {
     private String prename; 
     private String type ; 
     private String date ;
+    private String nameChauff;
+    private String prenameChauff   ;      
     
     //private String date_rec ;
    java.util.Date dt = new java.util.Date();
@@ -45,9 +47,31 @@ public class Reclamation {
     public Reclamation() {
     }
   
-    public Reclamation(String message) {
+//    public Reclamation(String message) {
+//        
+//        this.message = message;
+//    }
+    
+    public Reclamation(String prenameChauff) {
         
-        this.message = message;
+        this.prenameChauff = prenameChauff;
+    }
+    
+//    public Reclamation(String nameChauff) {
+//        
+//        this.nameChauff = nameChauff;
+//    }
+
+    public String getNameChauff() {
+        return nameChauff;
+    }
+
+    public void setNameChauff(String nameChauff) {
+        this.nameChauff = nameChauff;
+    }
+
+    public String getPrenameChauff() {
+        return prenameChauff;
     }
 
 //    public Reclamation(int id_reclamation, String type, String message, String etat, String date_rec, String reponse) {
@@ -57,8 +81,11 @@ public class Reclamation {
 //        this.etat = etat;
 //        this.date_rec=date_rec;
 //        this.reponse=reponse;
-//    }
+    public void setPrenameChauff(String prenameChauff) {
+        this.prenameChauff = prenameChauff;
+    }
 
+//    }
     public Reclamation(int id_reclamation, String type, String message, String etat, String date_rec, String reponse, String prename) {
         this.id_reclamation = id_reclamation;
         this.type=type ; 
@@ -68,27 +95,28 @@ public class Reclamation {
         this.reponse=reponse;
         this.prename=prename;
     }
+    
+    
 
-    public Reclamation(int id_reclamation, String message, String etat, String type, String date, String rep) {
-        this.id_reclamation = id_reclamation;
-        this.message = message;
-        this.reponse = rep;
-        this.etat = etat;
-        this.type = type;
-        this.date = date;
-        
-    }
+//    public Reclamation(int id_reclamation, String message, String etat, String type, String date, String rep, String prenameChauff) {
+//        this.id_reclamation = id_reclamation;
+//        this.message = message;
+//        this.reponse = rep;
+//        this.etat = etat;
+//        this.type = type;
+//        this.date = date;
+//        this.prenameChauff=prenameChauff;
+//        
+//    }
 
     public Reclamation(int idR, String message, String etat) {
         
     }
-
-    public Reclamation(String message, String etat) {
-        this.message = message;
-        this.etat = etat;
-    }
     
-    
+//    public Reclamation(String message, String etat) {
+//        this.message = message;
+//        this.etat = etat;
+//    }
 
     public int getId_vh() {
         return id_vh;
@@ -158,6 +186,7 @@ public class Reclamation {
     public String toString() {
         return "Reclamation{" + "id_reclamation=" + id_reclamation + ", message=" + message + ", etat=" + etat + '}';
     }
+    
     
     
     

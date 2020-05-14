@@ -31,6 +31,7 @@ public class UserService {
 
     private boolean responseResult;
     public ArrayList<User> users;
+    public ArrayList<User> client;
     
 
     public UserService() {
@@ -148,5 +149,42 @@ public class UserService {
         } catch (IOException ex) {
         }
         return users;
-    }   
+    }
+     public ArrayList<User> getClient(int id) {
+        String url = Statics.BASE_URL + "/T/listwa/"+ id;
+
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                client = parseClient(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return client;
+    }
+ public ArrayList<User> parseClient(String jsonText) {
+        try {
+            client = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                int id = (int)Float.parseFloat(obj.get("id").toString());
+                String nom = obj.get("nom").toString();
+                String prenom = obj.get("prenom").toString();
+                String email = obj.get("email").toString();
+                client.add(new User(id,nom,prenom,email));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return client;
+    }
 }

@@ -16,6 +16,11 @@ public class Vehicule {
  int id,dispo,etat,archive,user;
  int places = 0;
 
+    public Vehicule(int id, int dispo) {
+        this.id = id;
+        this.dispo = dispo;
+    }
+
     public Vehicule(String matricule, String marque, String modele, String cartegrise, String couleur,int places, String position, String accept_c, String destination) {
         this.matricule = matricule;
         this.marque = marque;
@@ -189,6 +194,7 @@ public class Vehicule {
         public Vehicule(String matricule){
         this.matricule = matricule;
     }
+        
         public Vehicule(){
     }
             @Override

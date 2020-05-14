@@ -33,16 +33,18 @@ public class ReclamationServices {
     private ConnectionRequest request;
 
     private boolean responseResult;
-    public ArrayList<Reclamation> tasks;
+    public ArrayList<Reclamation> Rec;
     public ArrayList<typeReclamation> type;
+    public ArrayList<Reclamation> Prechauff;
+    public ArrayList<Reclamation> NameChauff;
 
     public ReclamationServices() {
         request = DataSource.getInstance().getRequest();
     }
 
-    public boolean addrec(Reclamation rec, int id) {
-        String url = Statics.BASE_URL + "/T/addMobileRec?message=" + rec.getMessage() + "&IdType=" + id+ 
-                "&idu="+Statics.sessionID;
+    public boolean addrec(Reclamation rec, int id,String prename, String name) {
+        String url = Statics.BASE_URL + "/T/addMobileRec?message=" + rec.getPrenameChauff() + "&IdType=" + id+ 
+                "&idu="+Statics.sessionID + "&chauff="+prename+" "+name ;
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -97,13 +99,13 @@ public class ReclamationServices {
         request.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                tasks = parseTasks(new String(request.getResponseData()));
+                Rec = parseAllRec(new String(request.getResponseData()));
                 request.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(request);
 
-        return tasks;
+        return Rec;
     }
     
     public ArrayList<typeReclamation> getAllType() {
@@ -139,10 +141,83 @@ public class ReclamationServices {
 
         return type;
     }
+    
+    public ArrayList<Reclamation> getName(String prename) {
+        //String url = Statics.BASE_URL +"/listTypeJson";
+        String url3 = Statics.BASE_URL +"/T/displayName?prenom="+prename;
+        request.setUrl(url3);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                NameChauff = parseName(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
 
-    public ArrayList<Reclamation> parseTasks(String jsonText) {
+        return NameChauff;
+    }
+  
+    public ArrayList<Reclamation> getPrename() {
+
+        String url2 = Statics.BASE_URL +"/T/displayUser";
+        request.setUrl(url2);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                Prechauff = parsePrename(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return Prechauff;
+    }
+    
+    public ArrayList<Reclamation> parsePrename(String jsonText) {
         try {
-            tasks = new ArrayList<>();
+            Prechauff = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                String prename = obj.get("prenom").toString();
+                Prechauff.add(new Reclamation(prename));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return Prechauff;
+    }
+    
+    public ArrayList<Reclamation> parseName(String jsonText) {
+        try {
+            NameChauff = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                String prename = obj.get("nom").toString();
+                NameChauff.add(new Reclamation(prename));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return NameChauff;
+    }
+
+
+    public ArrayList<Reclamation> parseAllRec(String jsonText) {
+        try {
+            Rec = new ArrayList<>();
 
             JSONParser jp = new JSONParser();
             Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
@@ -155,13 +230,14 @@ public class ReclamationServices {
                 String dateRec = obj.get("dateRec").toString();
                 String Objet = obj.get("Objet").toString();
                 String rep = obj.get("Reponse").toString();
-                tasks.add(new Reclamation(idR, message, etat, Objet, dateRec, rep));
+                String userChauff = obj.get("chauff").toString();
+                Rec.add(new Reclamation(idR, Objet, message, etat, dateRec, rep, userChauff));
             }
 
         } catch (IOException ex) {
         }
 
-        return tasks;
+        return Rec;
     }
     
     public ArrayList<typeReclamation> parseType(String jsonText) {

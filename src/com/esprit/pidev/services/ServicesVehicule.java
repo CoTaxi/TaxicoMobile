@@ -187,7 +187,62 @@ public class ServicesVehicule {
         return resultOK;
     }
 
-       public boolean deletevehicule(int t) {
+ public void updateDispo(int iddispo,int id) {
+        String url = Statics.BASE_URL + "/T/updatevec/"+id+"?dispo="+iddispo;
+
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; // Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+//        return responseResult;
+    }
+ 
+ public ArrayList<Vehicule> parseVec(String jsonText) {
+        try {
+            vehicules = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                int id = (int)Float.parseFloat(obj.get("id").toString());
+                int dispo =  (int)Float.parseFloat(obj.get("dispo").toString());
+           
+                
+                vehicules.add(new Vehicule(id, dispo));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return vehicules;
+    }
+
+ public ArrayList<Vehicule> getReservedCar() {
+        String url = Statics.BASE_URL + "/T/finddispo/"+ Statics.sessionID;
+
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                vehicules = parseVec(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return vehicules;
+    }
+ 
+ public boolean deletevehicule(int t) {
         String url = Statics.BASE_URL + "/T/deletejson1Vec/"+t;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -200,5 +255,21 @@ public class ServicesVehicule {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
+       
+        public boolean updatevec(int id, String matricule) {
+        String url = Statics.BASE_URL + "/T/modifiervec/"+id+"/"+matricule;
+
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return resultOK;
+    }   
 
 }

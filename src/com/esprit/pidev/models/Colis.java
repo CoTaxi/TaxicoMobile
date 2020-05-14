@@ -11,7 +11,7 @@ package com.esprit.pidev.models;
  */
 public class Colis {
     int idC,etat,idKarhba,idExpediteur,TelDestinataire;
-    String Depart,Destination,NomExpediteur,NomDestinataire,MailExpediteur,MailDestinataire,Categorie;
+    String Depart,Destination,NomExpediteur,NomDestinataire,MailExpediteur,MailDestinataire,Categorie,Pickup;
     float Poids;
     int Nomcategorie;
 

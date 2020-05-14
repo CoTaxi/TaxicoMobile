@@ -224,7 +224,6 @@ return responseResult;
                 String maildest = obj.get("MailDestinataire").toString();
                 float poids =  (float)Float.parseFloat(obj.get("Poids").toString());
                 int etat = (int)Float.parseFloat(obj.get("Etat").toString());
-                
                 Colis.add(new Colis(Id,etat,teldest,depart,destination,nomexp,nomdest,mailexp,maildest,poids));   
             }
 

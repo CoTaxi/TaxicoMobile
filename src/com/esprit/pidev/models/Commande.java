@@ -22,6 +22,10 @@ public class Commande {
     public Commande() {
     }
 
+    public Commande(int client) {
+        this.client = client;
+    }
+
     public Commande(String ptDepart, String ptArrivee, String modep, String date, String time, float prix) {
         this.ptDepart = ptDepart;
         this.ptArrivee = ptArrivee;

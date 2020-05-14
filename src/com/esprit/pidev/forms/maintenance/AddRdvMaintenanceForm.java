@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.esprit.pidev.forms.reclamation;
+package com.esprit.pidev.forms.maintenance;
 
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
-import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
+import com.codename1.ui.ComboBox;
+import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
+import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -25,48 +28,56 @@ import com.codename1.ui.Tabs;
 import com.codename1.ui.TextComponent;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.html.HTMLElement;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
-import com.codename1.ui.plaf.Border;
+import com.codename1.ui.layouts.TextModeLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
-import com.esprit.pidev.services.ReclamationServices;
+import com.codename1.ui.validation.LengthConstraint;
+import com.codename1.ui.validation.NumericConstraint;
+import com.codename1.ui.validation.RegexConstraint;
+import com.codename1.ui.validation.Validator;
+import com.esprit.pidev.forms.colis.AfficherColis;
+import com.esprit.pidev.models.Colis;
+import com.esprit.pidev.models.Rdv;
+import com.esprit.pidev.services.ColisService;
+import com.esprit.pidev.services.RdvService;
+import com.esprit.pidev.services.GarageService;
+import com.esprit.pidev.services.ServiceService;
+import com.esprit.pidev.utils.Statics;
 import com.mycompany.myapp.Forms.BaseForm;
 
 /**
  *
- * @author ASUS
+ * @author aissa
  */
-/**
- *
- * @author Oussama_RMILI
- */
-public class DetailsRecForm extends BaseForm{
- 
-    
-    public DetailsRecForm(Resources theme,String respond, int id, String state){
-       super("Ajouter Reclamation", BoxLayout.y());
+public class AddRdvMaintenanceForm extends BaseForm {
+
+    public AddRdvMaintenanceForm(Resources res) 
+    {
+              super("Ajouter Rdv", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         tb.addCommandToLeftBar("Return", null, (evt) -> {
          //  new ColisForm(res).show();
         });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Vehicule");
+        setTitle("TaxiCo-Maintenance");
         getContentPane().setScrollVisible(false);
         
-        super.installSidemenu(theme);
+        super.installSidemenu(res);
         tb.addSearchCommand(e -> {});
         
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, theme.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, theme.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, res.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
@@ -107,49 +118,37 @@ public class DetailsRecForm extends BaseForm{
         add(LayeredLayout.encloseIn(swipe, radioContainer));
         
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton featured = RadioButton.createToggle("Reclamation", barGroup);
+        RadioButton featured = RadioButton.createToggle("Maintenance", barGroup);
         featured.setUIID("SelectBar");
-        SpanLabel sl = new SpanLabel(respond);
-        sl.getStyle().setBorder(Border.createDashedBorder(CENTER, HTMLElement.COLOR_BLUE));
-        TextComponent txt = new TextComponent().label("Modifier votre réclamation") ;
-        Button edit = new Button("Valider");
-        Button email = new Button("E-mail");
-        edit.setIcon(theme.getImage(respond));
-        FontImage.setMaterialIcon(sl, FontImage.MATERIAL_MESSAGE);
-        FontImage.setMaterialIcon(edit, FontImage.MATERIAL_SAVE);
-        FontImage.setMaterialIcon(email, FontImage.MATERIAL_EMAIL);
-        if(state.equals("Traitée")||state.equals("Archivée"))
-        {
-            txt.setEnabled(false);
-            edit.setEnabled(false);
-        }
+//-----------------------------------------------------------------------------------
         
-        this.getToolbar().addCommandToLeftBar("Retourner", null, (evt) -> {
-            new ReclamationListForm(theme).showBack();      
-        });
-        edit.addActionListener(up->{
-            String NewMsg = txt.getText().toString();
-            if (NewMsg.length()==0) 
-            {
-                ToastBar.showErrorMessage("Veuillez saisir votre nouveau message");
-            } else {
-                if (new ReclamationServices().updaterec(id, NewMsg)) 
-                {
-                    ToastBar.showInfoMessage("Votre réclamation a été modifiée avec succée");
-                    
-                } else {
-                    ToastBar.showErrorMessage("Erreur de serveur");
-                }
-            }
+        TextField tfidRdv = new TextField(null, "Entrer id du Rdv");
+        TextField tfStatus = new TextField(null, "Status (disponible or nondisponible)");
+        Button btn = new Button("Update Rdv");
 
+        btn.addActionListener((evt) -> {
+            if ((tfidRdv.getText().length() == 0) || (tfStatus.getText().length() == 0)) {
+                Dialog.show("Alert", "Please fill all the fields", "OK", null);
+            } else {
+                try {
+                    Rdv r = new Rdv(Integer.parseInt(tfidRdv.getText()), tfStatus.getText());
+                    if (new RdvService().updateRdv(r)) {
+                        Dialog.show("SUCCESS", "Rdv updated", "OK", null);
+                    } else {
+                        Dialog.show("ERROR", "Server error", "OK", null);
+                    }
+                } catch (NumberFormatException e) {
+                    Dialog.show("ERROR", "Status must be a number", "OK", null);
+                }
+
+            }
         });
-        email.addActionListener(em->{
-            new ReclamationServices().sendEmail();
-        });
-//        cn1.add(sl);
-        this.addAll(sl,txt,edit,email);
+
+        this.addAll(tfidRdv, tfStatus, btn);
+        
     }
-      
+    
+    
     private void addTab(Tabs swipe, Image img, Label spacer, String likesStr, String commentsStr, String text) {
         int size = Math.min(Display.getInstance().getDisplayWidth(), Display.getInstance().getDisplayHeight());
         if(img.getHeight() < size) {
@@ -186,5 +185,8 @@ public class DetailsRecForm extends BaseForm{
             );
 
         swipe.addTab("", page1);
-    }      
-}
+    }
+
+
+    }
+    
