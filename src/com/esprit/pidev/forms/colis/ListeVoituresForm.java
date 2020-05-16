@@ -55,11 +55,11 @@ public class ListeVoituresForm extends BaseForm
         super("Liste Voitures", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new chauffeurfeed(res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//         //  new chauffeurfeed(res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Colis");
+//        setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -119,25 +119,29 @@ public class ListeVoituresForm extends BaseForm
 //   ArrayList<Vehicule> List = new VehiculeServices().AfficherVehicule();
    Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
    Dialog d = new Dialog();
-   content.setScrollableY(true);
+   //content.setScrollableY(true);
    Button archive = new Button ("Archive");
    //-------------End 
    
         ArrayList<Vehicule> List = new ServicesVehicule().getAllVehicules();
        for (int i=0;i<List.size();i++)
        {
+        Button btn = new Button();
+        FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1(List.get(i).getMarque()+" , "+List.get(i).getModele());
-        mb.setTextLine2(List.get(i).getPosition()+" , "+List.get(i).getDestination());
-        mb.setTextLine4(List.get(i).getMatricule());
-         mb.addActionListener(new ActionListener() {
+        mb.setTextLine1("🚖 "+List.get(i).getMarque()+" , "+List.get(i).getModele());
+        mb.setTextLine2("🗺 "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
+        mb.setTextLine4("🔠 "+List.get(i).getMatricule());
+         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
              new ListeDemandes(mb.getTextLine4(),res).show();
             }
         });
-        this.addComponent(mb);
+        this.addAll(mb,btn);
+        
        }
+       this.setScrollableY(true);
 content.revalidate();
 
 

@@ -50,26 +50,24 @@ public class AfficherColis extends BaseForm {
         super("Afficher Colis", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//         //  new ColisForm(res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Colis");
+        //setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
-        
         super.installSidemenu(res);
-        
-TextField searchField = new TextField("", ""); // <1>
-searchField.getHintLabel().setUIID("Title");
-searchField.setUIID("Title");
-searchField.getAllStyles().setAlignment(Component.LEFT);
-tb.setTitleComponent(searchField);
-Style s = UIManager.getInstance().getComponentStyle("Title");
-FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
+        TextField searchField = new TextField("", ""); // <1>
+        searchField.getHintLabel().setUIID("Title");
+        searchField.setUIID("Title");
+        searchField.getAllStyles().setAlignment(Component.LEFT);
+        tb.setTitleComponent(searchField);
+        Style s = UIManager.getInstance().getComponentStyle("Title");
+        FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
 
-tb.addCommandToRightBar("", searchIcon, (e) -> {
-    searchField.startEditingAsync(); // <4>
-});
+        tb.addCommandToRightBar("", searchIcon, (e) -> {
+            searchField.startEditingAsync(); // <4>
+        });
       //  tb.addSearchCommand(e -> {
         //});
         
@@ -147,9 +145,9 @@ tb.addCommandToRightBar("", searchIcon, (e) -> {
         this.refreshTheme();
         for (int i = 0; i < search.size(); i++) {
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("Traget : "+search.get(i).getDepart()+"-->"+search.get(i).getDestination());
-        mb.setTextLine2("Poids : "+String.valueOf(search.get(i).getPoids()));
-        mb.setTextLine3("Client : "+String.valueOf(search.get(i).getNomExpediteur()));
+        mb.setTextLine1("🗺 Traget: "+search.get(i).getDepart()+"➡"+search.get(i).getDestination());
+        mb.setTextLine2("🔢 Poids: "+String.valueOf(search.get(i).getPoids()));
+        mb.setTextLine3("👨 Client: "+String.valueOf(search.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(search.get(i).getIdC()));
         mb.addActionListener(new ActionListener() {
             @Override
@@ -163,6 +161,7 @@ tb.addCommandToRightBar("", searchIcon, (e) -> {
 }
         
         this.addComponent(content);
+        this.setScrollableY(true);
     }
 });
 tb.addCommandToRightBar("", searchIcon, (e) -> {
@@ -171,18 +170,20 @@ tb.addCommandToRightBar("", searchIcon, (e) -> {
       
 
 for (int i = 0; i < List.size(); i++) {
+     Button btn = new Button();
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("Traget : "+List.get(i).getDepart()+"-->"+List.get(i).getDestination());
-        mb.setTextLine2("Poids : "+String.valueOf(List.get(i).getPoids()));
-        mb.setTextLine3("Client : "+String.valueOf(List.get(i).getNomExpediteur()));
+        FontImage.setMaterialIcon(btn, FontImage.MATERIAL_VIEW_LIST);
+        mb.setTextLine1("🧭 Traget : "+List.get(i).getDepart()+" ➡ "+List.get(i).getDestination());
+        mb.setTextLine2("🧳 Poids : "+String.valueOf(List.get(i).getPoids()));
+        mb.setTextLine3("👨 Client : "+String.valueOf(List.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(List.get(i).getIdC()));
-        mb.addActionListener(new ActionListener() {
+        btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
             new ShowDetailsColis(Integer.valueOf(mb.getTextLine4()),res).show();
             }
         });
-       content1.addAll(mb);
+       content1.addAll(mb,btn);
 }
 
        this.add(content1);

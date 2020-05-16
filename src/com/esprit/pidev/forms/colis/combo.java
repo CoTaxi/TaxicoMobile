@@ -69,6 +69,7 @@ public class combo extends Form
  AutoCompleteTextField name = new AutoCompleteTextField("chasse des vertebres ", "chasse des mollusques", "chasse des amphibiens", "chasse des reptiles" , " nom saison ");
 name.setMinimumElementsShownInPopup(5);
 this.addAll(adresse,name);
+this.setScrollableY(true);
 }
 
 

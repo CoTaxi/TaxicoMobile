@@ -41,15 +41,15 @@ import java.util.ArrayList;
 public class ShowDetailsColis extends BaseForm
 {
     public ShowDetailsColis(int Id,Resources res) {
-        super("Colis Details", BoxLayout.y());
+        super("Détails des colis", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-           new AfficherColis(res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//           new AfficherColis(res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Colis");
+        //setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -112,15 +112,35 @@ public class ShowDetailsColis extends BaseForm
         Label maildest = new Label();
         Label etat = new Label();
         Label letat = new Label("Etat :");
+        letat.setUIID("Bold");
+        letat.getStyle().setFgColor(0xf99f1b);
         Label ldep = new Label("Depart :");
+        ldep.setUIID("Bold");
+        ldep.getStyle().setFgColor(0xf99f1b);
         Label ldest = new Label("Destination :");
+        ldest.setUIID("Bold");
+        ldest.getStyle().setFgColor(0xf99f1b);
         Label lpoids = new Label("poids :");
+        lpoids.setUIID("Bold");
+        lpoids.getStyle().setFgColor(0xf99f1b);
         Label lnomexp = new Label("Nom Expediteur :");
+        lnomexp.setUIID("Bold");
+        lnomexp.getStyle().setFgColor(0xf99f1b);
         Label lnomdest = new Label("Nom Destinataire :");
+        lnomdest.setUIID("Bold");
+        lnomdest.getStyle().setFgColor(0xf99f1b);
         Label lmailexp = new Label("Mail Expediteur :");
+        lmailexp.setUIID("Bold");
+        lmailexp.getStyle().setFgColor(0xf99f1b);
         Label lmaildest = new Label("Mail Destinataire :");
+        lmaildest.setUIID("Bold");
+        lmaildest.getStyle().setFgColor(0xf99f1b);
         Label abcolis = new Label("----A Propos Du Colis----");
+        abcolis.setUIID("Bold");
+        abcolis.getStyle().setFgColor(0x36324D);
         Label abuser = new Label("----A Propos Du Client----");
+        abuser.setUIID("Bold");
+        abuser.getStyle().setFgColor(0x36324D);
         Container cdep = new Container();
         Container cdest = new Container();
         Container cpoids = new Container();
@@ -221,7 +241,7 @@ public class ShowDetailsColis extends BaseForm
                  this.add(affect);
               } 
    
-
+    this.setScrollableY(true);
     }
     
     private void updateArrowPosition(Button b, Label arrow) {
@@ -296,4 +316,5 @@ public class ShowDetailsColis extends BaseForm
             }
         });
     }
+    
     }

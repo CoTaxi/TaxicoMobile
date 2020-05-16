@@ -13,5 +13,5 @@ public class Statics {
     public static int sessionID ; 
     public static String type;
     public static int Lastcnx;
-    public static final String BASE_URL = "http://127.0.0.1:8000";
+    public static final String BASE_URL = "http://127.0.0.1/Projet1/web/app_dev.php";
 }

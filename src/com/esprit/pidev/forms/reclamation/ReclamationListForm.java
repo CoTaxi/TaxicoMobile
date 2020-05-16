@@ -51,15 +51,15 @@ public class ReclamationListForm extends BaseForm {
        super("Liste Des Reclamations", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//         //  new ColisForm(res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Vehicule");
+//        setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(theme);
-        tb.addSearchCommand(e -> {});
+
         
         Tabs swipe = new Tabs();
 
@@ -107,10 +107,11 @@ public class ReclamationListForm extends BaseForm {
         add(LayeredLayout.encloseIn(swipe, radioContainer));
         
         ButtonGroup barGroup = new ButtonGroup();
+        Button btn = new Button();
         RadioButton featured = RadioButton.createToggle("Reclamation", barGroup);
         featured.setUIID("SelectBar");
             Container listRec = new Container(BoxLayout.y());
-        listRec.setScrollableY(true);
+        //listRec.setScrollableY(true);
         //listRec.setScrollableX(true);
         ArrayList<Reclamation> List = new ReclamationServices().getAllRec();
         for (int i = 0; i<List.size(); i++) {
@@ -143,9 +144,9 @@ public class ReclamationListForm extends BaseForm {
             });   
         }
         System.out.println(Statics.sessionID);
+        //listRec.setScrollableY(true);
         this.add(listRec);
-
-    
+        
     }
         
     private void addTab(Tabs swipe, Image img, Label spacer, String likesStr, String commentsStr, String text) {
@@ -182,7 +183,9 @@ public class ReclamationListForm extends BaseForm {
                         )
                 )
             );
-
+        
         swipe.addTab("", page1);
+        this.setScrollableY(true);
+        
     }    
 }

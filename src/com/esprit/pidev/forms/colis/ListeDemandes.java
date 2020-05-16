@@ -57,7 +57,6 @@ public class ListeDemandes extends BaseForm
            new ListeVoituresForm(res).show();
         });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -121,18 +120,20 @@ public class ListeDemandes extends BaseForm
         {
             if(List.get(i).getEtat()!=3)
             {
+                Button btn = new Button();
+        FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("Traget : "+List.get(i).getDepart()+"-->"+List.get(i).getDestination());
-        mb.setTextLine2("Poids : "+String.valueOf(List.get(i).getPoids()));
-        mb.setTextLine3("Client : "+String.valueOf(List.get(i).getNomExpediteur()));
+        mb.setTextLine1("🗺 Traget: "+List.get(i).getDepart()+"➡"+List.get(i).getDestination());
+        mb.setTextLine2("🔠 Poids: "+String.valueOf(List.get(i).getPoids()));
+        mb.setTextLine3("👨 Client: "+String.valueOf(List.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(List.get(i).getIdC()));
-        mb.addActionListener(new ActionListener() {
+        btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
              new Demande(Integer.valueOf(mb.getTextLine4()),matricule,res).show();
             }
         });
-        content.addAll(mb);        
+        content.addAll(mb,btn);        
       
             }
 
@@ -140,6 +141,7 @@ public class ListeDemandes extends BaseForm
         content.revalidate();
         Button tri = new Button ("Trier");
         this.addAll(tri,content);
+        this.setScrollableY(true);
         tri.addActionListener(l->
         {
         ArrayList<Colis> Listtrie = new ColisService().TriColis();
@@ -148,18 +150,20 @@ public class ListeDemandes extends BaseForm
         {
             if(Listtrie.get(i).getEtat()!=3)
             {
+                Button btn = new Button();
+            FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("Traget : "+Listtrie.get(i).getDepart()+"-->"+Listtrie.get(i).getDestination());
-        mb.setTextLine2("Poids : "+String.valueOf(Listtrie.get(i).getPoids()));
-        mb.setTextLine3("Client : "+String.valueOf(Listtrie.get(i).getNomExpediteur()));
+        mb.setTextLine1("🗺 Traget: "+Listtrie.get(i).getDepart()+"➡"+Listtrie.get(i).getDestination());
+        mb.setTextLine2("🔠 Poids: "+String.valueOf(Listtrie.get(i).getPoids()));
+        mb.setTextLine3("👨 Client: "+String.valueOf(Listtrie.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(Listtrie.get(i).getIdC()));
-        mb.addActionListener(new ActionListener() {
+        btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
              new Demande(Integer.valueOf(mb.getTextLine4()),matricule,res).show();
             }
         });
-        content1.addAll(mb);        
+        content1.addAll(mb,btn);        
       
             }
 
@@ -169,7 +173,6 @@ public class ListeDemandes extends BaseForm
         this.refreshTheme();
         });
 content1.revalidate();
-
     }
     
     private void updateArrowPosition(Button b, Label arrow) {

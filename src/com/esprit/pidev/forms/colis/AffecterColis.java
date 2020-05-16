@@ -55,11 +55,11 @@ public class AffecterColis extends BaseForm
         System.out.println(Id);
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-        //   new ShowDetailsColis(Id,res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//        //   new ShowDetailsColis(Id,res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Colis");
+      
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -125,11 +125,13 @@ public class AffecterColis extends BaseForm
         ArrayList<Vehicule> List = new ServicesVehicule().getAllVehicules();
        for (int i=0;i<List.size();i++)
        {
+        Button btn = new Button();
+        FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1(List.get(i).getMarque()+" , "+List.get(i).getModele());
-        mb.setTextLine2(List.get(i).getPosition()+" , "+List.get(i).getDestination());
-        mb.setTextLine4(List.get(i).getMatricule());
-        mb.addActionListener(new ActionListener() {
+        mb.setTextLine1("🚖 "+List.get(i).getMarque()+" , "+List.get(i).getModele());
+        mb.setTextLine2("🗺 "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
+        mb.setTextLine4("🔠 "+List.get(i).getMatricule());
+        btn.addActionListener(new ActionListener() {
           
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -144,7 +146,8 @@ public class AffecterColis extends BaseForm
                     }
             }
         });
-        this.addComponent(mb);
+        this.addAll(mb,btn);
+        this.setScrollableY(true);
        }
 content.revalidate();  
    

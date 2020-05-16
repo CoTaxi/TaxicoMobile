@@ -55,7 +55,6 @@ public class Demande extends BaseForm
            new ListeDemandes(matricule,res).show();
         });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -111,21 +110,47 @@ public class Demande extends BaseForm
         featured.setUIID("SelectBar");
 
           Label dep = new Label();
+          dep.setUIID("Bold");
         Label dest = new Label();
+        dest.setUIID("Bold");
         Label poids = new Label();
+        poids.setUIID("Bold");
         Label nomexp = new Label();
+        nomexp.setUIID("Bold");
         Label nomdest = new Label();
+        nomdest.setUIID("Bold");
         Label mailexp = new Label();
+        mailexp.setUIID("Bold");
         Label maildest = new Label();
+        maildest.setUIID("Bold");
         Label ldep = new Label("Depart :");
-        Label ldest = new Label("Destination :");
-        Label lpoids = new Label("poids :");
-        Label lnomexp = new Label("Nom Expediteur :");
-        Label lnomdest = new Label("Nom Destinataire :");
-        Label lmailexp = new Label("Mail Expediteur :");
-        Label lmaildest = new Label("Mail Destinataire :");
-        Label abcolis = new Label("----A Propos Du Colis----");
-        Label abuser = new Label("----A Propos Du Client----");
+        
+        ldep.setUIID("Bold");
+        ldep.getStyle().setFgColor(0xf99f1b);
+        Label ldest = new Label("🗺 Destination :");
+        ldest.setUIID("Bold");
+        ldest.getStyle().setFgColor(0xf99f1b);
+        Label lpoids = new Label("🔢 poids :");
+        lpoids.setUIID("Bold");
+        lpoids.getStyle().setFgColor(0xf99f1b);
+        Label lnomexp = new Label("🔠 Nom Expediteur :");
+        lnomexp.setUIID("Bold");
+        lnomexp.getStyle().setFgColor(0xf99f1b);
+        Label lnomdest = new Label("🔤 Nom Destinataire :");
+        lnomdest.setUIID("Bold");
+        lnomdest.getStyle().setFgColor(0xf99f1b);
+        Label lmailexp = new Label("📧 Mail Expediteur :");
+        lmailexp.setUIID("Bold");
+        lmailexp.getStyle().setFgColor(0xf99f1b);
+        Label lmaildest = new Label("📨 Mail Destinataire :");
+        lmaildest.setUIID("Bold");
+        lmaildest.getStyle().setFgColor(0xf99f1b);
+        Label abcolis = new Label("           ----A Propos Du Colis----");
+        abcolis.setUIID("Bold");
+        abcolis.getStyle().setFgColor(0x36324D);
+        Label abuser = new Label("            ----A Propos Du Client----");
+        abuser.setUIID("Bold");
+        abuser.getStyle().setFgColor(0x36324D);
         Container cdep = new Container();
         Container cdest = new Container();
         Container cpoids = new Container();
@@ -138,8 +163,13 @@ public class Demande extends BaseForm
         Button accept = new Button("Accepter");
         Button refus = new Button ("Refuser");
         Label etat2 = new Label ("Vous Avez Accepté Ce Colis");
+        etat2.setUIID("Bold");
+        etat2.getStyle().setFgColor(0x009300);
         Label etat3 = new Label("Ce Colis Est Deja Livré");
+        etat3.setUIID("Bold");
+        etat3.getStyle().setFgColor(0x009300);
         Button maj = new Button ("Marqué Comme Livré");
+        FontImage.setMaterialIcon(maj, FontImage.MATERIAL_CHECK);
         int etat=-1;
         //---------------------Declaration End
         
