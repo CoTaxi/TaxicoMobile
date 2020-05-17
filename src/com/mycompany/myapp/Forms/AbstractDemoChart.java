@@ -117,7 +117,7 @@ public abstract class AbstractDemoChart implements IDemoChart {
    * @param xMax the maximum value on the X axis
    * @param yMin the minimum value on the Y axis
    * @param yMax the maximum value on the Y axis
-   * @param axesColor the axes color
+   * @param axesColor the axes coor
    * @param labelsColor the labels color
    */
   protected void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,

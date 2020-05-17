@@ -54,14 +54,14 @@ public class AjoutRec extends BaseForm
 
     public AjoutRec(Resources res) 
     {
-       super("Ajouter Reclamation", BoxLayout.y());
+       super("Ajouter Réclamation", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//         //  new ColisForm(res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Vehicule");
+//        setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
