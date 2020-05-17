@@ -175,7 +175,7 @@ for (int i = 0; i < List.size(); i++) {
         mb.setTextLine2("🧳 Poids : "+String.valueOf(List.get(i).getPoids()));
         mb.setTextLine3("👨 Client : "+String.valueOf(List.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(List.get(i).getIdC()));
-        btn.addActionListener(new ActionListener() {
+        mb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
             new ShowDetailsColis(Integer.valueOf(mb.getTextLine4()),res).show();

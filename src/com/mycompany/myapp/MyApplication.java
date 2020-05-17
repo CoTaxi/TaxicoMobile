@@ -1,8 +1,8 @@
 package com.mycompany.myapp;
 
 
+import com.codename1.components.ScaleImageLabel;
 import static com.codename1.ui.CN.*;
-import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Label;
@@ -10,11 +10,13 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
-import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.io.NetworkEvent;
-import com.esprit.pidev.forms.user.SignInForm;
-import com.mycompany.myapp.Forms.SplashForm;
+import com.codename1.ui.Component;
+import com.codename1.ui.Container;
+import com.codename1.ui.animations.CommonTransitions;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.plaf.Style;
 import com.mycompany.myapp.Forms.WalkthruForm;
 
 /**
@@ -24,13 +26,13 @@ import com.mycompany.myapp.Forms.WalkthruForm;
 public class MyApplication {
 
     private Form current;
-    private Resources theme,theme1;
+    private Resources res,theme1;
 
     public void init(Object context) {
         // use two network threads instead of one
         updateNetworkThreadCount(2);
 
-       // theme = UIManager.initFirstTheme("/theme_1");
+        res = UIManager.initFirstTheme("/theme_1");
         theme1 = UIManager.initFirstTheme("/theme_2");
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(true);
@@ -49,13 +51,84 @@ public class MyApplication {
         });        
     }
     
+    private void showSplashAnimation() {
+        Form splash = new Form(new LayeredLayout());
+        // splash.setBgImage(res.getImage("animationbackground.jpg"));
+        splash.setUIID("Splash");
+        splash.getContentPane().setUIID("Container");
+        splash.getToolbar().setUIID("Container");
+        ScaleImageLabel bg = new ScaleImageLabel(res.getImage("bgbgg.png"));
+        bg.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+        Container centerbg = BorderLayout.center(bg);
+        centerbg.isIgnorePointerEvents();
+        splash.add(centerbg);
+        ScaleImageLabel iconBackground = new ScaleImageLabel(res.getImage("logof.png"));
+        iconBackground.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+        Container centerBackground = BorderLayout.center(iconBackground);
+        splash.add(centerBackground);
+
+        iconBackground.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+
+        Label iconForeground = new Label(res.getImage("scars.jpg"));
+        Container centerIcon = BorderLayout.centerAbsolute(iconForeground);
+        splash.add(centerIcon);
+        splash.show();
+        callSerially(() -> {
+            ((BorderLayout) centerBackground.getLayout()).setCenterBehavior(CENTER_BEHAVIOR_CENTER_ABSOLUTE);
+            centerBackground.setShouldCalcPreferredSize(true);
+            centerBackground.animateLayoutAndWait(350);
+
+            iconForeground.remove();
+            iconBackground.remove();
+            centerIcon.remove();
+            Container layers = LayeredLayout.encloseIn(
+                    new Label(iconBackground.getIcon(), "CenterIcon"),
+                    new Label(iconForeground.getIcon(), "CenterIcon"));
+            Container boxy = BoxLayout.encloseY(layers);
+            Label placeholder = new Label();
+            placeholder.setShowEvenIfBlank(true);
+            Label Taxico = new Label("Taxico App", "SplashTitle");
+            Taxico.getStyle().setFgColor(0xefcc1a);
+            Component.setSameHeight(placeholder, Taxico);
+            Component.setSameWidth(placeholder, Taxico, boxy);
+            centerBackground.add(CENTER, boxy);
+            splash.revalidate();
+            callSerially(() -> {
+                placeholder.setText(" ");
+                boxy.add(placeholder);
+                boxy.setShouldCalcPreferredSize(true);
+                boxy.getParent().animateLayoutAndWait(900);
+                boxy.replaceAndWait(placeholder, Taxico, CommonTransitions.createFade(500));
+                Label newPlaceholder = new Label(" ");
+                Label Unplugged = new Label("by Unplugged", "SplashSubTitle");
+                Unplugged.getStyle().setFgColor(0xffffffff);
+                Component.setSameHeight(newPlaceholder, Unplugged);
+                Component.setSameWidth(newPlaceholder, Unplugged);
+                boxy.add(newPlaceholder);
+                boxy.getParent().animateLayoutAndWait(900);
+                boxy.replaceAndWait(newPlaceholder, Unplugged, CommonTransitions.createFade(1700));
+
+                Unplugged.setY(splash.getHeight());
+                Taxico.setY(splash.getHeight());
+                layers.setY(splash.getHeight());
+                boxy.setHeight(splash.getHeight());
+
+                boxy.animateUnlayoutAndWait(600, 220);
+                splash.setTransitionOutAnimator(CommonTransitions.createFade(700));
+                new WalkthruForm(theme1).show();
+            });
+        });
+    }
+
     public void start() {
         if(current != null){
             current.show();
             return;
         }
         // new SplashForm(theme,theme1).show();
-        new WalkthruForm(theme1).show();
+      //  new WalkthruForm(theme1).show();
+      
+        showSplashAnimation();
     }
 
     public void stop() {

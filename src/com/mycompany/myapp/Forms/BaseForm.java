@@ -102,7 +102,7 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Trending", FontImage.MATERIAL_SETTINGS, e -> new TrendingForm(res1).show());
         tb.addMaterialCommandToSideMenu("Statistique", FontImage.MATERIAL_SETTINGS, e -> new ChartDemosForm().show());
         tb.addMaterialCommandToSideMenu("Chat Box", FontImage.MATERIAL_SETTINGS, e -> new conv());
-        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new SignInForm(res1).show());
+        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res1).show());
         }
         if(Statics.type.equals("chauffeur"))
         {
@@ -110,14 +110,14 @@ public class BaseForm extends Form {
        tb.addMaterialCommandToSideMenu("Mes Vehicule", FontImage.MATERIAL_UPDATE, e -> new AfficherVehicule(res1).show());
        tb.addMaterialCommandToSideMenu("Raclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
         tb.addMaterialCommandToSideMenu("Service Maintenance", FontImage.MATERIAL_UPDATE, e -> new MaintenanceForm(res1).show());
-       tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e ->
-       {
-           
-           Statics.Lastcnx=Statics.sessionID;
-           Statics.sessionID=0;
-           new Lastcnx(res1).show();
-       });
-        }
+       tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e ->new WalkthruForm(res1).show());
+//       {
+//           
+//           Statics.Lastcnx=Statics.sessionID;
+//           Statics.sessionID=0;
+//           new Lastcnx(res1).show();
+//       });
+         }
         
     }
 
