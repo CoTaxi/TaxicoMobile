@@ -149,11 +149,17 @@ public class AfficherVehicule extends BaseForm
                 InteractionDialog d = new InteractionDialog();
                 TextComponent mat = new TextComponent().label("Matricule");
                 Button valid = new Button("Modifier vehicule");
-                d.getStyle().setBgColor(0xC40C0C);
+                d.getStyle().setBgColor(0xfffff);
+                d.getStyle().setBgImage(res.getImage("accordionfinal.png"));
                 d.setLayout(new FlowLayout());
                 d.add(new Label("Modifier"));
                 d.addComponent(mat);
                 d.addComponent(valid);
+                d.getStyle().setMarginBottom(500);
+                d.getStyle().setMarginLeft(500);
+                d.getStyle().setMarginRight(200);
+                d.getStyle().setMarginTop(200);
+                d.getStyle().setPaddingTop(500);
                 d.show(TOP, BOTTOM, LEFT, RIGHT);
                 valid.addActionListener(va -> {
                     if (new ServicesVehicule().updatevec(id,mat.getText())) {
