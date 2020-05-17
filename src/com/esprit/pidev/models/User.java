@@ -76,13 +76,19 @@ public class User {
         return email_canonical;
     }
 
-    public User(int id, String type, String username, String email) {
+    public User(int id, String type, String username, String email,String nomEvent) {
         this.id = id;
         this.type = type;
         this.username = username;
         this.email = email;
+        this.nomEvent=nomEvent;
     }
-
+    public User(int id, String nom, String prenom, String email) {
+        this.id = id;
+        this.nom = nom;
+        this.email = email;
+        this.prenom=prenom;
+    }
     public void setEmail_canonical(String email_canonical) {
         this.email_canonical = email_canonical;
     }

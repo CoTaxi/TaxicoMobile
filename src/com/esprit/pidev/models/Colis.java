@@ -26,7 +26,7 @@ public class Colis {
         this.Categorie=Categorie;
     }
 
-    public Colis( int Id,int etat, int TelDestinataire, String Depart, String Destination, String NomExpediteur, String NomDestinataire, String MailExpediteur, String MailDestinataire, float Poids) {
+    public Colis( int Id,int etat, int TelDestinataire, String Depart, String Destination, String NomExpediteur, String NomDestinataire, String MailExpediteur, String MailDestinataire, float Poids,String pickup) {
         this.etat = etat;
         this.TelDestinataire = TelDestinataire;
         this.Depart = Depart;
@@ -37,6 +37,7 @@ public class Colis {
         this.MailDestinataire = MailDestinataire;
         this.Poids = Poids;
         this.idC=Id;
+        this.Pickup=pickup;
     }
     public Colis(int etat, int TelDestinataire, String Depart, String Destination, String NomExpediteur, String NomDestinataire, String MailExpediteur, String MailDestinataire, float Poids) {
         this.etat = etat;
@@ -174,6 +175,14 @@ public class Colis {
 
     public void setCategorie(String Categorie) {
         this.Categorie = Categorie;
+    }
+
+    public String getPickup() {
+        return Pickup;
+    }
+
+    public void setPickup(String Pickup) {
+        this.Pickup = Pickup;
     }
 
     @Override

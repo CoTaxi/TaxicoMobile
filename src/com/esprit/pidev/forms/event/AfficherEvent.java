@@ -3,57 +3,70 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.esprit.pidev.forms.colis;
+package com.esprit.pidev.forms.event;
 
+import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
-import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
+import com.codename1.ui.ComboBox;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.CENTER;
-import static com.codename1.ui.Component.LEFT;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
+import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
-import com.codename1.ui.TextArea;
 import com.codename1.ui.TextComponent;
-import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.layouts.TextModeLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.LengthConstraint;
+import com.codename1.ui.validation.NumericConstraint;
+import com.codename1.ui.validation.RegexConstraint;
+import com.codename1.ui.validation.Validator;
+import com.esprit.pidev.forms.colis.AfficherColis;
+import com.esprit.pidev.forms.colis.ShowDetailsColis;
+import com.esprit.pidev.models.Colis;
+import com.esprit.pidev.models.Event;
 import com.esprit.pidev.services.ColisService;
+import com.esprit.pidev.services.EventService;
+import com.esprit.pidev.utils.Statics;
 import com.mycompany.myapp.Forms.BaseForm;
+import java.util.ArrayList;
 
 /**
  *
  * @author ASUS
  */
-public class pickuplocation extends BaseForm
+public class AfficherEvent extends BaseForm
 {
 
-    public pickuplocation(Resources res,int id) 
+    public AfficherEvent(Resources res) 
     {
-        super("Pick Up Location", BoxLayout.y());
+        super("Afficher Evennement", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         tb.addCommandToLeftBar("Return", null, (evt) -> {
-        //   new ShowDetailsColis(Id,res).show();
+         //  new ColisForm(res).show();
         });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Colis");
+        setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -105,46 +118,39 @@ public class pickuplocation extends BaseForm
         add(LayeredLayout.encloseIn(swipe, radioContainer));
         
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton featured = RadioButton.createToggle("Our Services", barGroup);
+        RadioButton featured = RadioButton.createToggle("Colis", barGroup);
         featured.setUIID("SelectBar");
-    //----------------------------------------------------------
-        TextComponent adresse = new TextComponent().label("adresse");     
-        TextComponent ville = new TextComponent().label("ville");
-        TextComponent code_postal = new TextComponent().label("code postal");
-        Button loc = new Button("Envoyer Votre Position");
-        loc.setUIID("Link");
-        loc.setUIID("Bold");
-        loc.getStyle().setFgColor(0xf99f1b);
-        Button btn= new Button("valider");
-    loc.addActionListener(l->{
-        new Map(res,id).show();
-    });
-    btn.addActionListener(l->{
-       if(new ColisService().pickup(id,adresse.getText()+" "+ville.getText()+" "+code_postal.getText()))
-       Dialog.show("Information", "Votre lieu de recuperation a ete enregistre ", "OK", null);
-       else 
-       Dialog.show("ERREUR", "Servor Error", "OK", null);
-                  
-    });
-    this.addAll(adresse,ville,code_postal,loc,btn);
-//    btn.addActionListener(l->{
-//              
-//             Dialog.show("Felicitation", "Votre Colis sera Affecté a cette voiture", "OK", null);
-//             if (new ColisService().affecterColis(id,matricule,pickup.getText())) {
-//                        Dialog.show("SUCCESS", "Colis Affecté", "OK", null);
-//                    } else {
-//                        Dialog.show("ERROR", "Server error", "OK", null);
-//                    }    
-//              });
-    this.show();
+
+      //-------------------------------------------------------------------------------
+      
+        Button passe = new Button("Consulter Les evennements Passes");
+        Container content1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        content1.setScrollableY(true);    
+        ArrayList<Event> List = new EventService().getAllEvents();
+        System.out.println(List.size());
+    for (int i = 0; i < List.size(); i++) 
+    {
+        System.out.println("---nom---"+List.get(i).getNom());
+        final MultiButton mb = new MultiButton();
+        mb.setTextLine1("Nom Evennement : "+List.get(i).getNom());
+        mb.setTextLine2("Duree : "+String.valueOf(List.get(i).getDuree()));
+        mb.setTextLine3("Emplacement : "+List.get(i).getEmplacement());
+        mb.setTextLine4(Integer.toString(List.get(i).getId()));
+        mb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+            new ShowDetailsEvent(Integer.valueOf(mb.getTextLine4()),res).show();
+            }
+        });
+       content1.addAll(mb);
+    }
+
+       this.addAll(content1,passe);
+      
+      
+      
     }
     
-    private void updateArrowPosition(Button b, Label arrow) {
-        arrow.getUnselectedStyle().setMargin(LEFT, b.getX() + b.getWidth() / 2 - arrow.getWidth() / 2);
-        arrow.getParent().repaint();
-        
-        
-    }
     
     private void addTab(Tabs swipe, Image img, Label spacer, String likesStr, String commentsStr, String text) {
         int size = Math.min(Display.getInstance().getDisplayWidth(), Display.getInstance().getDisplayHeight());
@@ -183,33 +189,6 @@ public class pickuplocation extends BaseForm
 
         swipe.addTab("", page1);
     }
-    
-   private void addButton(Image img, String title,Resources res) {
-       int height = Display.getInstance().convertToPixels(11.5f);
-       int width = Display.getInstance().convertToPixels(14f);
-       Button image = new Button(img.fill(width, height));
-       image.setUIID("Label");
-       Container cnt = BorderLayout.west(image);
-       cnt.setLeadComponent(image);
-       TextArea ta = new TextArea(title.toUpperCase());
-       ta.setEditable(false);
-       cnt.add(BorderLayout.CENTER, 
-               BoxLayout.encloseY(
-                       ta
-               ));
-       add(cnt);
-       image.addActionListener((e) ->{
-           ToastBar.showMessage(title, FontImage.MATERIAL_INFO);
-//            new ColisForm(res).show();
-               });
-   }
-    
-    private void bindButtonSelection(Button b, Label arrow) {
-        b.addActionListener(e -> {
-            if(b.isSelected()) {
-                updateArrowPosition(b, arrow);
-            }
-        });
-    }
     }
     
+

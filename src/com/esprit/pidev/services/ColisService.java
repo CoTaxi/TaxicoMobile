@@ -138,9 +138,23 @@ return responseResult;
         NetworkManager.getInstance().addToQueueAndWait(request);
 return responseResult;
     }
+  public boolean pickup(int Id,String pickup)
+   {
+      String url = Statics.BASE_URL + "/C/pickup/"+Id+"/"+pickup;
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+return responseResult;
+    }
 
     public ArrayList<Colis> getAllColis(int id) {
-        String url = Statics.BASE_URL + "/C/all/"+id;
+        String url = Statics.BASE_URL + "/C/allcolis/"+id;
 
         request.setUrl(url);
         request.setPost(false);
@@ -224,7 +238,8 @@ return responseResult;
                 String maildest = obj.get("MailDestinataire").toString();
                 float poids =  (float)Float.parseFloat(obj.get("Poids").toString());
                 int etat = (int)Float.parseFloat(obj.get("Etat").toString());
-                Colis.add(new Colis(Id,etat,teldest,depart,destination,nomexp,nomdest,mailexp,maildest,poids));   
+                String pickup = obj.get("pickup").toString();
+                Colis.add(new Colis(Id,etat,teldest,depart,destination,nomexp,nomdest,mailexp,maildest,poids,pickup));   
             }
 
         } catch (IOException ex) {

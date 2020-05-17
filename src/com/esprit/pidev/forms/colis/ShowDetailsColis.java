@@ -156,10 +156,7 @@ public class ShowDetailsColis extends BaseForm
    Button modify = new Button("Modifier Colis");
    Button delete = new Button("Supprimer Colis");
    Button affect = new Button("Affecter Colis");
-   Container atent= new Container();
-   Button ok = new Button("Comfirmer");
-   Button non = new Button("Annuler");
-   atent.addAll(ok,non);
+   Button ok = new Button("Terminer Ma Commande");
     ArrayList<Colis> det = new ColisService().getColis(Integer.valueOf(Integer.toString(Id)));
               for (int i=0;i<det.size();i++)
               {
@@ -233,12 +230,32 @@ public class ShowDetailsColis extends BaseForm
                   }
               }
               });
+              ok.addActionListener((ev) -> {
+                for (int i=0;i<det.size();i++)
+              {
+              int et=det.get(i).getEtat();
+                  if((et==2))
+                  {
+                  new  pickuplocation(res, Id);
+                  }
+                  else 
+                  {
+                    ok.setEnabled(false);
+                  }
+              }
+              });
                
                  this.addAll(modify,delete);
                    for (int i=0;i<det.size();i++)
               {
-                  if(det.get(i).getEtat()==0)
+                if(det.get(i).getEtat()==0)
+                {
                  this.add(affect);
+                }
+                if(det.get(i).getEtat()==2)
+                {
+                 this.add(ok);
+                }
               } 
    
     this.setScrollableY(true);

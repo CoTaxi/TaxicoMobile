@@ -143,7 +143,8 @@ public class UserService {
                 String type=obj.get("type").toString();
                 String username=obj.get("username").toString();
                 String email=obj.get("email").toString();
-                users.add(new User(idU,type,username,email));
+                String event=obj.get("event").toString();
+                users.add(new User(idU,type,username,email,event));
             }
 
         } catch (IOException ex) {

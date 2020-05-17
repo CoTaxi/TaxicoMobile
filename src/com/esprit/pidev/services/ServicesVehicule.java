@@ -127,7 +127,20 @@ public class ServicesVehicule {
         return vehicules;
     }
     
-    
+    public ArrayList<Vehicule> toutvec() {
+        String url = Statics.BASE_URL +"/T/toutvec";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                vehicules = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return vehicules;
+    }  
 
     public ArrayList<Vehicule> getVehicules(Vehicule v) {
         String url = Statics.BASE_URL + "/T/findjsonVec?matricule=" +v.getMatricule();

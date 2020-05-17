@@ -22,6 +22,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.services.ColisService;
 import java.io.IOException;
 
 /**
@@ -31,7 +32,7 @@ import java.io.IOException;
 public class Map extends Form
 {
 
-    public Map(Resources res)   
+    public Map(Resources res,int id)   
     {   
         
 this.setLayout(new BorderLayout());
@@ -91,23 +92,23 @@ if (Display.getInstance().getLocationManager().isGPSDetectionSupported()) {
 mc.zoomToLayers();
 Button go = new Button("go");
 go.addActionListener(l->{
-//    WebBrowser browser = new WebBrowser();
-//            Form f2 = new Form();
-//            Container subCenterContainer = new Container();
-//           subCenterContainer.setLayout(new BorderLayout());
-//           subCenterContainer.addComponent(BorderLayout.CENTER, browser);
-//           browser.setURL("https://www.google.com");
-//           f2.add(subCenterContainer);
-//           f2.show();
-
-            double lat = loc.getLatitude();
-            double lng = loc.getLongitude();
-           Form hi = new Form("Browser", new BorderLayout());
-           BrowserComponent browser = new BrowserComponent();
-           browser.setURL("http://maps.google.com/?q=" + lat + "," + lng);
-          //browser.setURL("https://www.codenameone.com/");
-           hi.add(BorderLayout.CENTER, browser);
-           hi.show();
+       double lat = loc.getLatitude();
+       double lng = loc.getLongitude();
+       String mloc="q=" +lat+ "," +lng;
+       if(new ColisService().pickup(id,mloc))
+       {
+       Dialog.show("Information", "Votre lieu de recuperation a ete enregistre ", "OK", null);
+       }
+       else 
+       Dialog.show("ERREUR", "Servor Error", "OK", null);
+//            double lat = loc.getLatitude();
+//            double lng = loc.getLongitude();
+//           Form hi = new Form("Browser", new BorderLayout());
+//           BrowserComponent browser = new BrowserComponent();
+//           browser.setURL("http://maps.google.com/?q=" + lat + "," + lng);
+//          //browser.setURL("https://www.codenameone.com/");
+//           hi.add(BorderLayout.CENTER, browser);
+//           hi.show();
 });
 this.addComponent(BorderLayout.CENTER, mc);
 this.addComponent(BorderLayout.SOUTH, go);
