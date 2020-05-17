@@ -170,20 +170,18 @@ tb.addCommandToRightBar("", searchIcon, (e) -> {
       
 
 for (int i = 0; i < List.size(); i++) {
-     Button btn = new Button();
         final MultiButton mb = new MultiButton();
-        FontImage.setMaterialIcon(btn, FontImage.MATERIAL_VIEW_LIST);
         mb.setTextLine1("🧭 Traget : "+List.get(i).getDepart()+" ➡ "+List.get(i).getDestination());
         mb.setTextLine2("🧳 Poids : "+String.valueOf(List.get(i).getPoids()));
         mb.setTextLine3("👨 Client : "+String.valueOf(List.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(List.get(i).getIdC()));
-        btn.addActionListener(new ActionListener() {
+        mb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
             new ShowDetailsColis(Integer.valueOf(mb.getTextLine4()),res).show();
             }
         });
-       content1.addAll(mb,btn);
+       content1.addAll(mb);
 }
 
        this.add(content1);

@@ -1,21 +1,4 @@
-/*
- * Copyright (c) 2016, Codename One
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
- * and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
- * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
- */
+
 
 package com.mycompany.myapp.Forms;
 
@@ -24,20 +7,18 @@ import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
-import com.codename1.ui.Component;
+import static com.codename1.ui.CN.getDisplayWidth;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
-import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.layouts.BorderLayout;
+import static com.codename1.ui.layouts.BorderLayout.NORTH;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
@@ -45,8 +26,9 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.pidev.forms.colis.AjoutColis;
-import com.esprit.pidev.forms.vehicule.AfficherVehicule;
 import com.esprit.pidev.forms.vehicule.FindTaxi;
+
+
 
 /**
  * The newsfeed form
@@ -56,29 +38,54 @@ import com.esprit.pidev.forms.vehicule.FindTaxi;
 public class NewsfeedForm extends BaseForm {
 
     public NewsfeedForm(Resources res) {
-        super("Newsfeed", BoxLayout.y());
+        super("Newsfeed", new BoxLayout(BoxLayout.Y_AXIS));
        
         setUIID("Maps");
         super.installSidemenu(res);
+        //--------------------
+        Container layer = new Container();
+        Button back = new Button("TitleCommand");
+        //FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK);
+        TextField from = new TextField("", "Choisir un point de départ", 40, TextField.ANY);
+        TextField to = new TextField("", "Choisir un point de destination", 40, TextField.ANY);
+        //TextField bt = new TextField("", "", 40, TextField.ANY);
+        Label fromSelected = new Label();
+        final Label toSelected = new Label();
+        Button search = new Button();
+        Image img1 = res.getImage("marker2.png");
+        Image img = res.getImage("marker1.png");
+        int height = Display.getInstance().convertToPixels(10f);
+        int width = Display.getInstance().convertToPixels(10f);
+        from.getHintLabel().setUIID("FromToTextFieldHint");
+        from.setUIID("FromToTextField");
+        to.getHintLabel().setUIID("FromToTextFieldHint");
+        to.setUIID("FromToTextField");
+        Container navigationToolbar = new Container();
+        navigationToolbar = BoxLayout.encloseY(back, BorderLayout.centerCenterEastWest(from, new Label(img.fill(width, height)), fromSelected), BorderLayout.centerCenterEastWest(to, new Label(img1.fill(width, height)), toSelected),BorderLayout.centerCenterEastWest(null, new Button("Trouver Un Taxi"),search));
+        navigationToolbar.setUIID("WhereToToolbar");
+        navigationToolbar.getUnselectedStyle().setBgPainter((g1, rect) -> {
+            g1.setAlpha(255);
+            g1.setColor(0xffffff);
+
+        });
+        layer.setLayout(new BorderLayout());
+        layer.add(NORTH, navigationToolbar);
+        navigationToolbar.setWidth(getDisplayWidth());
+        navigationToolbar.setHeight(getPreferredH());
+        navigationToolbar.setY(-navigationToolbar.getHeight());
+        layer.animateLayout(200);
         
+        //---------------------
         Container cnt  =addButton(res.getImage("news-item-1.jpg"), "Reserver Taxi", false, 26, 32);
         Container cnt1 =addButton(res.getImage("news-item-2.jpg"), "Reserver Covoiturage", true, 15, 21);
         Container cnt2 =addButton(res.getImage("news-item-3.jpg"), "Envoyer Colis", false, 36, 15);
-        TextField Depart = new TextField();
-        TextField Destination = new TextField();
          TextField Depart1 = new TextField();
         TextField Destination1 = new TextField();
          TextField Depart2 = new TextField();
         TextField Destination2 = new TextField();
-        Image img1=res.getImage("marker2.png");
-        Image img=res.getImage("marker1.png");
         Button searchtaxi = new Button(); 
         Button searchcov = new Button();
         Button searchcolis = new Button();
-        int height = Display.getInstance().convertToPixels(9f);
-        int width = Display.getInstance().convertToPixels(10f);
-        Container dep = BorderLayout.centerEastWest(Depart, new Label(img.fill(width, height)), null);
-        Container dest = BorderLayout.centerEastWest(Destination, new Label(img.fill(width, height)), null);
         Container dep1 = BorderLayout.centerEastWest(Depart1, new Label(img.fill(width, height)), null);
         Container dest1 = BorderLayout.centerEastWest(Destination1, new Label(img.fill(width, height)), null);
         Container dep2 = BorderLayout.centerEastWest(Depart2, new Label(img.fill(width, height)), null);
@@ -120,7 +127,7 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(dest2);
             this.removeComponent(searchcov);
             searchtaxi.setText("Trouver Taxi");
-            this.addAll(dep,dest,searchtaxi);
+            this.addAll(from,to,searchtaxi);
             this.refreshTheme();
             }
         });
@@ -132,8 +139,8 @@ public class NewsfeedForm extends BaseForm {
         this.removeComponent(cnt);
         this.removeComponent(cnt1);
         this.removeComponent(cnt2);
-        this.removeComponent(dep);
-        this.removeComponent(dest);
+        this.removeComponent(from);
+        this.removeComponent(to);
         this.removeComponent(searchtaxi);
         this.removeComponent(dep2);
         this.removeComponent(dest2);
@@ -148,13 +155,13 @@ public class NewsfeedForm extends BaseForm {
          //new AfficherVehicule(res).show();
         });
         searchtaxi.addActionListener(l->{
-           new FindTaxi(res,Depart.getText(),Destination.getText()).show();
+           new FindTaxi(res,from.getText(),to.getText()).show();
         });
         all.addActionListener(l->{
             if(all.isSelected())
             {
-            this.removeComponent(dep);
-            this.removeComponent(dest);
+            this.removeComponent(from);
+            this.removeComponent(to);
             this.removeComponent(searchtaxi);
             this.removeComponent(dep1);
             this.removeComponent(dest1);
@@ -174,8 +181,8 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(cnt);
             this.removeComponent(cnt1);
             this.removeComponent(cnt2);
-            this.removeComponent(dep);
-            this.removeComponent(dest);
+            this.removeComponent(from);
+            this.removeComponent(to);
             this.removeComponent(searchtaxi);
             this.removeComponent(dep1);
             this.removeComponent(dest1);
@@ -213,7 +220,7 @@ public class NewsfeedForm extends BaseForm {
         }
         ScaleImageLabel image = new ScaleImageLabel(img);
         image.setUIID("Container");
-        image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+        image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FIT);
         Label overlay = new Label(" ", "ImageOverlay");
         
         Container page1 = 

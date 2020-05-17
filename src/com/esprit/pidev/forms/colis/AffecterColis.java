@@ -122,16 +122,14 @@ public class AffecterColis extends BaseForm
    //-------------End 
    
 
-        ArrayList<Vehicule> List = new ServicesVehicule().getAllVehicules();
+        ArrayList<Vehicule> List = new ServicesVehicule().toutvec();
        for (int i=0;i<List.size();i++)
        {
-        Button btn = new Button();
-        FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
         mb.setTextLine1("🚖 "+List.get(i).getMarque()+" , "+List.get(i).getModele());
         mb.setTextLine2("🗺 "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
         mb.setTextLine4("🔠 "+List.get(i).getMatricule());
-        btn.addActionListener(new ActionListener() {
+        mb.addActionListener(new ActionListener() {
           
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -146,7 +144,7 @@ public class AffecterColis extends BaseForm
                     }
             }
         });
-        this.addAll(mb,btn);
+        this.addAll(mb);
         this.setScrollableY(true);
        }
 content.revalidate();  

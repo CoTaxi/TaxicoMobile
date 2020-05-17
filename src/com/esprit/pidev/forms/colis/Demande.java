@@ -5,6 +5,9 @@ import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
 import com.codename1.io.rest.Response;
 import com.codename1.io.rest.Rest;
+import com.codename1.location.Location;
+import com.codename1.location.LocationManager;
+import com.codename1.ui.BrowserComponent;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.Component;
@@ -14,6 +17,7 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
+import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -123,8 +127,10 @@ public class Demande extends BaseForm
         mailexp.setUIID("Bold");
         Label maildest = new Label();
         maildest.setUIID("Bold");
+        Label pickup = new Label();
+        pickup.setUIID("Bold");
+
         Label ldep = new Label("Depart :");
-        
         ldep.setUIID("Bold");
         ldep.getStyle().setFgColor(0xf99f1b);
         Label ldest = new Label("🗺 Destination :");
@@ -145,6 +151,10 @@ public class Demande extends BaseForm
         Label lmaildest = new Label("📨 Mail Destinataire :");
         lmaildest.setUIID("Bold");
         lmaildest.getStyle().setFgColor(0xf99f1b);
+        Label lpickup = new Label("Lieu De Recuperation");
+        lpickup.setUIID("Bold");
+        lpickup.getStyle().setFgColor(0xf99f1b);
+
         Label abcolis = new Label("           ----A Propos Du Colis----");
         abcolis.setUIID("Bold");
         abcolis.getStyle().setFgColor(0x36324D);
@@ -158,6 +168,7 @@ public class Demande extends BaseForm
         Container cnomdest = new Container();
         Container cmailexp = new Container();
         Container cmaildest = new Container();
+        Container cpickup = new Container();
         Container colisdet = new Container(BoxLayout.y());
         Container userdet = new Container(BoxLayout.y());
         Button accept = new Button("Accepter");
@@ -170,6 +181,10 @@ public class Demande extends BaseForm
         etat3.getStyle().setFgColor(0x009300);
         Button maj = new Button ("Marqué Comme Livré");
         FontImage.setMaterialIcon(maj, FontImage.MATERIAL_CHECK);
+        Button Driver = new Button("🚖 Continuer vers Google Maps");
+        Driver.setUIID("Link");
+        Driver.setUIID("Bold");
+        Driver.getStyle().setFgColor(0xf99f1b);
         int etat=-1;
         //---------------------Declaration End
         
@@ -184,6 +199,17 @@ public class Demande extends BaseForm
               nomdest.setText(det.get(i).getNomDestinataire());
               mailexp.setText(det.get(i).getMailExpediteur());
               maildest.setText(det.get(i).getMailDestinataire());
+              if(det.get(i).getPickup().contains("="))
+              {
+               System.out.println("http://maps.google.com/?"+det.get(i).getPickup());
+               pickup.setText("http://maps.google.com/?"+det.get(i).getPickup());   
+               cpickup.addAll(lpickup,pickup,Driver);
+              }
+              else 
+              {
+               pickup.setText(det.get(i).getPickup());  
+               cpickup.addAll(lpickup,pickup);
+              }
               }
               cdep.addAll(ldep,dep);
               cdest.addAll(ldest,dest);
@@ -195,14 +221,27 @@ public class Demande extends BaseForm
               colisdet.addAll(cdep,cdest,cpoids);
               userdet.addAll(cnomexp,cmailexp,cnomdest,cmaildest);
               this.addAll(abcolis,colisdet,abuser,userdet);
+              Driver.addActionListener(l->{
+                     Form hi = new Form("Browser", new BorderLayout());
+                     BrowserComponent browser = new BrowserComponent();
+                     Location loc = LocationManager.getLocationManager().getCurrentLocationSync();
+                     loc.setLongitude(10.185990461365737);
+                     loc.setLatitude(36.87440921619324);
+                     double lat = loc.getLatitude();
+                     double lng = loc.getLongitude();
+                     browser.setURL("http://maps.google.com/?q=" + lat + "," + lng);
+                   //  browser.setURL("https://www.codenameone.com/");
+                     hi.add(BorderLayout.CENTER, browser);
+                     hi.show();
+              });
               if((etat!=2)&&(etat!=3))
               this.addAll(accept,refus);
               else if(etat==2)
               {
-              this.addAll(etat2,maj);
+              this.addAll(cpickup,etat2,maj);
               }
               else if(etat==3)
-              this.add(etat3);
+              this.addAll(cpickup,etat3);
               maj.addActionListener((etatf)->{
                   
                   if (new ColisService().majColis(Id)) {

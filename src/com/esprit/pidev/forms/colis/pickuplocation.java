@@ -25,6 +25,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextArea;
+import com.codename1.ui.TextComponent;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
@@ -43,10 +44,9 @@ import com.mycompany.myapp.Forms.BaseForm;
 public class pickuplocation extends BaseForm
 {
 
-    public pickuplocation(Resources res,int id,String matricule) 
+    public pickuplocation(Resources res,int id) 
     {
         super("Pick Up Location", BoxLayout.y());
-        System.out.println("hiiiiiiiiiiiii");
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         tb.addCommandToLeftBar("Return", null, (evt) -> {
@@ -108,9 +108,25 @@ public class pickuplocation extends BaseForm
         RadioButton featured = RadioButton.createToggle("Our Services", barGroup);
         featured.setUIID("SelectBar");
     //----------------------------------------------------------
-    TextField pickup = new TextField(null, "pickup");
-    Button btn= new Button("valider");
-    this.addAll(pickup,btn);
+        TextComponent adresse = new TextComponent().label("adresse");     
+        TextComponent ville = new TextComponent().label("ville");
+        TextComponent code_postal = new TextComponent().label("code postal");
+        Button loc = new Button("Envoyer Votre Position");
+        loc.setUIID("Link");
+        loc.setUIID("Bold");
+        loc.getStyle().setFgColor(0xf99f1b);
+        Button btn= new Button("valider");
+    loc.addActionListener(l->{
+        new Map(res,id).show();
+    });
+    btn.addActionListener(l->{
+       if(new ColisService().pickup(id,adresse.getText()+" "+ville.getText()+" "+code_postal.getText()))
+       Dialog.show("Information", "Votre lieu de recuperation a ete enregistre ", "OK", null);
+       else 
+       Dialog.show("ERREUR", "Servor Error", "OK", null);
+                  
+    });
+    this.addAll(adresse,ville,code_postal,loc,btn);
 //    btn.addActionListener(l->{
 //              
 //             Dialog.show("Felicitation", "Votre Colis sera Affecté a cette voiture", "OK", null);

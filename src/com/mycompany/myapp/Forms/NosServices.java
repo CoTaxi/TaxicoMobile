@@ -62,11 +62,29 @@ public class NosServices extends BaseForm {
         super.installSidemenu(res);
         
         Tabs swipe = new Tabs();
-
+        swipe.getStyle().setFgColor(0xfffffff);
         Label spacer1 = new Label();
         Label spacer2 = new Label();
+        Label spacer3 = new Label();
+        Label spacer4 = new Label();
+        Label spacer5 = new Label();
+        Label spacer6 = new Label();
+        Label spacer7 = new Label();
+        Label spacer8 = new Label();
+        Label spacer9 = new Label();
+        Label spacer10 = new Label();
         addTab(swipe, res.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
         addTab(swipe, res.getImage("bg.png"), spacer2, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("maintenance2.png"),spacer4, "", "","");
+        addTab(swipe, res.getImage("maintenance3.png"),spacer5, "", "","");
+        addTab(swipe, res.getImage("maintenance1.png"),spacer3, "", "","");
+        addTab(swipe, res.getImage("reclamation0.png"),spacer6, "", "","");
+        addTab(swipe, res.getImage("reclamation1.png"),spacer9, "", "","");
+        addTab(swipe, res.getImage("coli0.png"),spacer7, "", "","");
+        addTab(swipe, res.getImage("coli1.png"),spacer8, "", "","");
+        addTab(swipe, res.getImage("vec001.png"),spacer10, "", "","");
+        ;
+       
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();
