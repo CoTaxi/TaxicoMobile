@@ -52,15 +52,16 @@ public class NewsfeedForm extends BaseForm {
         Label fromSelected = new Label();
         final Label toSelected = new Label();
         Button search = new Button();
-        Image img1 = res.getImage("mark2.png");
-        Image img = res.getImage("mark1.png");
+        Image img1 = res.getImage("marker2.png");
+        Image img = res.getImage("marker1.png");
         int height = Display.getInstance().convertToPixels(10f);
         int width = Display.getInstance().convertToPixels(10f);
         from.getHintLabel().setUIID("FromToTextFieldHint");
         from.setUIID("FromToTextField");
         to.getHintLabel().setUIID("FromToTextFieldHint");
         to.setUIID("FromToTextField");
-        Container navigationToolbar = BoxLayout.encloseY(back, BorderLayout.centerCenterEastWest(from, new Label(img.fill(width, height)), fromSelected), BorderLayout.centerCenterEastWest(to, new Label(img1.fill(width, height)), toSelected),BorderLayout.centerCenterEastWest(null, new Button("Trouver Un Taxi"),search));
+        Container navigationToolbar = new Container();
+        navigationToolbar = BoxLayout.encloseY(back, BorderLayout.centerCenterEastWest(from, new Label(img.fill(width, height)), fromSelected), BorderLayout.centerCenterEastWest(to, new Label(img1.fill(width, height)), toSelected),BorderLayout.centerCenterEastWest(null, new Button("Trouver Un Taxi"),search));
         navigationToolbar.setUIID("WhereToToolbar");
         navigationToolbar.getUnselectedStyle().setBgPainter((g1, rect) -> {
             g1.setAlpha(255);
@@ -86,9 +87,9 @@ public class NewsfeedForm extends BaseForm {
         Button searchcov = new Button();
         Button searchcolis = new Button();
         Container dep1 = BorderLayout.centerEastWest(Depart1, new Label(img.fill(width, height)), null);
-//        Container dest1 = BorderLayout.centerEastWest(Destination1, new Label(img.fill(width, height)), null);
-//        Container dep2 = BorderLayout.centerEastWest(Depart2, new Label(img.fill(width, height)), null);
-//        Container dest2 = BorderLayout.centerEastWest(Destination2, new Label(img.fill(width, height)), null);
+        Container dest1 = BorderLayout.centerEastWest(Destination1, new Label(img.fill(width, height)), null);
+        Container dep2 = BorderLayout.centerEastWest(Depart2, new Label(img.fill(width, height)), null);
+        Container dest2 = BorderLayout.centerEastWest(Destination2, new Label(img.fill(width, height)), null);
        
         Tabs swipe = new Tabs();
 
@@ -120,10 +121,10 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(cnt1);
             this.removeComponent(cnt2);
             this.removeComponent(dep1);
-//            this.removeComponent(dest1);
+            this.removeComponent(dest1);
             this.removeComponent(searchcolis);
-//            this.removeComponent(dep2);
-//            this.removeComponent(dest2);
+            this.removeComponent(dep2);
+            this.removeComponent(dest2);
             this.removeComponent(searchcov);
             searchtaxi.setText("Trouver Taxi");
             this.addAll(from,to,searchtaxi);
@@ -141,11 +142,11 @@ public class NewsfeedForm extends BaseForm {
         this.removeComponent(from);
         this.removeComponent(to);
         this.removeComponent(searchtaxi);
-//        this.removeComponent(dep2);
-//        this.removeComponent(dest2);
+        this.removeComponent(dep2);
+        this.removeComponent(dest2);
         this.removeComponent(searchcov);
         searchcolis.setText("Envoyer Colis");
-        this.addAll(dep1,searchcolis);
+        this.addAll(dep1,dest1,searchcolis);
         this.refreshTheme();
             }
         });
@@ -163,10 +164,10 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(to);
             this.removeComponent(searchtaxi);
             this.removeComponent(dep1);
-//            this.removeComponent(dest1);
+            this.removeComponent(dest1);
             this.removeComponent(searchcolis);
-//            this.removeComponent(dep2);
-//            this.removeComponent(dest2);
+            this.removeComponent(dep2);
+            this.removeComponent(dest2);
             this.removeComponent(searchcov);
             this.addAll(cnt,cnt1,cnt2);
             this.refreshTheme();
@@ -184,10 +185,10 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(to);
             this.removeComponent(searchtaxi);
             this.removeComponent(dep1);
-//            this.removeComponent(dest1);
+            this.removeComponent(dest1);
             this.removeComponent(searchcolis);
             searchcov.setText("Trouver Co-Voiturage");
-            this.addAll(searchcov);
+            this.addAll(dep2,dest2,searchcov);
             this.refreshTheme();
             }
         });
@@ -219,7 +220,7 @@ public class NewsfeedForm extends BaseForm {
         }
         ScaleImageLabel image = new ScaleImageLabel(img);
         image.setUIID("Container");
-        image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+        image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FIT);
         Label overlay = new Label(" ", "ImageOverlay");
         
         Container page1 = 
