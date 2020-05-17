@@ -50,7 +50,17 @@ public class ChForm extends BaseForm{
             mBtn.setTextLine1 (ListU.get(i).getNom());
             mBtn.setTextLine2(ListU.get(i).getPrenom());
             mBtn.setTextLine3 (ListU.get(i).getEmail());
+             String n = ListU.get(i).getNom();
+            String p = ListU.get(i).getPrenom();
+            String e =  ListU.get(i).getEmail();
+            int id = List.get(0).getId();
+            int idCommande = ListC.get(0).getIdCommande();
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_COMMENT);
+            mBtn.addActionListener(zzz->{
+                
+                new RdvService().doing(ListC.get(0).getIdCommande());
+                new Chdetail(this, n, p, e,id,idCommande).show();
+            });
             OnOffSwitch dispo = new OnOffSwitch();
         dispo.setOff("Non");
         dispo.setOn("Oui");
