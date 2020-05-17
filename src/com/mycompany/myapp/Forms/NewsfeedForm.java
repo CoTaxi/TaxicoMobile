@@ -1,21 +1,4 @@
-/*
- * Copyright (c) 2016, Codename One
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
- * documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
- * and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions 
- * of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
- * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
- */
+
 
 package com.mycompany.myapp.Forms;
 
@@ -45,6 +28,8 @@ import com.codename1.ui.util.Resources;
 import com.esprit.pidev.forms.colis.AjoutColis;
 import com.esprit.pidev.forms.vehicule.FindTaxi;
 
+
+
 /**
  * The newsfeed form
  *
@@ -58,8 +43,8 @@ public class NewsfeedForm extends BaseForm {
         setUIID("Maps");
         super.installSidemenu(res);
         //--------------------
-        final Container layer = getLayeredPane(MapForm.class, true);
-        Button back = new Button("", "TitleCommand");
+        Container layer = new Container();
+        Button back = new Button("TitleCommand");
         //FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK);
         TextField from = new TextField("", "Choisir un point de départ", 40, TextField.ANY);
         TextField to = new TextField("", "Choisir un point de destination", 40, TextField.ANY);
@@ -75,7 +60,7 @@ public class NewsfeedForm extends BaseForm {
         from.setUIID("FromToTextField");
         to.getHintLabel().setUIID("FromToTextFieldHint");
         to.setUIID("FromToTextField");
-        Container navigationToolbar = BoxLayout.encloseY(back, BorderLayout.centerCenterEastWest(from, new Label(img.fill(width, height)), fromSelected), BorderLayout.centerCenterEastWest(to, new Label(img1.fill(width, height)), toSelected),BorderLayout.centerCenterEastWest(null, new Button("Trouver Un Taxi"), search));
+        Container navigationToolbar = BoxLayout.encloseY(back, BorderLayout.centerCenterEastWest(from, new Label(img.fill(width, height)), fromSelected), BorderLayout.centerCenterEastWest(to, new Label(img1.fill(width, height)), toSelected),BorderLayout.centerCenterEastWest(null, new Button("Trouver Un Taxi"),search));
         navigationToolbar.setUIID("WhereToToolbar");
         navigationToolbar.getUnselectedStyle().setBgPainter((g1, rect) -> {
             g1.setAlpha(255);
@@ -101,9 +86,9 @@ public class NewsfeedForm extends BaseForm {
         Button searchcov = new Button();
         Button searchcolis = new Button();
         Container dep1 = BorderLayout.centerEastWest(Depart1, new Label(img.fill(width, height)), null);
-        Container dest1 = BorderLayout.centerEastWest(Destination1, new Label(img.fill(width, height)), null);
-        Container dep2 = BorderLayout.centerEastWest(Depart2, new Label(img.fill(width, height)), null);
-        Container dest2 = BorderLayout.centerEastWest(Destination2, new Label(img.fill(width, height)), null);
+//        Container dest1 = BorderLayout.centerEastWest(Destination1, new Label(img.fill(width, height)), null);
+//        Container dep2 = BorderLayout.centerEastWest(Depart2, new Label(img.fill(width, height)), null);
+//        Container dest2 = BorderLayout.centerEastWest(Destination2, new Label(img.fill(width, height)), null);
        
         Tabs swipe = new Tabs();
 
@@ -135,10 +120,10 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(cnt1);
             this.removeComponent(cnt2);
             this.removeComponent(dep1);
-            this.removeComponent(dest1);
+//            this.removeComponent(dest1);
             this.removeComponent(searchcolis);
-            this.removeComponent(dep2);
-            this.removeComponent(dest2);
+//            this.removeComponent(dep2);
+//            this.removeComponent(dest2);
             this.removeComponent(searchcov);
             searchtaxi.setText("Trouver Taxi");
             this.addAll(from,to,searchtaxi);
@@ -156,11 +141,11 @@ public class NewsfeedForm extends BaseForm {
         this.removeComponent(from);
         this.removeComponent(to);
         this.removeComponent(searchtaxi);
-        this.removeComponent(dep2);
-        this.removeComponent(dest2);
+//        this.removeComponent(dep2);
+//        this.removeComponent(dest2);
         this.removeComponent(searchcov);
         searchcolis.setText("Envoyer Colis");
-        this.addAll(dep1,dest1,searchcolis);
+        this.addAll(dep1,searchcolis);
         this.refreshTheme();
             }
         });
@@ -178,10 +163,10 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(to);
             this.removeComponent(searchtaxi);
             this.removeComponent(dep1);
-            this.removeComponent(dest1);
+//            this.removeComponent(dest1);
             this.removeComponent(searchcolis);
-            this.removeComponent(dep2);
-            this.removeComponent(dest2);
+//            this.removeComponent(dep2);
+//            this.removeComponent(dest2);
             this.removeComponent(searchcov);
             this.addAll(cnt,cnt1,cnt2);
             this.refreshTheme();
@@ -199,10 +184,10 @@ public class NewsfeedForm extends BaseForm {
             this.removeComponent(to);
             this.removeComponent(searchtaxi);
             this.removeComponent(dep1);
-            this.removeComponent(dest1);
+//            this.removeComponent(dest1);
             this.removeComponent(searchcolis);
             searchcov.setText("Trouver Co-Voiturage");
-            this.addAll(dep2,dest2,searchcov);
+            this.addAll(searchcov);
             this.refreshTheme();
             }
         });
