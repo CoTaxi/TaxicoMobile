@@ -25,6 +25,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
+import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.Toolbar;
@@ -131,6 +132,13 @@ public class ListeDemandes extends BaseForm
         mb.addActionListener(col->{
             new Demande(id,matricule,res).show();
         });
+        int height = Display.getInstance().convertToPixels(9f);
+        int width = Display.getInstance().convertToPixels(10f);
+        Button button= new Button("hi");
+        Label loblob = new Label(res.getImage("logo.png").fill(width, height));
+        SwipeableContainer sousou=  new SwipeableContainer(loblob, mb);
+
+        content.addAll(sousou);
         
 //        mb.addActionListener(new ActionListener() {
 //            @Override
@@ -155,20 +163,25 @@ public class ListeDemandes extends BaseForm
         {
             if(Listtrie.get(i).getEtat()!=3)
             {
-                Button btn = new Button();
-            FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
         mb.setTextLine1("🗺 Traget: "+Listtrie.get(i).getDepart()+"➡"+Listtrie.get(i).getDestination());
         mb.setTextLine2("🔠 Poids: "+String.valueOf(Listtrie.get(i).getPoids()));
         mb.setTextLine3("👨 Client: "+String.valueOf(Listtrie.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(Listtrie.get(i).getIdC()));
-        btn.addActionListener(new ActionListener() {
+        mb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
              new Demande(Integer.valueOf(mb.getTextLine4()),matricule,res).show();
             }
         });
-        content1.addAll(mb,btn);        
+        int height = Display.getInstance().convertToPixels(9f);
+        int width = Display.getInstance().convertToPixels(10f);
+        Button button= new Button("hi");
+        Label loblob = new Label(res.getImage("logo.png").fill(width, height));
+        SwipeableContainer sousou=  new SwipeableContainer(loblob, mb);
+
+        content1.addAll(sousou);
+       // content1.addAll(mb,btn);        
       
             }
 
