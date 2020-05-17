@@ -48,7 +48,7 @@ import java.util.ArrayList;
 public class ReclamationListForm extends BaseForm {
 
     public ReclamationListForm(Resources theme) {
-       super("Liste Des Reclamations", BoxLayout.y());
+       super("Liste Des Réclamations", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
 //        tb.addCommandToLeftBar("Return", null, (evt) -> {

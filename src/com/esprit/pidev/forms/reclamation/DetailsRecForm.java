@@ -48,14 +48,14 @@ public class DetailsRecForm extends BaseForm{
  
     
     public DetailsRecForm(Resources theme,String respond, int id, String state){
-       super("Ajouter Reclamation", BoxLayout.y());
+       super("Modifer votre réclamation", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//         //  new ColisForm(res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Vehicule");
+        //setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(theme);

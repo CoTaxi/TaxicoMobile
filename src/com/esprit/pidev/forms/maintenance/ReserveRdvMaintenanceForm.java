@@ -67,15 +67,14 @@ public class ReserveRdvMaintenanceForm extends BaseForm
                 super("Ajouter Rdv", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//         //  new ColisForm(res).show();
+//        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Maintenance");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+//        tb.addSearchCommand(e -> {});
         
         Tabs swipe = new Tabs();
 
@@ -125,12 +124,8 @@ public class ReserveRdvMaintenanceForm extends BaseForm
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton featured = RadioButton.createToggle("Maintenance", barGroup);
         featured.setUIID("SelectBar");
-//-----------------------------------------------------------------------------------
-        //        TextField tfidRdv = new TextField(null, "Entrer id du Rdv");
-//        TextField tfStatus = new TextField(null, "Status (disponible or nondisponible)");
-//        TextField tfidRdv = new TextField(null, "Entrer id du Rdv");
-//        TextField tfStatus = new TextField(null, "Status (disponible or nondisponible)");
-Label l = new Label();
+
+        Label l = new Label();
         ComboBox cbService= new ComboBox();
         ComboBox cbGarage= new ComboBox();
         cbGarage.getStyle().setMarginTop(30);

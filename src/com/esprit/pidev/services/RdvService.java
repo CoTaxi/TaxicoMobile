@@ -83,7 +83,51 @@ public ArrayList<Rdv> getAllRdvsReserved() {
 
         return rdvs;
     }
+public void updateDispo(int iddispo,int id) {
+        String url = Statics.BASE_URL + "/T/updatevec/"+id+"?dispo="+iddispo;
 
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+//        return responseResult;
+    }
+ public void doing(int id) {
+        String url = Statics.BASE_URL + "/T/doing/"+id;
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+//        return responseResult;
+    }
+ public void done(int id) {
+        String url = Statics.BASE_URL + "/T/done/"+id;
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+//        return responseResult;
+    }
 
 
 public ArrayList<Rdv> FindRdvsSelected(String date) {

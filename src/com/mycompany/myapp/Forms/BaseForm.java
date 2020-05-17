@@ -93,11 +93,11 @@ public class BaseForm extends Form {
                         new Label(res1.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
         ));
         if(Statics.type.equals("client"))
-        {
-        tb.addMaterialCommandToSideMenu("Nos Services", FontImage.MATERIAL_UPDATE, e -> new NosServices(res1).show());
-        tb.addMaterialCommandToSideMenu("Mes Colis", FontImage.MATERIAL_UPDATE, e -> new AfficherColis(res1).show());
-        tb.addMaterialCommandToSideMenu("Raclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
-        tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res1).show());
+        {    
+        tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> new ProfileForm(res1).show());    
+        tb.addMaterialCommandToSideMenu("Nos Services", FontImage.MATERIAL_MESSAGE, e -> new NosServices(res1).show());
+        tb.addMaterialCommandToSideMenu("Mes Colis", FontImage.MATERIAL_MESSAGE, e -> new AfficherColis(res1).show());
+        tb.addMaterialCommandToSideMenu("Réclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
         tb.addMaterialCommandToSideMenu("Inbox", FontImage.MATERIAL_UPDATE, e -> new InboxForm(res1).show());
         tb.addMaterialCommandToSideMenu("Trending", FontImage.MATERIAL_SETTINGS, e -> new TrendingForm(res1).show());
         tb.addMaterialCommandToSideMenu("Statistique", FontImage.MATERIAL_SETTINGS, e -> new ChartDemosForm().show());
