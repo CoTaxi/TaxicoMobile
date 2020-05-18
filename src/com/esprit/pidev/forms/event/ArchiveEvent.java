@@ -54,10 +54,10 @@ import java.util.ArrayList;
  *
  * @author ASUS
  */
-public class AfficherEvent extends BaseForm
+public class ArchiveEvent extends BaseForm
 {
 
-    public AfficherEvent(Resources res) 
+    public ArchiveEvent(Resources res) 
     {
         super("Afficher Evennement", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
@@ -123,13 +123,13 @@ public class AfficherEvent extends BaseForm
 
       //-------------------------------------------------------------------------------
       
-        Button passe = new Button("Consulter Les evennements Passes");
+        Button passe = new Button("Retour vers Evenement");
         Container content1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         content1.setScrollableY(true);    
         ArrayList<Event> List = new EventService().getAllEvents();
         System.out.println(List.size());
     for (int i = 0; i < List.size(); i++) 
-    {    if(List.get(i).getEtat()==0)
+    {      if(List.get(i).getEtat()==1)
     {
         System.out.println("---nom---"+List.get(i).getNom());
         final MultiButton mb = new MultiButton();
@@ -146,7 +146,8 @@ public class AfficherEvent extends BaseForm
        content1.addAll(mb);
     }
     }
-    passe.addActionListener(l->{
+
+        passe.addActionListener(l->{
         new ArchiveEvent(res).show();
     });
        this.addAll(content1,passe);

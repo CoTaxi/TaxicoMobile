@@ -181,6 +181,14 @@ public class ListeDemandes extends BaseForm
             if(Listtrie.get(i).getEtat()!=3)
             {
         final MultiButton mb = new MultiButton();
+        Button btn_ed = new Button();
+        Button btn_del = new Button();
+        FontImage.setMaterialIcon(btn_ed, FontImage.MATERIAL_EDIT);
+        FontImage.setMaterialIcon(btn_del, FontImage.MATERIAL_DELETE_OUTLINE);
+        Container cntr = new Container(new FlowLayout());
+        Container cntr1 = new Container(new FlowLayout());
+        cntr.add(btn_ed);
+        cntr1.add(btn_del);
         mb.setTextLine1("🗺 Traget: "+Listtrie.get(i).getDepart()+"➡"+Listtrie.get(i).getDestination());
         mb.setTextLine2("🔠 Poids: "+String.valueOf(Listtrie.get(i).getPoids()));
         mb.setTextLine3("👨 Client: "+String.valueOf(Listtrie.get(i).getNomExpediteur()));
@@ -191,14 +199,23 @@ public class ListeDemandes extends BaseForm
              new Demande(Integer.valueOf(mb.getTextLine4()),matricule,res).show();
             }
         });
-        int height = Display.getInstance().convertToPixels(9f);
-        int width = Display.getInstance().convertToPixels(10f);
-        Button button= new Button("hi");
-        Label loblob = new Label(res.getImage("logo.png").fill(width, height));
-        SwipeableContainer sousou=  new SwipeableContainer(loblob, mb);
-
-        content1.addAll(sousou);
-       // content1.addAll(mb,btn);        
+        int id=Listtrie.get(i).getIdC();
+        SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mb);
+        content.addComponent(sousou);
+        btn_ed.addActionListener(m->{
+              new ModifierColis(id,res).show();
+            });
+            btn_del.addActionListener(e->{
+                if( new ColisService().deletecolis(id))
+                {
+                    ToastBar.showInfoMessage("Votre Colis  est supprimée avec succé");
+                }else{
+                    ToastBar.showErrorMessage("Erreur de suppression");
+                }
+               // mBtn.remove();
+                sousou.remove();
+                this.refreshTheme();
+            });    
       
             }
 
