@@ -33,6 +33,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.reclamation.ReclamationListForm;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.services.ServicesVehicule;
 import com.mycompany.myapp.Forms.BaseForm;
@@ -49,20 +50,42 @@ public class AjoutVehicule extends BaseForm
         super("Ajouter Vehicule", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
+
+
+        tb.addCommandToLeftBar("Return", null, (evt) -> {
+         //  new ColisForm(res).show();
+        });  
+//        
+        
+        
+        //this.getStyle().setBgImage(res.getImage("bag.png"));
+
         getTitleArea().setUIID("Container");
         //setTitle("TaxiCo-Vehicule");
+
+        getTitleArea().setUIID("Container");
+
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
+
+       tb.addCommandToRightBar("Return", null, (evt) -> {
+       //page tsawer
+
          tb.addCommandToRightBar("Return", null, (evt) -> {
          new VehiculeForm(res).showBack();
+
         });
         
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
+
+        addTab(swipe, res.getImage("vec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+
         addTab(swipe, res.getImage("vehicule.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+
         addTab(swipe, res.getImage("vec2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
