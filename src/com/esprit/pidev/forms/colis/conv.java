@@ -25,27 +25,37 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.models.User;
+import com.esprit.pidev.services.UserService;
+import com.esprit.pidev.utils.Statics;
+import com.mycompany.myapp.Forms.BaseForm;
 import com.mycompany.myapp.Forms.Chat;
 import com.mycompany.myapp.Forms.TTS;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
  * @author ASUS
  */
-public class conv
+public class conv extends BaseForm
 {
     private String userName;
-    private Image userPicture;
+    private Image userPicture,AgentPicture;
     private Form current;
     private TTS tts;
-    private Resources theme;
-    public conv() {
+    private Resources theme,theme1;
+    public conv() 
+    {
+        super("Chat", BoxLayout.y());
         theme = UIManager.initFirstTheme("/theme");
-
+        theme1 = UIManager.initFirstTheme("/theme_2");
         // Enable Toolbar on all Forms by default
-        Toolbar.setGlobalToolbar(true);
-        userPicture = theme.getImage("duke_iphone.png");
+
+        userPicture = theme1.getImage("profile-pic.jpg");
+        int height = Display.getInstance().convertToPixels(9f);
+        int width = Display.getInstance().convertToPixels(10f);
+        AgentPicture = theme1.getImage("logo.png").fill(width, height);
         tts = (TTS)NativeLookup.create(TTS.class);
          showSbaitso();
     }
@@ -93,9 +103,14 @@ public class conv
         Form sb = new Form(new BorderLayout());
         sb.setFormBottomPaddingEditingMode(true);
         Toolbar t = sb.getToolbar();
+        setToolbar(t);
+        getContentPane().setScrollVisible(false);
+        
+        super.installSidemenu(theme1);
         final TextField searchField = new TextField("", "Search For Answers...", 20, TextField.ANY);
         t.setTitleComponent(searchField);
-        final TextField ask = new TextField("", "Ask The Dr.", 20, TextField.ANY);
+        final TextField ask = new TextField("", "Ask The Agent.", 20, TextField.ANY);
+        ask.getStyle().setFgColor(0x000000);
         Button askButton = new Button("Ask");
         final Container discussion = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         
@@ -107,7 +122,9 @@ public class conv
 
         sb.show();
         Display.getInstance().callSerially(() -> {
-            String w = "HELLO " + userName +", MY NAME IS DOCTOR SBAITSO.\n\nI AM HERE TO HELP YOU.\n" +
+            
+        ArrayList<User> us = new UserService().lastcnx(Statics.sessionID);
+            String w = "HELLO " + us.get(0).getUsername() +", MY NAME IS Agent M From TaxiCo Team.\n\nI AM HERE TO HELP YOU.\n" +
                     "SAY WHATEVER IS IN YOUR MIND FREELY," +
                     "OUR CONVERSATION WILL BE KEPT IN STRICT CONFIDENCE.\n" +
                     "MEMORY CONTENTS WILL BE WIPED OFF AFTER YOU LEAVE.";
@@ -117,6 +134,7 @@ public class conv
             }
         });
         searchField.addDataChangeListener(createSearchListener(searchField, discussion, askButton));
+        searchField.getStyle().setFgColor(0x000000);
         ActionListener askEvent = (e) -> {
             String t1 = ask.getText();
             if (t1.length() > 0) {
@@ -152,6 +170,8 @@ public class conv
         } else {
             t.setY(0);
             t.setTextUIID("BubbleSbaitso");
+            t.setIconPosition(BorderLayout.WEST);
+            t.setIcon(AgentPicture);
             t.setTextBlockAlign(Component.LEFT);
         }
         destination.add(t);

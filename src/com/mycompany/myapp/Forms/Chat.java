@@ -23,15 +23,25 @@
 
 package com.mycompany.myapp.Forms;
 
+import com.codename1.ui.Toolbar;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.codename1.util.StringUtil;
+import com.esprit.pidev.forms.reclamation.AjoutRec;
+import com.esprit.pidev.models.User;
+import com.esprit.pidev.services.UserService;
+import com.esprit.pidev.utils.Statics;
+import java.util.ArrayList;
 import java.util.List;
-
+import com.esprit.pidev.forms.reclamation.AjoutRec;
 /**
  * Placed most of the logic here to avoid crowding the main file with nonsense 
  * 
  * @author Shai Almog
  */
-public class Chat {
+public class Chat 
+{
+    
     private static Chat instance = new Chat();
     private static final String[] BAD_WORDS = {"fuck", "sex"};
     
@@ -46,19 +56,30 @@ public class Chat {
     }
 
     private String getResponseToQuestion(String question) {
+        Resources theme1 = UIManager.initFirstTheme("/theme_2");
+        ArrayList<User> us = new UserService().lastcnx(Statics.sessionID);
         if(has(question, BAD_WORDS)) {
             return CANT_ABIDE_SUCH_LANGUAGE;
         }
         
-        if(question.startsWith("please")) {
+        if(question.startsWith("bonjour")) 
+        {
+            return "Bonjour "+us.get(0).getUsername()+", je vous remercie de m’avoir contacté. Comment puis-je vous aider ?";
+        }
+        else if(question.startsWith("please")) {
             return "You don't have to be so polite";
         }
-        
+        if(question.contains("merci")) {
+            return "Je suis ravie d'avoir pu vous aider..A La Prochaine ♡";
+        }
+        if(question.contains("reclamation")) {
+           return "Nous vous prions de nous excuser de cet incident... Vous Pouvez Deposer Votre Reclamation Et On la Traitera Le Plus Tot Possible";
+        }
         if(question.startsWith("say ")) {
             return question.substring(4);
         }
         
-        if(question.length() < 6) {
+        if(question.length() < 3) {
             return TOO_LITTLE_DATA_PLEASE_TELL_ME_MORE;
         }
         
