@@ -6,6 +6,7 @@
 package com.esprit.pidev.forms.maintenance;
 import com.codename1.admob.AdMobManager;
 import com.codename1.components.InfiniteProgress;
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -26,6 +27,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -144,7 +146,22 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
         System.out.println(date1);
 //        System.out.println(date);
         btnR.addActionListener(es->{
-            if (date1.getTime()-date2.getTime()<0){
+            InteractionDialog dialogverif = new InteractionDialog("Hello");
+            Container c = new Container(new BorderLayout());
+            
+dialogverif.setLayout(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+            if (date1.getTime()-date2.getTime()>0){
             if (new RdvService().annulerRdv(r)) {
                 Dialog.show("SUCCESS", "Rdv annuler", "OK", null);
                 mBtn.remove();
@@ -157,9 +174,11 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
             } else {
                 Dialog.show("ERROR", "Date est depasser", "OK", null);
             }
-                
-        });
-        InfiniteProgress.setDefaultMaterialDesignMode(true);
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
+ });        
+InfiniteProgress.setDefaultMaterialDesignMode(true);
 //            SwipeableContainer swip = new SwipeableContainer(btn,mBtn);
 listRec.addAll(mBtn,btnR);
     } catch (ParseException ex) {
