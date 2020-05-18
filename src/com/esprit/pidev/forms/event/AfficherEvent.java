@@ -132,9 +132,9 @@ public class AfficherEvent extends BaseForm
     {
         System.out.println("---nom---"+List.get(i).getNom());
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("Nom Evennement : "+List.get(i).getNom());
-        mb.setTextLine2("Duree : "+String.valueOf(List.get(i).getDuree()));
-        mb.setTextLine3("Emplacement : "+List.get(i).getEmplacement());
+        mb.setTextLine1("🔠 Nom Evennement : "+List.get(i).getNom());
+        mb.setTextLine2("⏳ Duree : "+String.valueOf(List.get(i).getDuree()));
+        mb.setTextLine3("🗺 Emplacement : "+List.get(i).getEmplacement());
         mb.setTextLine4(Integer.toString(List.get(i).getId()));
         mb.addActionListener(new ActionListener() {
             @Override

@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * @author walid
  */
 public class Chdetail extends Form{
-    private Resources theme_2;
+//    private Resources theme_2;
     public Chdetail(Form previous,String t1,String t2,String t3,int id,int idCommande){
       super("Ch list", new BorderLayout());
 //      this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);

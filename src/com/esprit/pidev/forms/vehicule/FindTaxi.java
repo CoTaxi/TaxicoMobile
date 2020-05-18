@@ -46,8 +46,7 @@ public class FindTaxi extends BaseForm {
                 int width = Display.getInstance().convertToPixels(10f);
                 Label lab1 = new Label(us.get(0).getUsername()+"-"+us.get(0).getEmail());
                 lab1.getStyle().setFgColor(0xffffff);
-
-                accr.addContent(BoxLayout.encloseY(new Label(res.getImage("noslog2.png").fill(width, height)), lab1), BoxLayout.encloseXCenter(new Label(List.get(i).getMarque()), new TextField(List.get(i).getCouleur()), book, new CheckBox("CheckBox")));
+                //accr.addContent(BoxLayout.encloseY(new Label(res.getImage("noslog2.png").fill(width, height)), lab1), BoxLayout.encloseXCenter(new Label(List.get(i).getMarque()), new TextField(List.get(i).getCouleur()), book, new CheckBox("CheckBox")));
 
                 //accr.addContent(BoxLayout.encloseY(new Label(res.getImage("noslog2.png").fill(width, height)),lab1),BoxLayout.encloseXCenter(new Label("Position : "+List.get(i).getPosition()), new Label("Modele : "+List.get(i).getMarque()+" , "+List.get(i).getModele()),new Label("Tarif : " +i*10 ), new Button("Reserver")));
                 accr.addContent(BoxLayout.encloseY(new Label(res.getImage("noslog2.png").fill(width, height)),lab1), BoxLayout.encloseY(new Label("Position : "+List.get(i).getPosition()), new Label("Modele : "+List.get(i).getMarque()+" , "+List.get(i).getModele()),new Label("Tarif : " +(i+1)*10+" dt" ), new Button("Reserver")));
@@ -78,7 +77,7 @@ public class FindTaxi extends BaseForm {
 
         this.getToolbar().addCommandToOverflowMenu("Mode jour", res.getImage("back-command.png"), e -> {
             this.refreshTheme();
-            this.getStyle().setBgImage(res.getImage("day0.png"));
+            this.getStyle().setBgImage(res.getImage("day0000.png"));
             this.refreshTheme();
 
         });

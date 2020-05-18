@@ -95,9 +95,10 @@ public class BaseForm extends Form {
         if(Statics.type.equals("client"))
         {    
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> new ProfileForm(res1).show());    
-        tb.addMaterialCommandToSideMenu("Nos Services", FontImage.MATERIAL_MESSAGE, e -> new NosServices(res1).show());
+        tb.addMaterialCommandToSideMenu("Nos Services", FontImage.MATERIAL_SHOP, e -> new NosServices(res1).show());
         tb.addMaterialCommandToSideMenu("Mes Colis", FontImage.MATERIAL_MESSAGE, e -> new AfficherColis(res1).show());
-        tb.addMaterialCommandToSideMenu("Réclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
+        tb.addMaterialCommandToSideMenu("Réclamation", FontImage.MATERIAL_PUBLISH, e -> new ReclamationForm(res1).show());
+        tb.addMaterialCommandToSideMenu("Statistique", FontImage.MATERIAL_SETTINGS, e -> new ChartDemosForm().show());
         tb.addMaterialCommandToSideMenu("Help", FontImage.MATERIAL_SETTINGS, e -> new conv());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res1).show());
         }

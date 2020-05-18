@@ -133,7 +133,7 @@ public class ListeVoituresForm extends BaseForm
         mb.setTextLine2("🗺 "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
         mb.setTextLine4("🔠 "+List.get(i).getMatricule());
         String matricule = List.get(i).getMatricule();
-         btn.addActionListener(new ActionListener() {
+         mb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
              new ListeDemandes(matricule,res).show();
