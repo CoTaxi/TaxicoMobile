@@ -20,6 +20,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
+import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
@@ -33,8 +34,10 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.forum.ModifierBlog;
 import com.esprit.pidev.models.Colis;
 import com.esprit.pidev.services.ColisService;
+import com.esprit.pidev.services.ForumService;
 import com.esprit.pidev.utils.Statics;
 import com.mycompany.myapp.Forms.BaseForm;
 import java.util.ArrayList;
@@ -146,6 +149,14 @@ public class AfficherColis extends BaseForm {
         this.refreshTheme();
         for (int i = 0; i < search.size(); i++) {
         final MultiButton mb = new MultiButton();
+        Button btn_edit = new Button();
+        Button btn_delete = new Button();
+            FontImage.setMaterialIcon(btn_edit, FontImage.MATERIAL_EDIT);
+            FontImage.setMaterialIcon(btn_delete, FontImage.MATERIAL_DELETE_OUTLINE);
+        Container cntr = new Container(new FlowLayout());
+        Container cntr1 = new Container(new FlowLayout());
+        cntr.add(btn_edit);
+        cntr1.add(btn_delete);
         mb.setTextLine1("🗺 Traget: "+search.get(i).getDepart()+"➡"+search.get(i).getDestination());
         mb.setTextLine2("🔢 Poids: "+String.valueOf(search.get(i).getPoids()));
         mb.setTextLine3("👨 Client: "+String.valueOf(search.get(i).getNomExpediteur()));
@@ -156,8 +167,23 @@ public class AfficherColis extends BaseForm {
              new ShowDetailsColis(Integer.valueOf(mb.getTextLine4()),res).show();
             }
         });
-        content.addAll(mb);
-        
+        int id=search.get(i).getIdC();
+        SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mb);
+        content.addComponent(sousou);
+        btn_edit.addActionListener(l->{
+              new ModifierColis(id,res).show();
+            });
+            btn_delete.addActionListener(l->{
+                if( new ColisService().deletecolis(id))
+                {
+                    ToastBar.showInfoMessage("Votre Colis  est supprimée avec succé");
+                }else{
+                    ToastBar.showErrorMessage("Erreur de suppression");
+                }
+               // mBtn.remove();
+                sousou.remove();
+                this.refreshTheme();
+            });
         this.refreshTheme();
 }
         
@@ -172,6 +198,14 @@ tb.addCommandToRightBar("", searchIcon, (e) -> {
 
 for (int i = 0; i < List.size(); i++) {
         final MultiButton mb = new MultiButton();
+        Button btn_edit = new Button();
+        Button btn_delete = new Button();
+            FontImage.setMaterialIcon(btn_edit, FontImage.MATERIAL_EDIT);
+            FontImage.setMaterialIcon(btn_delete, FontImage.MATERIAL_DELETE_OUTLINE);
+        Container cntr = new Container(new FlowLayout());
+        Container cntr1 = new Container(new FlowLayout());
+        cntr.add(btn_edit);
+        cntr1.add(btn_delete);
         mb.setTextLine1("🗺 Traget : "+List.get(i).getDepart()+" ➡ "+List.get(i).getDestination());
         mb.setTextLine2("🔢 Poids : "+String.valueOf(List.get(i).getPoids()));
         mb.setTextLine3("👨 Client : "+String.valueOf(List.get(i).getNomExpediteur()));
@@ -182,7 +216,24 @@ for (int i = 0; i < List.size(); i++) {
             new ShowDetailsColis(Integer.valueOf(mb.getTextLine4()),res).show();
             }
         });
-       content1.addAll(mb);
+    
+        int id=List.get(i).getIdC();
+        SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mb);
+        content1.addComponent(sousou);
+        btn_edit.addActionListener(l->{
+              new ModifierColis(id,res).show();
+            });
+            btn_delete.addActionListener(l->{
+                if( new ColisService().deletecolis(id))
+                {
+                    ToastBar.showInfoMessage("Votre Colis  est supprimée avec succé");
+                }else{
+                    ToastBar.showErrorMessage("Erreur de suppression");
+                }
+               // mBtn.remove();
+                sousou.remove();
+                this.refreshTheme();
+            });
 }
 
        this.add(content1);

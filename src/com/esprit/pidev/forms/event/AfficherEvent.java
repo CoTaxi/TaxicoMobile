@@ -129,10 +129,11 @@ public class AfficherEvent extends BaseForm
         ArrayList<Event> List = new EventService().getAllEvents();
         System.out.println(List.size());
     for (int i = 0; i < List.size(); i++) 
+    {    if(List.get(i).getEtat()==0)
     {
         System.out.println("---nom---"+List.get(i).getNom());
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("🔠 Nom Evennement : "+List.get(i).getNom());
+        mb.setTextLine1("🔠 Nom : "+List.get(i).getNom());
         mb.setTextLine2("⏳ Duree : "+String.valueOf(List.get(i).getDuree()));
         mb.setTextLine3("🗺 Emplacement : "+List.get(i).getEmplacement());
         mb.setTextLine4(Integer.toString(List.get(i).getId()));
@@ -144,7 +145,10 @@ public class AfficherEvent extends BaseForm
         });
        content1.addAll(mb);
     }
-
+    }
+    passe.addActionListener(l->{
+        new ArchiveEvent(res).show();
+    });
        this.addAll(content1,passe);
       
       

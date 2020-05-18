@@ -13,6 +13,7 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
+import com.esprit.pidev.models.Colis;
 import com.esprit.pidev.models.Forum;
 import com.esprit.pidev.utils.DataSource;
 import com.esprit.pidev.utils.Statics;
@@ -35,8 +36,8 @@ public class ForumService {
         request = DataSource.getInstance().getRequest();
     }
 
-    public boolean addForum(Forum f) {
-        String url = Statics.BASE_URL+"/Event/new?title="+f.getTitle()+"&content="+ f.getContent()+"&image="+ f.getImage();
+    public boolean addForum(Forum f,int id) {
+        String url = Statics.BASE_URL+"/F/newblog/"+id+"?title="+f.getTitle()+"&content="+ f.getContent()+"&image="+ f.getImage();
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -52,7 +53,7 @@ public class ForumService {
     }
 
     public ArrayList<Forum> getAllEvents() {
-        String url = Statics.BASE_URL + "/Event/all";
+        String url = Statics.BASE_URL + "/F/allblog";
 
         request.setUrl(url);
         request.setPost(false);
@@ -67,7 +68,37 @@ public class ForumService {
 
         return forums;
     }
+    public boolean deleteForm(String Id)
+     {
+      String url = Statics.BASE_URL + "/F/Supprimerblog/"+Id;
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+    return responseResult;
+    }
+     public boolean modifycolis(String Id,Forum f)
+     {
+      String url = Statics.BASE_URL + "/F/Modifierblog/"+Id+"?title="+f.getTitle()+"&content="+ f.getContent()+"&image="+ f.getImage();
 
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
     public ArrayList<Forum> parseForums(String jsonText) {
       
         try {
@@ -83,7 +114,8 @@ public class ForumService {
                 String title = obj.get("title").toString();
                 String Content = obj.get("content").toString();
                 String image = obj.get("image").toString();
-                forums.add(new Forum(title,Content,image));
+                int iduser = (int)Float.parseFloat(obj.get("user").toString());
+                forums.add(new Forum(title,Content,image,iduser));
                 
             }
         } catch (IOException ex) {

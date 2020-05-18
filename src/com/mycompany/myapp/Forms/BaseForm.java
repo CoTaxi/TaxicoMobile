@@ -19,6 +19,7 @@
 
 package com.mycompany.myapp.Forms;
 
+import com.esprit.pidev.forms.user.ProfileForm;
 import com.esprit.pidev.forms.colis.conv;
 import com.esprit.pidev.forms.user.SignInForm;
 import com.codename1.components.ScaleImageLabel;
@@ -41,6 +42,8 @@ import com.codename1.ui.util.Resources;
 import com.esprit.pidev.forms.maintenance.MaintenanceForm;
 import com.esprit.pidev.forms.colis.AfficherColis;
 import com.esprit.pidev.forms.colis.ListeVoituresForm;
+import com.esprit.pidev.forms.event.AfficherEvent;
+import com.esprit.pidev.forms.forum.AfficherBlog;
 import com.esprit.pidev.forms.reclamation.ReclamationForm;
 import com.esprit.pidev.forms.user.Lastcnx;
 import com.esprit.pidev.forms.vehicule.AfficherVehicule;
@@ -99,16 +102,20 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Nos Services", FontImage.MATERIAL_SHOP, e -> new NosServices(res1).show());
         tb.addMaterialCommandToSideMenu("Mes Colis", FontImage.MATERIAL_MESSAGE, e -> new AfficherColis(res1).show());
         tb.addMaterialCommandToSideMenu("Réclamation", FontImage.MATERIAL_PUBLISH, e -> new ReclamationForm(res1).show());
-        tb.addMaterialCommandToSideMenu("Statistique", FontImage.MATERIAL_SETTINGS, e -> new ChartDemosForm().show());
+        tb.addMaterialCommandToSideMenu("Evennement", FontImage.MATERIAL_PUBLISH, e -> new AfficherEvent(res1).show());
+        tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_PUBLISH, e -> new AfficherBlog(res1).show());
         tb.addMaterialCommandToSideMenu("Help", FontImage.MATERIAL_SETTINGS, e -> new conv());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res1).show());
         }
         if(Statics.type.equals("chauffeur"))
         {
+       tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> new ProfileForm(res1).show());    
        tb.addMaterialCommandToSideMenu("Gestion Colis", FontImage.MATERIAL_UPDATE, e -> new ListeVoituresForm(res1).show());
        tb.addMaterialCommandToSideMenu("Mes Vehicule", FontImage.MATERIAL_UPDATE, e -> new AfficherVehicule(res1).show());
        tb.addMaterialCommandToSideMenu("Raclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
        tb.addMaterialCommandToSideMenu("Service Maintenance", FontImage.MATERIAL_UPDATE, e -> new MaintenanceForm(res1).show());
+       tb.addMaterialCommandToSideMenu("Evennement", FontImage.MATERIAL_PUBLISH, e -> new AfficherEvent(res1).show());
+       tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_PUBLISH, e -> new AfficherBlog(res1).show());
        tb.addMaterialCommandToSideMenu("Help", FontImage.MATERIAL_SETTINGS, e -> new conv());
        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e ->new WalkthruForm(res1).show());
 //       {
