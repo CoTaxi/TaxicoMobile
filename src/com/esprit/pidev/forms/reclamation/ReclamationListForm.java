@@ -57,6 +57,8 @@ public class ReclamationListForm extends BaseForm {
         getTitleArea().setUIID("Container");
 //        setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
+        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(theme.getImage("bag.png"));
         
         super.installSidemenu(theme);
 

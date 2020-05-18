@@ -68,7 +68,8 @@ public class AfficherEvent extends BaseForm
         getTitleArea().setUIID("Container");
         setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
-        
+        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(res.getImage("bag.png"));
         super.installSidemenu(res);
         tb.addSearchCommand(e -> {});
         

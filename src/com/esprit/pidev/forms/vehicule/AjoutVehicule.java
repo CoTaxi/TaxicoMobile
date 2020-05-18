@@ -52,8 +52,12 @@ public class AjoutVehicule extends BaseForm
         tb.addCommandToLeftBar("Return", null, (evt) -> {
          //  new ColisForm(res).show();
         });  
+//        
+        
+        
+        //this.getStyle().setBgImage(res.getImage("bag.png"));
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Vehicule");
+        //setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -155,6 +159,7 @@ public class AjoutVehicule extends BaseForm
                         if (ServicesVehicule.getInstance().addvehicule(t)) {
                             Dialog.show("Success", "Connection accepted", new Command("OK"));
                             new AfficherVehicule(res).show();
+                            new ServicesVehicule().Notification();
                         } else {
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                         }

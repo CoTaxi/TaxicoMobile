@@ -10,6 +10,8 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.notifications.LocalNotification;
+import com.codename1.ui.Display;
 import com.codename1.ui.events.ActionListener;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.utils.Statics;
@@ -283,6 +285,25 @@ public class ServicesVehicule {
         NetworkManager.getInstance().addToQueueAndWait(req);
 
         return resultOK;
-    }   
+    }
+        
+        
+public void Notification(){
+        LocalNotification n = new LocalNotification();
+        n.setId("demo-notification");
+        n.setAlertBody("✔✔ Votre véhicule a été ajouté avec succé ✅✅");
+        n.setAlertTitle("Ajout véhicule 🚗");
+        n.setAlertSound("/notification_sound_beep-01a.mp3");
+            // alert sound file name must begin with notification_sound
+
+        Display.getInstance().scheduleLocalNotification(
+                n,
+                System.currentTimeMillis() + 10 * 1000, // fire date/time
+                LocalNotification.REPEAT_MINUTE  // Whether to repeat and what frequency
+        );
+    }
+    public void localNotificationReceived(String notificationId){
+        
+    }
 
 }
