@@ -27,11 +27,11 @@ import java.util.ArrayList;
  * @author walid
  */
 public class Chdetail extends Form{
-//    private Resources theme_2;
+ com.codename1.ui.util.Resources res;
     public Chdetail(Form previous,String t1,String t2,String t3,int id,int idCommande){
       super("Ch list", new BorderLayout());
-//      this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
-//        this.setBgImage(theme_2.getImage("bg.png"));
+      this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(res.getImage("bg.png"));
         Container listRec = new Container(BoxLayout.y());
         listRec.setScrollableY(true);
             MultiButton mBtn = new MultiButton();
