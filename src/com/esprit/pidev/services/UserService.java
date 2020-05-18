@@ -237,7 +237,7 @@ public class UserService {
                 String prenom = obj.get("prenom").toString();
                 String username = obj.get("username").toString();
                 String email = obj.get("email").toString();
-                String password = obj.get("password").toString();
+                String password = obj.get("mdp").toString();
                 
                 client.add(new User(nom,prenom,username,email,password));
             }

@@ -128,8 +128,6 @@ public class ListeVoituresForm extends BaseForm
         ArrayList<Vehicule> List = new ServicesVehicule().toutvec();
        for (int i=0;i<List.size();i++)
        {
-        Button btn = new Button();
-        FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
         mb.setTextLine1("🚖 Modele : "+List.get(i).getMarque()+" , "+List.get(i).getModele());
         mb.setTextLine2("🗺 Traget : "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
@@ -141,7 +139,7 @@ public class ListeVoituresForm extends BaseForm
              new ListeDemandes(matricule,res).show();
             }
         });
-        this.addAll(mb,btn);
+        this.addAll(mb);
         
        }
        this.setScrollableY(true);

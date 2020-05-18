@@ -6,6 +6,7 @@
 package com.esprit.pidev.forms.user;
 
 import com.codename1.components.FloatingHint;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
 import com.codename1.ui.Container;
@@ -90,6 +91,8 @@ public class SignUpFormUser1 extends BaseForm {
        // check.addActionListener(e -> new ActivateForm(resourceObjectInstance,resourceObjectInstance1).show());
         create.addActionListener(l->{
             //************call register service method ************
+            if(passwordTF.getText().equals(password2TF.getText()))
+            {
            if(new UserService().register(prenom,nom,numT,emailTF.getText(),usernameTF.getText(),dtn,0,0,0,passwordTF.getText(),"client"))
            {
                Dialog.show("SUCCESS", "Bienvenu Dans La Famille TaxiCo", "OK", null);
@@ -101,6 +104,11 @@ public class SignUpFormUser1 extends BaseForm {
            }
             System.out.println(prenom);
             System.out.println(dtn);
+            }
+            else 
+            {
+                ToastBar.showErrorMessage("Mot De Passe Invalide");
+            }
         });
         retourn.addActionListener(l->{
             new SignUpForm(res, prenom, nom, numT, dtn).showBack();

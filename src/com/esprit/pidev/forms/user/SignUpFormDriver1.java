@@ -100,6 +100,8 @@ public class SignUpFormDriver1 extends BaseForm {
         });
         
         valid.addActionListener(v->{
+            if(passwordTF.getText().equals(password2TF.getText()))
+            {
            if(new UserService().register(prenom,nom,numT,email,usernameTF.getText(),dtn,permis,Integer.valueOf(expTF.getText()),Integer.valueOf(ribTF.getText()),passwordTF.getText(),"chauffeur"))
            {
                Dialog.show("SUCCESS", "Bienvenu Dans La Famille TaxiCo", "OK", null);
@@ -109,6 +111,7 @@ public class SignUpFormDriver1 extends BaseForm {
            {
                Dialog.show("ERROR", "Server error", "OK", null);
            }
+            }
         });
         
         signIn1.addActionListener(sign->{

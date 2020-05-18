@@ -45,6 +45,7 @@ import com.esprit.pidev.forms.colis.AfficherColis;
 import com.esprit.pidev.forms.colis.ListeVoituresForm;
 import com.esprit.pidev.forms.event.AfficherEvent;
 import com.esprit.pidev.forms.event.eventForm;
+import com.esprit.pidev.forms.forum.AcceuilBlogForm;
 import com.esprit.pidev.forms.forum.AfficherBlog;
 import com.esprit.pidev.forms.maintenance.ChForm;
 import com.esprit.pidev.forms.reclamation.ReclamationForm;
@@ -107,7 +108,7 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Mes Colis", FontImage.MATERIAL_MESSAGE, e -> new NosServices(res1).show());
         tb.addMaterialCommandToSideMenu("Réclamation", FontImage.MATERIAL_PUBLISH, e -> new ReclamationForm(res1).show());
         tb.addMaterialCommandToSideMenu("Evennement", FontImage.MATERIAL_PUBLISH, e -> new eventForm(res1).show());
-        tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_PUBLISH, e -> new AfficherBlog(res1).show());
+        tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_PUBLISH, e -> new AcceuilBlogForm(res1).show());
         tb.addMaterialCommandToSideMenu("Help", FontImage.MATERIAL_SETTINGS, e -> new conv());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res1).show());
         }
@@ -120,7 +121,7 @@ public class BaseForm extends Form {
        tb.addMaterialCommandToSideMenu("Raclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
        tb.addMaterialCommandToSideMenu("Service Maintenance", FontImage.MATERIAL_UPDATE, e -> new MaintenanceForm(res1).show());
        tb.addMaterialCommandToSideMenu("Evennement", FontImage.MATERIAL_PUBLISH, e -> new eventForm(res1).show());
-       tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_PUBLISH, e -> new AfficherBlog(res1).show());
+       tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_PUBLISH, e -> new AcceuilBlogForm(res1).show());
        tb.addMaterialCommandToSideMenu("Help", FontImage.MATERIAL_SETTINGS, e -> new conv());
        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e ->new WalkthruForm(res1).show());
 //       {

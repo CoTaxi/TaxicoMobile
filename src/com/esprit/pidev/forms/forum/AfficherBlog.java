@@ -57,7 +57,7 @@ public class AfficherBlog extends BaseForm
         
         super.installSidemenu(res);
         tb.addCommandToRightBar("Return", null, (evt) -> {
-         //page tsawer
+         new AcceuilBlogForm(res).showBack();
         });  
         
         Tabs swipe = new Tabs();

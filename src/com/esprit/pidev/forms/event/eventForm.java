@@ -43,7 +43,7 @@ public class eventForm extends BaseForm {
         
         this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
         this.setBgImage(res.getImage("bag.png"));
-        addButton(res.getImage("viewevent.jpg"), "Afficher events",res);
+        addButton(res.getImage("consulterevent.png"), "Afficher events",res);
         //addButton(res.getImage("consulterrdv.png"), "Liste des rendez-vous",res);
     }
     

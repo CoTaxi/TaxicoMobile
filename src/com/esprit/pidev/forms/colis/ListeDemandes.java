@@ -121,8 +121,7 @@ public class ListeDemandes extends BaseForm
    //content1.setScrollableY(true);
         for (int i = 0; i < List.size(); i++) 
         {
-            if(List.get(i).getEtat()!=3)
-            {
+            
                 
         //FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
@@ -192,7 +191,7 @@ InfiniteProgress.setDefaultMaterialDesignMode(true);
 //            }
 //        }); 
       
-            }
+            
 
         }
         content.revalidate();
