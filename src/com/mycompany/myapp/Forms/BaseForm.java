@@ -98,10 +98,8 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Nos Services", FontImage.MATERIAL_SHOP, e -> new NosServices(res1).show());
         tb.addMaterialCommandToSideMenu("Mes Colis", FontImage.MATERIAL_MESSAGE, e -> new AfficherColis(res1).show());
         tb.addMaterialCommandToSideMenu("Réclamation", FontImage.MATERIAL_PUBLISH, e -> new ReclamationForm(res1).show());
-        tb.addMaterialCommandToSideMenu("Inbox", FontImage.MATERIAL_UPDATE, e -> new InboxForm(res1).show());
-        tb.addMaterialCommandToSideMenu("Trending", FontImage.MATERIAL_SETTINGS, e -> new TrendingForm(res1).show());
         tb.addMaterialCommandToSideMenu("Statistique", FontImage.MATERIAL_SETTINGS, e -> new ChartDemosForm().show());
-        tb.addMaterialCommandToSideMenu("Chat Box", FontImage.MATERIAL_SETTINGS, e -> new conv());
+        tb.addMaterialCommandToSideMenu("Help", FontImage.MATERIAL_SETTINGS, e -> new conv());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res1).show());
         }
         if(Statics.type.equals("chauffeur"))
@@ -109,7 +107,8 @@ public class BaseForm extends Form {
        tb.addMaterialCommandToSideMenu("Gestion Colis", FontImage.MATERIAL_UPDATE, e -> new ListeVoituresForm(res1).show());
        tb.addMaterialCommandToSideMenu("Mes Vehicule", FontImage.MATERIAL_UPDATE, e -> new AfficherVehicule(res1).show());
        tb.addMaterialCommandToSideMenu("Raclamation", FontImage.MATERIAL_UPDATE, e -> new ReclamationForm(res1).show());
-        tb.addMaterialCommandToSideMenu("Service Maintenance", FontImage.MATERIAL_UPDATE, e -> new MaintenanceForm(res1).show());
+       tb.addMaterialCommandToSideMenu("Service Maintenance", FontImage.MATERIAL_UPDATE, e -> new MaintenanceForm(res1).show());
+       tb.addMaterialCommandToSideMenu("Help", FontImage.MATERIAL_SETTINGS, e -> new conv());
        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e ->new WalkthruForm(res1).show());
 //       {
 //           
