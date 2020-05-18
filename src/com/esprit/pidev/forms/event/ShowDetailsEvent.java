@@ -31,6 +31,7 @@ import com.codename1.ui.util.Resources;
 import com.esprit.pidev.forms.colis.AffecterColis;
 import com.esprit.pidev.forms.colis.AfficherColis;
 import com.esprit.pidev.forms.colis.ModifierColis;
+import com.esprit.pidev.forms.colis.ShowDetailsColis;
 import com.esprit.pidev.models.Colis;
 import com.esprit.pidev.models.Event;
 import com.esprit.pidev.models.User;
@@ -58,11 +59,12 @@ public class ShowDetailsEvent extends BaseForm
            new AfficherColis(res).show();
         });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+          new AfficherEvent(res).showBack();
+        });  
         
         Tabs swipe = new Tabs();
 

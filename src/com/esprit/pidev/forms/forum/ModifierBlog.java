@@ -53,14 +53,13 @@ public class ModifierBlog extends BaseForm
         super("Modifier Blog", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-//        tb.addCommandToLeftBar("Return", null, (evt) -> {
-//         //  new ColisForm(res).show();
-//        });  
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+         tb.addCommandToRightBar("Return", null, (evt) -> {
+          new BlogForm(res,id,t,c,im).showBack();
+        });  
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();

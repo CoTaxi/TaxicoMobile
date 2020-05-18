@@ -50,16 +50,14 @@ public class BlogForm extends BaseForm
                 super("Afficher Blog", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
         getTitleArea().setUIID("Container");
         setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
-        
+         tb.addCommandToRightBar("Return", null, (evt) -> {
+          new AfficherBlog(res).showBack();
+        });  
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();

@@ -48,16 +48,15 @@ public class pickuplocation extends BaseForm
     {
         super("Pick Up Location", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
-        setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-        //   new ShowDetailsColis(Id,res).show();
-        });  
+        setToolbar(tb); 
         getTitleArea().setUIID("Container");
         setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+          new ShowDetailsColis(id,res).show();
+        });  
         
         Tabs swipe = new Tabs();
 

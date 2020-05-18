@@ -54,15 +54,15 @@ public class ModifierColis extends BaseForm
         super("Modifier Colis", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-           new ShowDetailsColis(Id,res).show();
-        });  
+         
         getTitleArea().setUIID("Container");
         setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           new ShowDetailsColis(Id,res).show();
+        });  
         
         Tabs swipe = new Tabs();
 

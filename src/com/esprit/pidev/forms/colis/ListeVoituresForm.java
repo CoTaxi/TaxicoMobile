@@ -63,7 +63,9 @@ public class ListeVoituresForm extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           //tsawer page
+        });  
         
         Tabs swipe = new Tabs();
 
@@ -129,9 +131,9 @@ public class ListeVoituresForm extends BaseForm
         Button btn = new Button();
         FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("🚖 "+List.get(i).getMarque()+" , "+List.get(i).getModele());
-        mb.setTextLine2("🗺 "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
-        mb.setTextLine4("🔠 "+List.get(i).getMatricule());
+        mb.setTextLine1("🚖 Modele : "+List.get(i).getMarque()+" , "+List.get(i).getModele());
+        mb.setTextLine2("🗺 Traget : "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
+        mb.setTextLine4("🔠 Matricule : "+List.get(i).getMatricule());
         String matricule = List.get(i).getMatricule();
          mb.addActionListener(new ActionListener() {
             @Override

@@ -53,7 +53,9 @@ public class ShowDetailsColis extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           new AfficherColis(res).showBack();
+        });  
         
         Tabs swipe = new Tabs();
 

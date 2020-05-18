@@ -58,15 +58,14 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
             admob.loadAndShow();
             
             Toolbar tb = new Toolbar(true);
-        setToolbar(tb);
-//        tb.addCommandToLeftBar("Return", null, (evt) -> {
-//         //  new ColisForm(res).show();
-//        });  
+        setToolbar(tb); 
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(theme);
-
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         //page tsawer
+        });
         
         Tabs swipe = new Tabs();
 
@@ -176,8 +175,12 @@ dialogverif.dispose();
             }
          }); 
 Dimension pre = dialogverif.getContentPane().getPreferredSize();
-dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
- });        
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+dialogverif.show(top, bottom, height, width);
+});        
 InfiniteProgress.setDefaultMaterialDesignMode(true);
 //            SwipeableContainer swip = new SwipeableContainer(btn,mBtn);
 listRec.addAll(mBtn,btnR);

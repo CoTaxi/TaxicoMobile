@@ -19,12 +19,14 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.reclamation.ReclamationListForm;
 import com.esprit.pidev.models.User;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.services.ServicesVehicule;
 import com.esprit.pidev.services.UserService;
 import com.esprit.pidev.utils.Statics;
 import com.mycompany.myapp.Forms.BaseForm;
+import com.mycompany.myapp.Forms.NewsfeedForm;
 import java.util.ArrayList;
 
 public class FindTaxi extends BaseForm {
@@ -36,6 +38,13 @@ public class FindTaxi extends BaseForm {
         MultiButton mb = new MultiButton("taxi");
         ArrayList<Vehicule> List = new ServicesVehicule().findPosition(depart, "taxi");
         super.installSidemenu(res);
+        Toolbar tb = new Toolbar(true);
+        setToolbar(tb);
+        getTitleArea().setUIID("Container");
+        getContentPane().setScrollVisible(false);
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         new NewsfeedForm(res).show();
+        });
         this.setScrollableY(true);
         if (List.size() > 0) {
             for (int i = 0; i < List.size(); i++) {
