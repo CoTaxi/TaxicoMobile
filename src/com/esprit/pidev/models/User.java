@@ -58,6 +58,14 @@ public class User {
         this.username_canonical = username_canonical;
     }
 
+    public User(String nom, String prenom, String username, String email, String mdp) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.username = username;
+        this.email = email;
+        this.mdp = mdp;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -103,6 +111,13 @@ public class User {
 
     public String getSalt() {
         return salt;
+    }
+
+    public User(String nom, String prenom, String email, String password) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = email;
+        this.mdp = password;
     }
 
     public void setSalt(String salt) {

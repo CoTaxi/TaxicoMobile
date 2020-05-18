@@ -50,7 +50,7 @@ public class AjoutColis extends BaseForm
 
     public AjoutColis(Resources res) 
     {
-              super("Ajouter Colis", BoxLayout.y());
+        super("Ajouter Colis", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
 //        tb.addCommandToLeftBar("Return", null, (evt) -> {
@@ -61,7 +61,6 @@ public class AjoutColis extends BaseForm
         
         super.installSidemenu(res);
         tb.addSearchCommand(e -> {});
-        
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();

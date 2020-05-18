@@ -22,6 +22,11 @@ public class Commande {
     public Commande() {
     }
 
+    public Commande(int client,int idCommande) {
+        this.client = client;
+        this.idCommande = idCommande;
+    }
+
     public Commande(int client) {
         this.client = client;
     }
