@@ -97,6 +97,15 @@ public class User {
         this.email = email;
         this.prenom=prenom;
     }
+    public User(int id, String nom, String prenom, String email,int tel,String naissance) {
+        this.id = id;
+        this.nom = nom;
+        this.email = email;
+        this.prenom=prenom;
+        this.tel=tel;
+        this.naissance=naissance;
+    }
+    
     public void setEmail_canonical(String email_canonical) {
         this.email_canonical = email_canonical;
     }
