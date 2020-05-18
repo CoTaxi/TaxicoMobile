@@ -58,12 +58,12 @@ public class User {
         this.username_canonical = username_canonical;
     }
 
-    public User(String nom, String prenom, String username, String email, String password) {
+    public User(String nom, String prenom, String username, String email, String mdp) {
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.mdp = mdp;
     }
 
     public String getEmail() {
