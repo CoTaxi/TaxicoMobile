@@ -98,7 +98,7 @@ public class ServicesVehicule {
                 v.setCouleur(obj.get("couleur").toString());
                 v.setPlaces(((int) Float.parseFloat(obj.get("places").toString())));
                 v.setType(obj.get("type").toString());
-//                v.setDispo(((int)Float.parseFloat(obj.get("dispo").toString())));
+                v.setDispo(((int)Float.parseFloat(obj.get("dispo").toString())));
                 v.setUser(((int)Float.parseFloat(obj.get("user").toString())));
                 v.setPosition(obj.get("position").toString());
                 v.setDestination(obj.get("destination").toString());
