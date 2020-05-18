@@ -93,6 +93,22 @@ public class UserService {
 
         return responseResult;
     }
+    public boolean EditProfile(String prenom, String nom, String email, String username, String pwd) {
+        String url = Statics.BASE_URL+"/T/EditProfile/"+Statics.sessionID+"?prenom="+prenom+"&nom="+nom+
+                "&email="+email+"&usern="+username+"&pwd="+pwd;
+        
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
     public ArrayList<User> getAllTasks() {
         String url = Statics.BASE_URL +"/T/listJson";
 
@@ -167,6 +183,22 @@ public class UserService {
 
         return client;
     }
+     public ArrayList<User> getProfile() {
+        String url = Statics.BASE_URL + "/T/profile/"+ Statics.sessionID;
+
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                client = parseProfile(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return client;
+    }
  public ArrayList<User> parseClient(String jsonText) {
         try {
             client = new ArrayList<>();
@@ -181,6 +213,31 @@ public class UserService {
                 String prenom = obj.get("prenom").toString();
                 String email = obj.get("email").toString();
                 client.add(new User(id,nom,prenom,email));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return client;
+    }
+ 
+ public ArrayList<User> parseProfile(String jsonText) {
+        try {
+            client = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+//                int id = (int)Float.parseFloat(obj.get("id").toString());
+                String nom = obj.get("nom").toString();
+                String prenom = obj.get("prenom").toString();
+                String username = obj.get("username").toString();
+                String email = obj.get("email").toString();
+                String password = obj.get("password").toString();
+                
+                client.add(new User(nom,prenom,username,email,password));
             }
 
         } catch (IOException ex) {
