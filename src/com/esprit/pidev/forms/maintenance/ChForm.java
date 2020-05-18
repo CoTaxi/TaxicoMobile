@@ -46,7 +46,7 @@ public class ChForm extends BaseForm{
         super("Ch list", new BorderLayout());
         Accordion accr = new Accordion();
         this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
-        this.setBgImage(res.getImage("chform.jpg"));
+        this.setBgImage(res.getImage("chform2.jpg"));
         ArrayList<Vehicule> List2 = new ServicesVehicule().getPosition();
                     Button actualiser = new Button("Actualiser");
                     int height = Display.getInstance().convertToPixels(9f);
@@ -67,7 +67,7 @@ public class ChForm extends BaseForm{
                     }
                     });
 //                    this.add(BorderLayout.CENTER,accr);
-        Container listRec = new Container(BoxLayout.y());
+        Container listRec = new Container();
         listRec.setScrollableY(true);
         Button btn = new Button("Annuler");
         ArrayList<Vehicule> List = new ServicesVehicule().getReservedCar();
@@ -86,6 +86,8 @@ public class ChForm extends BaseForm{
              String n = ListU.get(i).getNom();
             String p = ListU.get(i).getPrenom();
             String e =  ListU.get(i).getEmail();
+            int tel =  ListU.get(i).getTel();
+            String naissance =  ListU.get(i).getNaissance();
             int id = List.get(0).getId();
             int idCommande = ListC.get(0).getIdCommande();
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_COMMENT);
@@ -93,12 +95,12 @@ public class ChForm extends BaseForm{
             mBtn.addActionListener(zzz->{
                 
                 new RdvService().doing(ListC.get(0).getIdCommande());
-                new Chdetail(this, n, p, e,id,idCommande).show();
+                new Chdetail(res,this, n, p, e,id,idCommande,tel,naissance).show();
             });
             OnOffSwitch dispo = new OnOffSwitch();
             CheckBox ckdispo = new CheckBox();
             
-        ckdispo.setText("Dispo et/ou nn");
+        ckdispo.setText("Disponible ?");
 //        ckdispo.getStyle().setBgColor(0x);
         dispo.setOff("Non");
         dispo.setOn("Oui");
@@ -131,9 +133,10 @@ public class ChForm extends BaseForm{
             cntr.add(ckdispo);
             
 //            cntr.getStyle().setBgTransparency(100);
-            SwipeableContainer sousou=  new SwipeableContainer(cntr, mBtn);
+//            SwipeableContainer sousou=  new SwipeableContainer(cntr, mBtn);
 //            listRec.addAll(sousou);
-            listRec.addAll(mBtn,cntr);
+            listRec.add(mBtn);
+            listRec.add(cntr);
             
 
             
