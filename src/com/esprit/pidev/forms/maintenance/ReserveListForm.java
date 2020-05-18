@@ -59,14 +59,15 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
             admob.loadAndShow();
             
             Toolbar tb = new Toolbar(true);
-        setToolbar(tb); 
+        setToolbar(tb);
+//        tb.addCommandToLeftBar("Return", null, (evt) -> {
+//         //  new ColisForm(res).show();
+//        });  
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(theme);
-        tb.addCommandToRightBar("Return", null, (evt) -> {
-         //page tsawer
-        });
+
         
         Tabs swipe = new Tabs();
 
@@ -183,20 +184,14 @@ dialogverif.dispose();
         });
 
 Dimension pre = dialogverif.getContentPane().getPreferredSize();
-<<<<<<< HEAD
 int height = Display.getInstance().convertToPixels(9f);
 int width = Display.getInstance().convertToPixels(10f);
 int top = Display.getInstance().convertToPixels(95f);
 int bottom = Display.getInstance().convertToPixels(0f);
 dialogverif.show(top, bottom, height, width);
-});        
-InfiniteProgress.setDefaultMaterialDesignMode(true);
-=======
-dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
-//dialogverif.show(TOP, BOTTOM, LEFT, RIGHT);
+
 }); 
         InfiniteProgress.setDefaultMaterialDesignMode(true);
->>>>>>> 1841cba8c0284d194c4d17d830700e73e3f3749b
 //            SwipeableContainer swip = new SwipeableContainer(btn,mBtn);
         
             } catch (ParseException ex) {
