@@ -105,18 +105,18 @@ public class ReclamationListForm extends BaseForm {
         
         Component.setSameSize(radioContainer, spacer1, spacer2);
         add(LayeredLayout.encloseIn(swipe, radioContainer));
-        
+        //Container content1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         ButtonGroup barGroup = new ButtonGroup();
         Button btn = new Button();
         RadioButton featured = RadioButton.createToggle("Reclamation", barGroup);
         featured.setUIID("SelectBar");
-            Container listRec = new Container(BoxLayout.y());
+            Container listRec = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         //listRec.setScrollableY(true);
         //listRec.setScrollableX(true);
+        
         ArrayList<Reclamation> List = new ReclamationServices().getAllRec();
         for (int i = 0; i<List.size(); i++) {
-            Button btnR = new Button();
-            FontImage.setMaterialIcon(btnR, FontImage.MATERIAL_DELETE);
+
             MultiButton mBtn = new MultiButton("Réc n°"+i+":");
             mBtn.setTextLine1(List.get(i).getType());
             mBtn.setTextLine2(List.get(i).getMessage());
@@ -126,21 +126,36 @@ public class ReclamationListForm extends BaseForm {
             String state = List.get(i).getEtat();
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_COMMENT);
             int id = List.get(i).getId_reclamation();
-            listRec.addAll(mBtn,btnR);
-            btnR.addActionListener(r->{
+            
+            Button btn_edit = new Button();
+            Button btn_delete = new Button();
+            FontImage.setMaterialIcon(btn_edit, FontImage.MATERIAL_EDIT);
+            FontImage.setMaterialIcon(btn_delete, FontImage.MATERIAL_DELETE_OUTLINE);
+            Container cntr = new Container(new FlowLayout());
+            Container cntr1 = new Container(new FlowLayout());
+            cntr.add(btn_edit);
+            cntr1.add(btn_delete);
+            SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mBtn);
+            listRec.addAll(sousou);
+                
+                btn_edit.addActionListener(al->{
+                new DetailsRecForm(theme, res, id, state).show();
+                });
+                
+                btn_delete.addActionListener(r->{
                 if(new ReclamationServices().deleterec(id))
                 {
                     ToastBar.showInfoMessage("Votre réclamation est supprimée avec succé");
                 }else{
                     ToastBar.showErrorMessage("Erreur de suppression");
                 }
-                mBtn.remove();
-                btnR.remove();
+               // mBtn.remove();
+                sousou.remove();
                 this.refreshTheme();
             });
             
             mBtn.addActionListener(al->{
-                new DetailsRecForm(theme, res, id, state).show();
+            new DetailsRecForm(theme, res, id, state).show();
             });   
         }
         System.out.println(Statics.sessionID);

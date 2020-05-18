@@ -24,6 +24,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
+import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextComponent;
 import com.codename1.ui.TextField;
@@ -48,7 +49,7 @@ public class AfficherVehicule extends BaseForm
 
     public AfficherVehicule(Resources res) 
     {
-       super("Ajouter Reclamation", BoxLayout.y());
+       super("Liste Des Véhicules", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         tb.addCommandToLeftBar("Return", null, (evt) -> {
@@ -110,39 +111,47 @@ public class AfficherVehicule extends BaseForm
         RadioButton featured = RadioButton.createToggle("Reclamation", barGroup);
         featured.setUIID("SelectBar");
 
-        Container listvec = new Container(BoxLayout.y());
-        listvec.setScrollableY(true);
+        Container listvec = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        //listvec.setScrollableY(true);
         ArrayList<Vehicule> List = new ServicesVehicule().getAllVehicules();
         for (int i = 0; i < List.size(); i++) {
             int id = List.get(i).getId();
             MultiButton mBtn = new MultiButton("vec n°" + i + ":");
-            mBtn.setTextLine1(List.get(i).getMatricule());
-            mBtn.setTextLine2(List.get(i).getCartegrise());
-            Button btndel = new Button();
-            FontImage.setMaterialIcon(btndel, FontImage.MATERIAL_DELETE_SWEEP);
+            mBtn.setTextLine1("🔢 "+List.get(i).getMatricule());
+            mBtn.setTextLine2("📰 "+List.get(i).getCartegrise());
+            // Button btn_edit = new Button();
+            Button btn_delete = new Button();
             Button btnup = new Button();
+            //FontImage.setMaterialIcon(btn_edit, FontImage.MATERIAL_EDIT);
+            FontImage.setMaterialIcon(btn_delete, FontImage.MATERIAL_DELETE_OUTLINE);
             FontImage.setMaterialIcon(btnup, FontImage.MATERIAL_UPDATE);
+            Container cntr = new Container(new FlowLayout());
+            Container cntr1 = new Container(new FlowLayout());
+            cntr.add(btn_delete);
+            cntr1.add(btnup);
+
+            SwipeableContainer sousou=  new SwipeableContainer(cntr1,cntr, mBtn);
+        
             Label lp = new Label(List.get(i).getPosition());
             Label ld = new Label(List.get(i).getDestination());
             Label lmodele = new Label(List.get(i).getModele());
             Label lmarque = new Label(List.get(i).getMarque());
-            FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_ADD_LOCATION);
-            listvec.addAll(mBtn, btndel, btnup);
+           // FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_ADD_LOCATION);
+            listvec.addAll(sousou);
             mBtn.addActionListener(al -> {
 
                 Dialog.show("Vehicule:", "Position : " + lp.getText() + " \n Destination: : " + ld.getText() + " \n Marque : " + lmarque.getText() + " \n Modele : " + lmodele.getText(), "Ok", null);
 
             });
-            btndel.addActionListener(r -> {
+            btn_delete.addActionListener(r -> {
                 if (new ServicesVehicule().deletevehicule(id)) {
+                   sousou.remove();
+                    this.refreshTheme();
                     ToastBar.showInfoMessage("Suppression avec succès");
                 } else {
                     ToastBar.showErrorMessage("Erreur de suppression");
                 }
-                mBtn.remove();
-                btndel.remove();
-                btnup.remove();
-                this.refreshTheme();
+                
             });
 
             btnup.addActionListener(update -> {
@@ -186,6 +195,7 @@ public class AfficherVehicule extends BaseForm
             new AjoutVehicule(res).show();
         });
         this.addAll(listvec,ajout);
+        this.setScrollableY(true);
         this.show();
 //               getToolbar().addCommandToOverflowMenu("Vérifier", null, new ActionListener() {
 //

@@ -172,8 +172,8 @@ tb.addCommandToRightBar("", searchIcon, (e) -> {
 
 for (int i = 0; i < List.size(); i++) {
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("🧭 Traget : "+List.get(i).getDepart()+" ➡ "+List.get(i).getDestination());
-        mb.setTextLine2("🧳 Poids : "+String.valueOf(List.get(i).getPoids()));
+        mb.setTextLine1("🗺 Traget : "+List.get(i).getDepart()+" ➡ "+List.get(i).getDestination());
+        mb.setTextLine2("🔢 Poids : "+String.valueOf(List.get(i).getPoids()));
         mb.setTextLine3("👨 Client : "+String.valueOf(List.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(List.get(i).getIdC()));
         mb.addActionListener(new ActionListener() {
