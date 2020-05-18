@@ -20,8 +20,11 @@
 package com.mycompany.myapp.Forms;
 
 import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.ToastBar;
+import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
 import com.codename1.ui.Component;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -34,6 +37,9 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.models.User;
+import com.esprit.pidev.services.UserService;
+import java.util.ArrayList;
 
 /**
  * The user profile form
@@ -72,16 +78,31 @@ public class ProfileForm extends BaseForm {
                     )
                 )
         ));
-
-        TextField username = new TextField("sandeep");
+        ArrayList<User>ListUser = new UserService().getProfile();
+        TextField username = new TextField();
+        username.setText(ListUser.get(0).getUsername());
         username.setUIID("TextFieldBlack");
         addStringValue("Username", username);
+        
+        TextField nom = new TextField();
+        nom.setText(ListUser.get(0).getNom());
+        nom.setUIID("TextFieldBlack");
+        addStringValue("Nom", nom);
+        
+        TextField prenom = new TextField();
+        prenom.setText(ListUser.get(0).getPrenom());
+        prenom.setUIID("TextFieldBlack");
+        addStringValue("Prenom", prenom);
 
-        TextField email = new TextField("sandeep@gmail.com", "E-Mail", 20, TextField.EMAILADDR);
+        TextField email = new TextField();
+        email.setConstraint(TextField.EMAILADDR);
+        email.setText(ListUser.get(0).getEmail());
         email.setUIID("TextFieldBlack");
         addStringValue("E-Mail", email);
         
-        TextField password = new TextField("sandeep", "Password", 20, TextField.PASSWORD);
+        TextField password = new TextField();
+        password.setConstraint(TextField.PASSWORD);
+        password.setText(ListUser.get(0).getPassword());
         password.setUIID("TextFieldBlack");
         addStringValue("Password", password);
 
@@ -94,63 +115,21 @@ public class ProfileForm extends BaseForm {
         
         addStringValue("Facebook", FlowLayout.encloseRightMiddle(cb1));
         addStringValue("Twitter", FlowLayout.encloseRightMiddle(cb2));
+        
+        Button btn = new Button();
+        addStringValue("Modifier", btn);
+         btn.addActionListener(ed->{
+            if(new UserService().EditProfile(prenom.getText(), nom.getText(), email.getText(), username.getText(), password.getText()))
+            {
+                ToastBar.showInfoMessage("Profile Modifier");
+                       
+                    } else {
+                        Dialog.show("ERROR", "Server error", "OK", null);
+                    }
+            
+        });
     }
-    public ProfileForm(Resources res,String username1,String email1,String password1) {
-        
-        super("Newsfeed", BoxLayout.y());
-        setTitle("Profile");
-        getContentPane().setScrollVisible(false);
-        super.installSidemenu(res);
-        Image img = res.getImage("mahdi.png");
-        if(img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
-            img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 3);
-        }
-        ScaleImageLabel sl = new ScaleImageLabel(img);
-        sl.setUIID("BottomPad");
-        sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-
-        Label facebook = new Label("786 followers", res.getImage("facebook-logo.png"), "BottomPad");
-        Label twitter = new Label("486 followers", res.getImage("twitter-logo.png"), "BottomPad");
-        facebook.setTextPosition(BOTTOM);
-        twitter.setTextPosition(BOTTOM);
-        
-        add(LayeredLayout.encloseIn(
-                sl,
-                BorderLayout.south(
-                    GridLayout.encloseIn(3, 
-                            facebook,
-                            FlowLayout.encloseCenter(
-                                new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond")),
-                            twitter
-                    )
-                )
-        ));
-
-        TextField username = new TextField("sandeep");
-        username.setUIID("TextFieldBlack");
-        addStringValue("Username", username);
-        username.setText(username1);
-
-        TextField email = new TextField("sandeep@gmail.com", "E-Mail", 20, TextField.EMAILADDR);
-        email.setUIID("TextFieldBlack");
-        addStringValue("E-Mail", email);
-        email.setText(email1);
-        
-        TextField password = new TextField("sandeep", "Password", 20, TextField.PASSWORD);
-        password.setUIID("TextFieldBlack");
-        addStringValue("Password", password);
-        password.setText(password1);
-
-        CheckBox cb1 = CheckBox.createToggle(res.getImage("on-off-off.png"));
-        cb1.setUIID("Label");
-        cb1.setPressedIcon(res.getImage("on-off-on.png"));
-        CheckBox cb2 = CheckBox.createToggle(res.getImage("on-off-off.png"));
-        cb2.setUIID("Label");
-        cb2.setPressedIcon(res.getImage("on-off-on.png"));
-        
-        addStringValue("Facebook", FlowLayout.encloseRightMiddle(cb1));
-        addStringValue("Twitter", FlowLayout.encloseRightMiddle(cb2));
-    }
+   
     
     private void addStringValue(String s, Component v) {
         add(BorderLayout.west(new Label(s, "PaddedLabel")).

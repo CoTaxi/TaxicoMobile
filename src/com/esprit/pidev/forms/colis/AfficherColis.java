@@ -114,6 +114,7 @@ public class AfficherColis extends BaseForm {
         });
         
         Component.setSameSize(radioContainer, spacer1, spacer2);
+        
         add(LayeredLayout.encloseIn(swipe, radioContainer));
         
         ButtonGroup barGroup = new ButtonGroup();

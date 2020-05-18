@@ -15,11 +15,14 @@ import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Calendar;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.events.ActionListener;
+import com.esprit.pidev.models.Commande;
 import com.esprit.pidev.models.Rdv;
+import com.esprit.pidev.models.User;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.utils.DataSource;
 import com.esprit.pidev.utils.Statics;
 import java.io.IOException;
+import java.text.DateFormatPatterns;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +35,9 @@ import java.util.Date;
 public class RdvService {
     private ConnectionRequest request;
     public ArrayList<Rdv> rdvs;
+    public ArrayList<Commande> commande;
+    public ArrayList<Vehicule> vehicule;
+    public ArrayList<User> client;
     private boolean responseResult;
     public RdvService() {
         request = DataSource.getInstance().getRequest();
@@ -83,11 +89,166 @@ public ArrayList<Rdv> getAllRdvsReserved() {
 
         return rdvs;
     }
+public ArrayList<Vehicule> getReservedCar() {
+        String url = Statics.BASE_URL + "/T/finddispo/"+ Statics.sessionID;
 
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                vehicule = parseVehicule(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
 
+        return vehicule;
+    }
+ public ArrayList<Vehicule> parseVehicule(String jsonText) {
+        try {
+            vehicule = new ArrayList<>();
 
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                int id = (int)Float.parseFloat(obj.get("id").toString());
+                int dispo =  (int)Float.parseFloat(obj.get("dispo").toString());
+           
+                
+                vehicule.add(new Vehicule(id, dispo));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return vehicule;
+    }
+ public ArrayList<Commande> getCommande(int id) {
+        String url = Statics.BASE_URL + "/T/findwa/"+ id;
+
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                commande = parseCommande(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return commande;
+    }
+ public ArrayList<Commande> parseCommande(String jsonText) {
+        try {
+            commande = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                int client = (int)Float.parseFloat(obj.get("client").toString());
+                int idCommande = (int)Float.parseFloat(obj.get("idCommande").toString());
+                
+           
+                
+                commande.add(new Commande(client,idCommande));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return commande;
+    }
+ public ArrayList<User> getClient(int id) {
+        String url = Statics.BASE_URL + "/T/listwa/"+ id;
+
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                client = parseClient(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return client;
+    }
+ public ArrayList<User> parseClient(String jsonText) {
+        try {
+            client = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                int id = (int)Float.parseFloat(obj.get("id").toString());
+                String nom = obj.get("nom").toString();
+                String prenom = obj.get("prenom").toString();
+                String email = obj.get("email").toString();
+                client.add(new User(id,nom,prenom,email));
+            }
+
+        } catch (IOException ex) {
+        }
+
+        return client;
+    }
+ public void updateDispo(int iddispo,int id) {
+        String url = Statics.BASE_URL + "/T/updatevec/"+id+"?dispo="+iddispo;
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+//        return responseResult;
+    }
+ public void doing(int id) {
+        String url = Statics.BASE_URL + "/T/doing/"+id;
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+//        return responseResult;
+    }
+ public void done(int id) {
+        String url = Statics.BASE_URL + "/T/done/"+id;
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+//        return responseResult;
+    }
 public ArrayList<Rdv> FindRdvsSelected(String date) {
-        String url = Statics.BASE_URL + "/T/rdvs/findselected?dateRdv=" +date;
+
+        String url = Statics.BASE_URL + "/T/rdvs/findselected?dateRdv=" + date;
 
         request.setUrl(url);
         request.setPost(false);
@@ -136,13 +297,16 @@ public ArrayList<Rdv> FindRdvs(ComboBox c,ComboBox c2) {
                 int idChauffeur = (int)Float.parseFloat(obj.get("idChauffeur").toString());
                 int idService = (int)Float.parseFloat(obj.get("service").toString());
                 int idGarage = (int)Float.parseFloat(obj.get("garage").toString());
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                Date dateRdv = (Date)format.parse( obj.get("dateRdv").toString() ) ;
+                java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                Date dateRdv = format.parse( obj.get("dateRdv").toString() ) ;
+                
+//                Date dateRdv = (Date) obj.get("dateRdv");
 //String dateRdv = obj.get("dateRdv").toString();
-                System.out.println(obj.get("dateRdv").toString());
-                System.out.println(dateRdv);
+//                System.out.println(obj.get("dateRdv").toString());
+//                System.out.println(format.format(dateRdv));
         
-            // DateFormatPatterns.ISO8601
+                String ss = DateFormatPatterns.VERBOSE_DATE;
+                System.out.println(ss);
                     String status = obj.get("status").toString();
                 rdvs.add(new Rdv(idRdv, idChauffeur, idService, idGarage, dateRdv, status));
                
@@ -150,10 +314,9 @@ public ArrayList<Rdv> FindRdvs(ComboBox c,ComboBox c2) {
             }
 
         } catch (IOException ex) {
-        } 
-        catch (ParseException ex) {
-            
+        } catch (java.text.ParseException ex) { 
         }
+       
 
         return rdvs;
     }
@@ -170,7 +333,7 @@ public ArrayList<Rdv> FindRdvs(ComboBox c,ComboBox c2) {
                 int idChauffeur = (int)Float.parseFloat(obj.get("idChauffeur").toString());
                 String NameService = obj.get("service").toString();
                 String NameGarage = obj.get("garage").toString();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
                 Date dateRdv = (Date)format.parse( obj.get("dateRdv").toString() ) ;
 
                 String status = obj.get("status").toString();
@@ -179,7 +342,7 @@ public ArrayList<Rdv> FindRdvs(ComboBox c,ComboBox c2) {
 
         } catch (IOException ex) {
         }
-catch (ParseException ex) {
+catch (java.text.ParseException ex) {
             
         }
         return rdvs;
