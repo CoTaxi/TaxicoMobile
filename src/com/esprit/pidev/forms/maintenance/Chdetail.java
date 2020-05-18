@@ -14,14 +14,17 @@ import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.colis.ShowDetailsColis;
 import com.esprit.pidev.models.Commande;
 import com.esprit.pidev.models.User;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.services.RdvService;
+import com.mycompany.myapp.Forms.BaseForm;
 import java.util.ArrayList;
 
 
@@ -29,13 +32,19 @@ import java.util.ArrayList;
  *
  * @author walid
  */
-public class Chdetail extends Form{
+public class Chdetail extends BaseForm{
  
     public Chdetail(Resources res,Form previous,String t1,String t2,String t3,int id,int idCommande,int t4,String t5){
       super("Ch list", new BorderLayout());
+        
+        this.getToolbar().addCommandToRightBar("Return", null, (evt) -> {
+          new ChForm(res).showBack();
+        });  
+        
       this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
      
         this.setBgImage(res.getImage("chform2.jpg"));
+        super.installSidemenu(res);
         Container listRec = new Container(BoxLayout.y());
         listRec.setScrollableY(true);
 //            MultiButton mBtn = new MultiButton();
