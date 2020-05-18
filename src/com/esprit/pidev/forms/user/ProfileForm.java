@@ -29,7 +29,6 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -39,8 +38,8 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.pidev.models.User;
 import com.esprit.pidev.services.UserService;
-import com.mycompany.myapp.Forms.BaseForm;
 import java.util.ArrayList;
+import com.mycompany.myapp.Forms.BaseForm;
 
 /**
  * The user profile form
