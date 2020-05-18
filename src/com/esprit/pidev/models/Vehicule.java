@@ -33,6 +33,7 @@ public class Vehicule {
         this.destination = destination;
         
     }
+    
 
     public int getUser() {
         return user;
@@ -191,8 +192,8 @@ public class Vehicule {
         this.etat = etat;
         this.archive = archive;
     }
-        public Vehicule(String matricule){
-        this.matricule = matricule;
+        public Vehicule(String position){
+        this.position = position;
     }
         
         public Vehicule(){

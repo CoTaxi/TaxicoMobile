@@ -6,6 +6,7 @@
 package com.esprit.pidev.forms.maintenance;
 import com.codename1.admob.AdMobManager;
 import com.codename1.components.InfiniteProgress;
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -24,9 +25,9 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.RadioButton;
-import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -121,13 +122,14 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
         featured.setUIID("SelectBar");
         
  
-        Container listRec = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        Container listRec = new Container(BoxLayout.y());
         //listRec.setScrollableY(true);
         Button btn = new Button("Annuler");
         ArrayList<Rdv> List = new RdvService().getAllRdvsReserved();
         for (int i = 0; i<List.size(); i++) {
     try {
-       
+        Button btnR = new Button();
+        FontImage.setMaterialIcon(btnR, FontImage.MATERIAL_DELETE);
         MultiButton mBtn = new MultiButton("Rdv n°"+i+":");
         mBtn.setTextLine1("🔧  " +List.get(i).getName_service());
         mBtn.setTextLine2("🚙  " +List.get(i).getName_garage());
@@ -142,20 +144,29 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
         Date date1 = sdf.parse(date25);
         System.out.println(date2);
         System.out.println(date1);
-        // Swipe Container : 
-        
-            Button btn_delete = new Button();
-            FontImage.setMaterialIcon(btn_delete, FontImage.MATERIAL_DELETE_OUTLINE);
-            Container cntr = new Container(new FlowLayout());
-            cntr.add(btn_delete);
-            SwipeableContainer sousou=  new SwipeableContainer(cntr, mBtn);
-            listRec.addAll(sousou);
+//        System.out.println(date);
+        btnR.addActionListener(es->{
+            InteractionDialog dialogverif = new InteractionDialog("Hello");
+            Container c = new Container(new BorderLayout());
             
-        btn_delete.addActionListener(es->{
-            if (date1.getTime()-date2.getTime()<0){
+dialogverif.setLayout(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+            if (date1.getTime()-date2.getTime()>0){
             if (new RdvService().annulerRdv(r)) {
                 Dialog.show("SUCCESS", "Rdv annuler", "OK", null);
-                sousou.remove();
+                mBtn.remove();
+                btnR.remove();
+                
                 this.refreshTheme();
             } else {
                 Dialog.show("ERROR", "Server error", "OK", null);
@@ -163,16 +174,18 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
             } else {
                 Dialog.show("ERROR", "Date est depasser", "OK", null);
             }
-                
-        });
-        InfiniteProgress.setDefaultMaterialDesignMode(true);
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
+ });        
+InfiniteProgress.setDefaultMaterialDesignMode(true);
 //            SwipeableContainer swip = new SwipeableContainer(btn,mBtn);
+listRec.addAll(mBtn,btnR);
+    } catch (ParseException ex) {
+
+    }
+        }
         
-            } catch (ParseException ex) {
-
-            }
-                }
-
         this.add(listRec);
 }
     
