@@ -57,9 +57,6 @@ public class ListeDemandes extends BaseForm
             super("Liste Des Demandes", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-           new ListeVoituresForm(res).show();
-        });  
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
         
@@ -72,8 +69,8 @@ public class ListeDemandes extends BaseForm
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, res.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, res.getImage("coli1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("coli2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
@@ -119,9 +116,9 @@ public class ListeDemandes extends BaseForm
         
    ArrayList<Colis> List = new ColisService().ListeDemandes(matricule);
    Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-   content.setScrollableY(true);
+   //content.setScrollableY(true);
    Container content1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-   content1.setScrollableY(true);
+   //content1.setScrollableY(true);
         for (int i = 0; i < List.size(); i++) 
         {
             if(List.get(i).getEtat()!=3)
@@ -179,8 +176,11 @@ dialogverif.dispose();
                 this.refreshTheme();
          }); 
 Dimension pre = dialogverif.getContentPane().getPreferredSize();
-
-dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+//dialogverif.show(top, bottom, height, width);dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
  });        
 InfiniteProgress.setDefaultMaterialDesignMode(true);       
 
@@ -228,7 +228,7 @@ InfiniteProgress.setDefaultMaterialDesignMode(true);
         });
         int id=Listtrie.get(i).getIdC();
         SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mb);
-        content.addComponent(sousou);
+        content1.addComponent(sousou);
         btn_ed.addActionListener(m->{
               new ModifierColis(id,res).show();
             });

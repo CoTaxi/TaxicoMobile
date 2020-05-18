@@ -84,12 +84,12 @@ public class NosServices extends BaseForm {
            //System.out.println(ta.getText());
            if(ta.getText().equals("ENVOYER COLIS."))
            {
-              new AfficherColis(res).show();
+             new AjoutColis(res).show();
            }
            else if(ta.getText().equals("CONSULTER COLIS."))
            {
              System.out.println("CONSULTER COLIS.");
-             new AjoutColis(res).show();
+              new AfficherColis(res).show();
            }
            
         //    new ColisForm(res).show();

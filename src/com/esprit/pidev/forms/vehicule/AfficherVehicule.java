@@ -27,8 +27,8 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.TextComponent;
-import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -66,7 +66,7 @@ public class AfficherVehicule extends BaseForm
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("vec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("vehicule.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
         addTab(swipe, res.getImage("vec2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
@@ -143,17 +143,42 @@ public class AfficherVehicule extends BaseForm
                 Dialog.show("Vehicule:", "Position : " + lp.getText() + " \n Destination: : " + ld.getText() + " \n Marque : " + lmarque.getText() + " \n Modele : " + lmodele.getText(), "Ok", null);
 
             });
-            btn_delete.addActionListener(r -> {
-                if (new ServicesVehicule().deletevehicule(id)) {
-                   sousou.remove();
-                    this.refreshTheme();
+
+            btn_delete.addActionListener(l->{
+         
+ InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
+  Container c = new Container(new BorderLayout());
+            
+dialogverif.setLayout(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+                
+                if(new ServicesVehicule().deletevehicule(id))
+                {
                     ToastBar.showInfoMessage("Suppression avec succès");
-                } else {
+                }else{
                     ToastBar.showErrorMessage("Erreur de suppression");
                 }
-                
-            });
-
+               // mBtn.remove();
+                sousou.remove();
+                this.refreshTheme();
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+dialogverif.show(top, bottom, height, width);
+ });  
             btnup.addActionListener(update -> {
                 InteractionDialog d = new InteractionDialog();
                 TextComponent mat = new TextComponent().label("Matricule");

@@ -93,6 +93,7 @@ public class SignUpFormUser1 extends BaseForm {
            if(new UserService().register(prenom,nom,numT,emailTF.getText(),usernameTF.getText(),dtn,0,0,0,passwordTF.getText(),"client"))
            {
                Dialog.show("SUCCESS", "Bienvenu Dans La Famille TaxiCo", "OK", null);
+               new SignInForm(res).show();
            }
            else 
            {

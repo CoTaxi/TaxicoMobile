@@ -49,9 +49,6 @@ public class AjoutVehicule extends BaseForm
         super("Ajouter Vehicule", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
         getTitleArea().setUIID("Container");
         //setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
@@ -65,7 +62,7 @@ public class AjoutVehicule extends BaseForm
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("vec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("vehicule.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
         addTab(swipe, res.getImage("vec2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");

@@ -138,7 +138,9 @@ public class ReclamationListForm extends BaseForm {
             cntr1.add(btn_delete);
             SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mBtn);
             listRec.addAll(sousou);
-
+    btn_edit.addActionListener(e->{
+        new DetailsRecForm(theme, res, id, state).show();
+    });
     btn_delete.addActionListener(l->{
          InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
          Container c = new Container(new BorderLayout());

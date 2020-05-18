@@ -71,7 +71,7 @@ public class ListeVoituresForm extends BaseForm
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("vec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("vehicule.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
         addTab(swipe, res.getImage("vec2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
@@ -125,7 +125,7 @@ public class ListeVoituresForm extends BaseForm
    Button archive = new Button ("Archive");
    //-------------End 
    
-        ArrayList<Vehicule> List = new ServicesVehicule().getAllVehicules();
+        ArrayList<Vehicule> List = new ServicesVehicule().toutvec();
        for (int i=0;i<List.size();i++)
        {
         Button btn = new Button();
