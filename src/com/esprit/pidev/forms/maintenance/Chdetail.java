@@ -14,6 +14,8 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Style;
+import com.codename1.ui.util.Resources;
 import com.esprit.pidev.models.Commande;
 import com.esprit.pidev.models.User;
 import com.esprit.pidev.models.Vehicule;
@@ -25,8 +27,11 @@ import java.util.ArrayList;
  * @author walid
  */
 public class Chdetail extends Form{
+    private Resources theme_2;
     public Chdetail(Form previous,String t1,String t2,String t3,int id,int idCommande){
       super("Ch list", new BorderLayout());
+//      this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+//        this.setBgImage(theme_2.getImage("bg.png"));
         Container listRec = new Container(BoxLayout.y());
         listRec.setScrollableY(true);
             MultiButton mBtn = new MultiButton();
