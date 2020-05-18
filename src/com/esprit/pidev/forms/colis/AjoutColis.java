@@ -50,7 +50,7 @@ public class AjoutColis extends BaseForm
 
     public AjoutColis(Resources res) 
     {
-              super("Ajouter Colis", BoxLayout.y());
+        super("Ajouter Colis", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
 //        tb.addCommandToLeftBar("Return", null, (evt) -> {
