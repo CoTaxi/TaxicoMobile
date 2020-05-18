@@ -50,8 +50,8 @@ public class ReclamationForm extends BaseForm {
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, res.getImage("bg.png"), spacer2, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("rec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("rec2.png"), spacer2, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();

@@ -30,8 +30,8 @@ public class Chdetail extends Form{
  com.codename1.ui.util.Resources res;
     public Chdetail(Form previous,String t1,String t2,String t3,int id,int idCommande){
       super("Ch list", new BorderLayout());
-      this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
-        this.setBgImage(res.getImage("bg.png"));
+//      this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+//        this.setBgImage(res.getImage("bg.png"));
         Container listRec = new Container(BoxLayout.y());
         listRec.setScrollableY(true);
             MultiButton mBtn = new MultiButton();
@@ -51,6 +51,7 @@ public class Chdetail extends Form{
                     new RdvService().updateDispo(0,id);
                 }
         });
+        listRec.getStyle().setBgTransparency(100);
             listRec.addAll(mBtn,dispo);
             
 
