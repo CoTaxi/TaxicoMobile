@@ -245,12 +245,11 @@ public class ShowDetailsColis extends BaseForm
               }
               });
                
-                 this.addAll(modify,delete);
                    for (int i=0;i<det.size();i++)
               {
                 if(det.get(i).getEtat()==0)
                 {
-                 this.add(affect);
+                 this.addAll(modify,delete,affect);
                 }
                 if(det.get(i).getEtat()==2)
                 {

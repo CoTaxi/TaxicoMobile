@@ -13,12 +13,13 @@ package com.esprit.pidev.models;
  */
 public class Forum {
     String title,content,Image;
-    int Id;
+    int Id,iduser;
 
-    public Forum(String title, String content,String Image) {
+    public Forum(String title, String content,String Image,int iduser) {
         this.title = title;
         this.content = content;
         this.Image=Image;
+        this.iduser=iduser;
     }
 
     public String getTitle() {
