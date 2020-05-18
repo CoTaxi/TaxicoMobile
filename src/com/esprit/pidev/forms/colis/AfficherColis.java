@@ -61,6 +61,7 @@ public class AfficherColis extends BaseForm {
         getTitleArea().setUIID("Container");
         //setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
+        this.setScrollableY(true);
         super.installSidemenu(res);
         TextField searchField = new TextField("", ""); // <1>
         searchField.getHintLabel().setUIID("Title");
@@ -71,7 +72,7 @@ public class AfficherColis extends BaseForm {
         FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
 
         tb.addCommandToRightBar("Return", null, (evt) -> {
-           //tsawer page
+           new NosServices(res).showBack();
         });  
         tb.addCommandToRightBar("", searchIcon, (e) -> {
        searchField.startEditingAsync(); // <4>
@@ -131,9 +132,9 @@ public class AfficherColis extends BaseForm {
         
 //-----------------------------------------------------------------------------------------        
    Container content1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-   content1.setScrollableY(true);   
+  // content1.setScrollableY(true);   
    Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-   content.setScrollableY(true);   
+  // content.setScrollableY(true);   
    ArrayList<Colis> List = new ColisService().getAllColis(Statics.sessionID);
    searchField.addDataChangeListener((i1, i2) -> { // <2>
     String t = searchField.getText();
@@ -213,7 +214,7 @@ dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth()
 }
         
         this.addComponent(content);
-        this.setScrollableY(true);
+     //   this.setScrollableY(true);
     }
 });
 tb.addCommandToRightBar("", searchIcon, (e) -> {

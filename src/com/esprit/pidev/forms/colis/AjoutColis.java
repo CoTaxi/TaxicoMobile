@@ -61,7 +61,7 @@ public class AjoutColis extends BaseForm
         
         super.installSidemenu(res);
            tb.addCommandToRightBar("Return", null, (evt) -> {
-           //tsawer page
+        new NosServices(res).showBack();
         });  
         Tabs swipe = new Tabs();
 

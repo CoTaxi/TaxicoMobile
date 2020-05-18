@@ -55,12 +55,11 @@ public class ShowDetailsEvent extends BaseForm
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-           new AfficherColis(res).show();
-        });  
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
         
+        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(res.getImage("bag.png"));
         super.installSidemenu(res);
         tb.addCommandToRightBar("Return", null, (evt) -> {
           new AfficherEvent(res).showBack();

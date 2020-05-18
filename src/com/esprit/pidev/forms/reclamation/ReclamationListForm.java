@@ -59,7 +59,7 @@ public class ReclamationListForm extends BaseForm {
         
         super.installSidemenu(theme);
        tb.addCommandToRightBar("Return", null, (evt) -> {
-         //page tsawer
+        new ReclamationForm(theme).showBack();
         });
         
         Tabs swipe = new Tabs();
