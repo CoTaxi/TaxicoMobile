@@ -79,6 +79,7 @@ public class BaseForm extends Form {
     }
     public void installSidemenu(Resources res1) {
         Toolbar tb = getToolbar();
+        this.getToolbar().getStyle().setBgColor(0x36324D);
         Image img = res1.getImage("mahdi.png");
         if(img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
             img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 3);
