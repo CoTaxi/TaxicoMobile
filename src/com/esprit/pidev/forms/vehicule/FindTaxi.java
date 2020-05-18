@@ -15,6 +15,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
@@ -30,6 +31,7 @@ public class FindTaxi extends BaseForm {
 
     public FindTaxi(Resources res, String depart, String dest) {
         super("Taxi", new BoxLayout(BoxLayout.Y_AXIS));
+        this.getToolbar().getStyle().setBgColor(0x36324D);
         setUIID("Maps");
         MultiButton mb = new MultiButton("taxi");
         ArrayList<Vehicule> List = new ServicesVehicule().findPosition(depart, "taxi");
@@ -87,6 +89,7 @@ public class FindTaxi extends BaseForm {
             this.refreshTheme();
 
         });
+          
 
         this.show();
 
