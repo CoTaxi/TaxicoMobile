@@ -62,16 +62,14 @@ public class AfficherEvent extends BaseForm
         super("Afficher Evennement", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
         this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
         this.setBgImage(res.getImage("bag.png"));
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         //page tsawer
+        });  
         
         Tabs swipe = new Tabs();
 
@@ -130,10 +128,11 @@ public class AfficherEvent extends BaseForm
         ArrayList<Event> List = new EventService().getAllEvents();
         System.out.println(List.size());
     for (int i = 0; i < List.size(); i++) 
+    {    if(List.get(i).getEtat()==0)
     {
         System.out.println("---nom---"+List.get(i).getNom());
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("🔠 Nom Evennement : "+List.get(i).getNom());
+        mb.setTextLine1("🔠 Nom : "+List.get(i).getNom());
         mb.setTextLine2("⏳ Duree : "+String.valueOf(List.get(i).getDuree()));
         mb.setTextLine3("🗺 Emplacement : "+List.get(i).getEmplacement());
         mb.setTextLine4(Integer.toString(List.get(i).getId()));
@@ -145,7 +144,10 @@ public class AfficherEvent extends BaseForm
         });
        content1.addAll(mb);
     }
-
+    }
+    passe.addActionListener(l->{
+        new ArchiveEvent(res).show();
+    });
        this.addAll(content1,passe);
       
       

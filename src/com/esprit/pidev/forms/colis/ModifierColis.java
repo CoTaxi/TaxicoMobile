@@ -54,22 +54,22 @@ public class ModifierColis extends BaseForm
         super("Modifier Colis", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-           new ShowDetailsColis(Id,res).show();
-        });  
+         
         getTitleArea().setUIID("Container");
         setTitle("TaxiCo-Colis");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           new ShowDetailsColis(Id,res).show();
+        });  
         
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, res.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, res.getImage("coli1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("coli2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");

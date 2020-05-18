@@ -15,21 +15,38 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.reclamation.ReclamationListForm;
 import com.esprit.pidev.models.User;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.services.ServicesVehicule;
 import com.esprit.pidev.services.UserService;
 import com.esprit.pidev.utils.Statics;
 import com.mycompany.myapp.Forms.BaseForm;
+import com.mycompany.myapp.Forms.NewsfeedForm;
 import java.util.ArrayList;
 
 public class FindTaxi extends BaseForm {
 
     public FindTaxi(Resources res, String depart, String dest) {
         super("Taxi", new BoxLayout(BoxLayout.Y_AXIS));
+        this.getToolbar().getStyle().setBgColor(0x36324D);
+        this.getToolbar().addCommandToOverflowMenu("Mode jour", res.getImage("back-command.png"), e -> {
+        this.refreshTheme();
+        this.getStyle().setBgImage(res.getImage("day0000.png"));
+        this.refreshTheme();
+        });
+        this.getToolbar().addCommandToOverflowMenu("Mode nuit", res.getImage("back-command.png"), e -> {
+        this.refreshTheme();
+        this.getStyle().setBgImage(res.getImage("BG999.png"));
+        this.refreshTheme();
+        });
+        this.getToolbar().addCommandToRightBar("Return", null, (evt) -> {
+        new NewsfeedForm(res).showBack();
+        });
         setUIID("Maps");
         MultiButton mb = new MultiButton("taxi");
         ArrayList<Vehicule> List = new ServicesVehicule().findPosition(depart, "taxi");
@@ -75,18 +92,8 @@ public class FindTaxi extends BaseForm {
             }
         }
 
-        this.getToolbar().addCommandToOverflowMenu("Mode jour", res.getImage("back-command.png"), e -> {
-            this.refreshTheme();
-            this.getStyle().setBgImage(res.getImage("day0000.png"));
-            this.refreshTheme();
 
-        });
-        this.getToolbar().addCommandToOverflowMenu("Mode nuit", res.getImage("back-command.png"), e -> {
-            this.refreshTheme();
-            this.getStyle().setBgImage(res.getImage("BG999.png"));
-            this.refreshTheme();
-
-        });
+          
 
         this.show();
 

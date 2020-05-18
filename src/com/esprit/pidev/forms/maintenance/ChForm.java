@@ -7,15 +7,25 @@ package com.esprit.pidev.forms.maintenance;
  */
 
 
+import com.codename1.components.Accordion;
 import com.codename1.components.MultiButton;
 import com.codename1.components.OnOffSwitch;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
+import com.codename1.ui.CheckBox;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Label;
+import com.codename1.ui.SwipeableContainer;
+import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.pidev.models.Commande;
 import com.esprit.pidev.models.User;
@@ -34,7 +44,30 @@ import java.util.ArrayList;
 public class ChForm extends BaseForm{
     public ChForm (Resources res){
         super("Ch list", new BorderLayout());
-        Container listRec = new Container(BoxLayout.y());
+        Accordion accr = new Accordion();
+        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(res.getImage("chform2.jpg"));
+        ArrayList<Vehicule> List2 = new ServicesVehicule().getPosition();
+                    Button actualiser = new Button("Actualiser");
+                    int height = Display.getInstance().convertToPixels(9f);
+                    int width = Display.getInstance().convertToPixels(10f);
+                    Label lab1 = new Label(List2.get(0).getPosition());
+                    TextField t = new TextField();
+                    lab1.getStyle().setFgColor(0xffffff);
+                    accr.getStyle().setBgImage(res.getImage("accordionfinal.png"));
+                    accr.addContent(BoxLayout.encloseY(new Label(res.getImage("noslog2.png").fill(width, height)),lab1), BoxLayout.encloseY( t,actualiser));
+                    actualiser.addActionListener(l -> {
+                        Vehicule v = new Vehicule(t.getText());
+                        if(new ServicesVehicule().updateposition(v))
+            {
+                ToastBar.showInfoMessage("Position Modifier");
+                       
+                    } else {
+                        Dialog.show("ERROR", "Server error", "OK", null);
+                    }
+                    });
+//                    this.add(BorderLayout.CENTER,accr);
+        Container listRec = new Container();
         listRec.setScrollableY(true);
         Button btn = new Button("Annuler");
         ArrayList<Vehicule> List = new ServicesVehicule().getReservedCar();
@@ -53,20 +86,28 @@ public class ChForm extends BaseForm{
              String n = ListU.get(i).getNom();
             String p = ListU.get(i).getPrenom();
             String e =  ListU.get(i).getEmail();
+            int tel =  ListU.get(i).getTel();
+            String naissance =  ListU.get(i).getNaissance();
             int id = List.get(0).getId();
             int idCommande = ListC.get(0).getIdCommande();
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_COMMENT);
+            mBtn.getStyle().setBgTransparency(100);
             mBtn.addActionListener(zzz->{
                 
                 new RdvService().doing(ListC.get(0).getIdCommande());
-                new Chdetail(this, n, p, e,id,idCommande).show();
+                new Chdetail(res,this, n, p, e,id,idCommande,tel,naissance).show();
             });
             OnOffSwitch dispo = new OnOffSwitch();
+            CheckBox ckdispo = new CheckBox();
+            
+        ckdispo.setText("Disponible ?");
+//        ckdispo.getStyle().setBgColor(0x);
         dispo.setOff("Non");
         dispo.setOn("Oui");
         dispo.setValue(false);
-        dispo.addActionListener(l->{
-            if (dispo.isValue()) {
+        dispo.getStyle().setBgTransparency(100);
+        ckdispo.addActionListener(l->{
+            if (ckdispo.isSelected()) {
                     new ServicesVehicule().updateDispo(1,List.get(0).getId());
                 } else {
                     new ServicesVehicule().updateDispo(0,List.get(0).getId());
@@ -86,11 +127,21 @@ public class ChForm extends BaseForm{
 //            });
 
 //            SwipeableContainer swip = new SwipeableContainer(btn,mBtn);
-            listRec.addAll(mBtn,dispo);
+
+ Container cntr = new Container(new FlowLayout());
+ dispo.getStyle().setBgColor(0x000000);
+            cntr.add(ckdispo);
+            
+//            cntr.getStyle().setBgTransparency(100);
+//            SwipeableContainer sousou=  new SwipeableContainer(cntr, mBtn);
+//            listRec.addAll(sousou);
+            listRec.add(mBtn);
+            listRec.add(cntr);
             
 
             
         }
+        this.add(BorderLayout.NORTH,accr);
         this.add(CENTER, listRec);
 
         //////////////////////////////////////////////////////////////////////////////

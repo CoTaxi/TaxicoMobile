@@ -6,6 +6,7 @@
 package com.esprit.pidev.forms.maintenance;
 import com.codename1.admob.AdMobManager;
 import com.codename1.components.InfiniteProgress;
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -27,6 +28,7 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -72,9 +74,9 @@ this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, theme.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, theme.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
-        
+        addTab(swipe, theme.getImage("maintenance.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, theme.getImage("maintenance2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, theme.getImage("maintenance3.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
         swipe.hideTabs();
@@ -153,7 +155,22 @@ this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
             listRec.addAll(sousou);
             
         btn_delete.addActionListener(es->{
-            if (date1.getTime()-date2.getTime()<0){
+            InteractionDialog dialogverif = new InteractionDialog("Hello");
+            Container c = new Container(new BorderLayout());
+            
+dialogverif.setLayout(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+            if (date1.getTime()-date2.getTime()>0){
             if (new RdvService().annulerRdv(r)) {
                 Dialog.show("SUCCESS", "Rdv annuler", "OK", null);
                 sousou.remove();
@@ -166,6 +183,15 @@ this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
             }
                 
         });
+
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+dialogverif.show(top, bottom, height, width);
+
+}); 
         InfiniteProgress.setDefaultMaterialDesignMode(true);
 //            SwipeableContainer swip = new SwipeableContainer(btn,mBtn);
         

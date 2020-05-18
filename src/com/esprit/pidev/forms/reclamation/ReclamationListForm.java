@@ -7,6 +7,7 @@ package com.esprit.pidev.forms.reclamation;
  */
 
 
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -18,10 +19,8 @@ import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
-import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -29,6 +28,7 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -51,9 +51,6 @@ public class ReclamationListForm extends BaseForm {
        super("Liste Des Réclamations", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-//        tb.addCommandToLeftBar("Return", null, (evt) -> {
-//         //  new ColisForm(res).show();
-//        });  
         getTitleArea().setUIID("Container");
 //        setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
@@ -61,14 +58,16 @@ public class ReclamationListForm extends BaseForm {
         this.setBgImage(theme.getImage("bag.png"));
         
         super.installSidemenu(theme);
-
+       tb.addCommandToRightBar("Return", null, (evt) -> {
+         //page tsawer
+        });
         
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, theme.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, theme.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, theme.getImage("rec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, theme.getImage("rec2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
@@ -139,23 +138,37 @@ public class ReclamationListForm extends BaseForm {
             cntr1.add(btn_delete);
             SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mBtn);
             listRec.addAll(sousou);
-                
-                btn_edit.addActionListener(al->{
-                new DetailsRecForm(theme, res, id, state).show();
-                });
-                
-                btn_delete.addActionListener(r->{
-                if(new ReclamationServices().deleterec(id))
+
+    btn_delete.addActionListener(l->{
+         InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
+         Container c = new Container(new BorderLayout());
+         dialogverif.setLayout(new BorderLayout());
+         dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+         Button oui = new Button("Oui");
+         Button non = new Button("Non");
+         non.addActionListener((ee) -> dialogverif.dispose());
+         c.addComponent(BorderLayout.EAST,non);
+         c.addComponent(BorderLayout.WEST,oui);
+         dialogverif.addComponent(BorderLayout.SOUTH,c);
+    oui.addActionListener(tt->{
+         dialogverif.dispose();
+               if( new ReclamationServices().deleterec(id))
                 {
-                    ToastBar.showInfoMessage("Votre réclamation est supprimée avec succé");
+                   ToastBar.showInfoMessage("Votre réclamation est supprimée avec succé");
                 }else{
                     ToastBar.showErrorMessage("Erreur de suppression");
                 }
                // mBtn.remove();
                 sousou.remove();
                 this.refreshTheme();
-            });
-            
+                }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+dialogverif.show(top, bottom, height, width);
+ });  
             mBtn.addActionListener(al->{
             new DetailsRecForm(theme, res, id, state).show();
             });   
