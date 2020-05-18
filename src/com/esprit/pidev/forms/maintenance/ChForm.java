@@ -7,13 +7,19 @@ package com.esprit.pidev.forms.maintenance;
  */
 
 
+import com.codename1.components.Accordion;
 import com.codename1.components.MultiButton;
 import com.codename1.components.OnOffSwitch;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Label;
+import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
@@ -34,6 +40,26 @@ import java.util.ArrayList;
 public class ChForm extends BaseForm{
     public ChForm (Resources res){
         super("Ch list", new BorderLayout());
+        Accordion accr = new Accordion();
+        ArrayList<Vehicule> List2 = new ServicesVehicule().getPosition();
+                    Button actualiser = new Button("Actualiser");
+                    int height = Display.getInstance().convertToPixels(9f);
+                    int width = Display.getInstance().convertToPixels(10f);
+                    Label lab1 = new Label(List2.get(0).getPosition());
+                    TextField t = new TextField();
+                    lab1.getStyle().setFgColor(0xffffff);
+                    accr.addContent(BoxLayout.encloseY(new Label(res.getImage("noslog2.png").fill(width, height)),lab1), BoxLayout.encloseY( t,actualiser));
+                    actualiser.addActionListener(l -> {
+                        Vehicule v = new Vehicule(t.getText());
+                        if(new ServicesVehicule().updateposition(v))
+            {
+                ToastBar.showInfoMessage("Position Modifier");
+                       
+                    } else {
+                        Dialog.show("ERROR", "Server error", "OK", null);
+                    }
+                    });
+                    this.add(accr);
         Container listRec = new Container(BoxLayout.y());
         listRec.setScrollableY(true);
         Button btn = new Button("Annuler");
