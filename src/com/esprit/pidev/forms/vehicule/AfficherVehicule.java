@@ -56,7 +56,8 @@ public class AfficherVehicule extends BaseForm
          //  new ColisForm(res).show();
         });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Vehicule");
+        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(res.getImage("bag.png"));
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
@@ -117,8 +118,8 @@ public class AfficherVehicule extends BaseForm
         for (int i = 0; i < List.size(); i++) {
             int id = List.get(i).getId();
             MultiButton mBtn = new MultiButton("vec n°" + i + ":");
-            mBtn.setTextLine1("🔢 "+List.get(i).getMatricule());
-            mBtn.setTextLine2("📰 "+List.get(i).getCartegrise());
+            mBtn.setTextLine1("🔢 Matricule : "+List.get(i).getMatricule());
+            mBtn.setTextLine2("📰 Carte grise :  "+List.get(i).getCartegrise());
             // Button btn_edit = new Button();
             Button btn_delete = new Button();
             Button btnup = new Button();

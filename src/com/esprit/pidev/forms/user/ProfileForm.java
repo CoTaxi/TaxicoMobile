@@ -17,7 +17,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package com.mycompany.myapp.Forms;
+package com.esprit.pidev.forms.user;
 
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.ToastBar;
@@ -29,7 +29,6 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -40,6 +39,7 @@ import com.codename1.ui.util.Resources;
 import com.esprit.pidev.models.User;
 import com.esprit.pidev.services.UserService;
 import java.util.ArrayList;
+import com.mycompany.myapp.Forms.BaseForm;
 
 /**
  * The user profile form
@@ -50,10 +50,14 @@ public class ProfileForm extends BaseForm {
 
     public ProfileForm(Resources res) {
         
+        
         super("Newsfeed", BoxLayout.y());
         setTitle("Profile");
+        
         getContentPane().setScrollVisible(false);
         super.installSidemenu(res);
+        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(res.getImage("bag.png"));
         Image img = res.getImage("mahdi.png");
         if(img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
             img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 3);

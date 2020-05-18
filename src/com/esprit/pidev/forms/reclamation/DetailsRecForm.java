@@ -51,22 +51,20 @@ public class DetailsRecForm extends BaseForm{
        super("Modifer votre réclamation", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-//        tb.addCommandToLeftBar("Return", null, (evt) -> {
-//         //  new ColisForm(res).show();
-//        });  
         getTitleArea().setUIID("Container");
-        //setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(theme);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         new ReclamationListForm(theme).showBack();
+        });
         
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, theme.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, theme.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, theme.getImage("rec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, theme.getImage("rec2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");

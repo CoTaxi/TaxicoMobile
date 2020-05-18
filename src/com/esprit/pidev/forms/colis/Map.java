@@ -20,21 +20,32 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.Resources;
 import com.esprit.pidev.services.ColisService;
+import com.mycompany.myapp.Forms.BaseForm;
 import java.io.IOException;
 
 /**
  *
  * @author ASUS
  */
-public class Map extends Form
+public class Map extends BaseForm
 {
 
     public Map(Resources res,int id)   
     {   
+   Toolbar tb = new Toolbar(true);
+        setToolbar(tb); 
+        getTitleArea().setUIID("Container");
+        setTitle("TaxiCo-Colis");
+        getContentPane().setScrollVisible(false);
         
+        super.installSidemenu(res);
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+          new pickuplocation(res,id).show();
+        });       
 this.setLayout(new BorderLayout());
 this.setScrollable(false);
 final MapComponent mc = new MapComponent();

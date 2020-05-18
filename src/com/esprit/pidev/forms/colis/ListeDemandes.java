@@ -6,6 +6,8 @@ package com.esprit.pidev.forms.colis;
  * and open the template in the editor.
  */
 
+import com.codename1.components.InfiniteProgress;
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -31,6 +33,7 @@ import com.codename1.ui.TextArea;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -61,7 +64,9 @@ public class ListeDemandes extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           new ListeVoituresForm(res).showBack();
+        });  
         
         Tabs swipe = new Tabs();
 
@@ -124,6 +129,14 @@ public class ListeDemandes extends BaseForm
                 
         //FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
+        Button btn_edit = new Button();
+        Button btn_delete = new Button();
+        FontImage.setMaterialIcon(btn_edit, FontImage.MATERIAL_EDIT);
+        FontImage.setMaterialIcon(btn_delete, FontImage.MATERIAL_DELETE_OUTLINE);
+        Container cntr = new Container(new FlowLayout());
+        Container cntr1 = new Container(new FlowLayout());
+        cntr.add(btn_edit);
+        cntr1.add(btn_delete);
         mb.setTextLine1("🗺 Traget: "+List.get(i).getDepart()+"➡"+List.get(i).getDestination());
         mb.setTextLine2("🔠 Poids: "+String.valueOf(List.get(i).getPoids()));
         mb.setTextLine3("👨 Client: "+String.valueOf(List.get(i).getNomExpediteur()));
@@ -132,21 +145,52 @@ public class ListeDemandes extends BaseForm
         mb.addActionListener(col->{
             new Demande(id,matricule,res).show();
         });
-        int height = Display.getInstance().convertToPixels(9f);
-        int width = Display.getInstance().convertToPixels(10f);
-        Button button= new Button("hi");
-        Label loblob = new Label(res.getImage("logo.png").fill(width, height));
-        SwipeableContainer sousou=  new SwipeableContainer(loblob, mb);
+        SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mb);
+        content.addComponent(sousou);
+        btn_edit.addActionListener(l->{
+              new ModifierColis(id,res).show();
+            });
 
-        content.addAll(sousou);
+            btn_delete.addActionListener(l->{
+         
+ InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
+ dialogverif.setLayout(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER));
+  Container c = new Container(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+                
+                if( new ColisService().deletecolis(id))
+                {
+                    ToastBar.showInfoMessage("Votre Colis  est supprimée avec succé");
+                }else{
+                    ToastBar.showErrorMessage("Erreur de suppression");
+                }
+               // mBtn.remove();
+                sousou.remove();
+                this.refreshTheme();
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+
+dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
+ });        
+InfiniteProgress.setDefaultMaterialDesignMode(true);       
+
         
 //        mb.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent evt) {
 //             
 //            }
-//        });
-        content.addAll(mb);        
+//        }); 
       
             }
 
@@ -164,6 +208,14 @@ public class ListeDemandes extends BaseForm
             if(Listtrie.get(i).getEtat()!=3)
             {
         final MultiButton mb = new MultiButton();
+        Button btn_ed = new Button();
+        Button btn_del = new Button();
+        FontImage.setMaterialIcon(btn_ed, FontImage.MATERIAL_EDIT);
+        FontImage.setMaterialIcon(btn_del, FontImage.MATERIAL_DELETE_OUTLINE);
+        Container cntr = new Container(new FlowLayout());
+        Container cntr1 = new Container(new FlowLayout());
+        cntr.add(btn_ed);
+        cntr1.add(btn_del);
         mb.setTextLine1("🗺 Traget: "+Listtrie.get(i).getDepart()+"➡"+Listtrie.get(i).getDestination());
         mb.setTextLine2("🔠 Poids: "+String.valueOf(Listtrie.get(i).getPoids()));
         mb.setTextLine3("👨 Client: "+String.valueOf(Listtrie.get(i).getNomExpediteur()));
@@ -174,14 +226,47 @@ public class ListeDemandes extends BaseForm
              new Demande(Integer.valueOf(mb.getTextLine4()),matricule,res).show();
             }
         });
-        int height = Display.getInstance().convertToPixels(9f);
-        int width = Display.getInstance().convertToPixels(10f);
-        Button button= new Button("hi");
-        Label loblob = new Label(res.getImage("logo.png").fill(width, height));
-        SwipeableContainer sousou=  new SwipeableContainer(loblob, mb);
+        int id=Listtrie.get(i).getIdC();
+        SwipeableContainer sousou=  new SwipeableContainer(cntr1, cntr, mb);
+        content.addComponent(sousou);
+        btn_ed.addActionListener(m->{
+              new ModifierColis(id,res).show();
+            });
+    btn_del.addActionListener(ok->{
+         
+ InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
+  Container c = new Container(new BorderLayout());
+            
+dialogverif.setLayout(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
 
-        content1.addAll(sousou);
-       // content1.addAll(mb,btn);        
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+                
+                if( new ColisService().deletecolis(id))
+                {
+                    ToastBar.showInfoMessage("Votre Colis  est supprimée avec succé");
+                }else{
+                    ToastBar.showErrorMessage("Erreur de suppression");
+                }
+               // mBtn.remove();
+                sousou.remove();
+                this.refreshTheme();
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+dialogverif.show(top, bottom, height, width);
+    });    
       
             }
 

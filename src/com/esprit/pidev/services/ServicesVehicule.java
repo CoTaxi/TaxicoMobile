@@ -10,6 +10,8 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.notifications.LocalNotification;
+import com.codename1.ui.Display;
 import com.codename1.ui.events.ActionListener;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.utils.Statics;
@@ -81,6 +83,25 @@ public class ServicesVehicule {
         }
         return vehicules;
     }
+    
+    public ArrayList<Vehicule> parsePositon(String jsonText) {
+        try {
+            vehicules = new ArrayList<>();
+            JSONParser j = new JSONParser();
+            Map<String, Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
+                Vehicule v = new Vehicule();
+                v.setPosition(obj.get("position").toString());
+                vehicules.add(v);
+            }
+
+        } catch (IOException ex) {
+
+        }
+        return vehicules;
+    }
     public ArrayList<Vehicule> parseVehicule(String jsonText) {
         try {
             vehicules = new ArrayList<>();
@@ -120,6 +141,20 @@ public class ServicesVehicule {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 vehicules = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return vehicules;
+    }
+    public ArrayList<Vehicule> getPosition() {
+        String url = Statics.BASE_URL +"/T/position/"+Statics.sessionID;
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                vehicules = parsePositon(new String(req.getResponseData()));
                 req.removeResponseListener(this);
             }
         });
@@ -188,6 +223,19 @@ public class ServicesVehicule {
     
     public boolean addvehicule(Vehicule t) {
         String url = Statics.BASE_URL + "/T/newVec?matricule=" + t.getMatricule() + "&marque=" + t.getMarque() + "&modele=" + t.getModele()  + "&couleur=" + t.getCouleur() + "&cartegrise=" + t.getCartegrise()+ "&place=" + t.getPlaces() + "&position=" + t.getPosition() + "&accept_c=" + t.getAccept_c() + "&destination=" + t.getDestination()+"&user="+Statics.sessionID;
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+    public boolean updateposition(Vehicule t) {
+        String url = Statics.BASE_URL + "/T/updateposition/" + Statics.sessionID + "?position=" + t.getPosition();
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -283,6 +331,25 @@ public class ServicesVehicule {
         NetworkManager.getInstance().addToQueueAndWait(req);
 
         return resultOK;
-    }   
+    }
+        
+        
+public void Notification(){
+        LocalNotification n = new LocalNotification();
+        n.setId("demo-notification");
+        n.setAlertBody("✔✔ Votre véhicule a été ajouté avec succé ✅✅");
+        n.setAlertTitle("Ajout véhicule 🚗");
+        n.setAlertSound("/notification_sound_beep-01a.mp3");
+            // alert sound file name must begin with notification_sound
+
+        Display.getInstance().scheduleLocalNotification(
+                n,
+                System.currentTimeMillis() + 10 * 1000, // fire date/time
+                LocalNotification.REPEAT_MINUTE  // Whether to repeat and what frequency
+        );
+    }
+    public void localNotificationReceived(String notificationId){
+        
+    }
 
 }

@@ -212,7 +212,9 @@ public class UserService {
                 String nom = obj.get("nom").toString();
                 String prenom = obj.get("prenom").toString();
                 String email = obj.get("email").toString();
-                client.add(new User(id,nom,prenom,email));
+                int tel = (int)Float.parseFloat(obj.get("tel").toString());
+                 String naissance = obj.get("naissance").toString();
+                client.add(new User(id,nom,prenom,email,tel,naissance));
             }
 
         } catch (IOException ex) {

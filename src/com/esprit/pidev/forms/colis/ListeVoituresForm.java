@@ -63,14 +63,16 @@ public class ListeVoituresForm extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           //tsawer page
+        });  
         
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("bg.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
-        addTab(swipe, res.getImage("bg.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, res.getImage("vec1.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
+        addTab(swipe, res.getImage("vec2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
                 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");
@@ -129,9 +131,9 @@ public class ListeVoituresForm extends BaseForm
         Button btn = new Button();
         FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
-        mb.setTextLine1("🚖 "+List.get(i).getMarque()+" , "+List.get(i).getModele());
-        mb.setTextLine2("🗺 "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
-        mb.setTextLine4("🔠 "+List.get(i).getMatricule());
+        mb.setTextLine1("🚖 Modele : "+List.get(i).getMarque()+" , "+List.get(i).getModele());
+        mb.setTextLine2("🗺 Traget : "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
+        mb.setTextLine4("🔠 Matricule : "+List.get(i).getMatricule());
         String matricule = List.get(i).getMatricule();
          mb.addActionListener(new ActionListener() {
             @Override
