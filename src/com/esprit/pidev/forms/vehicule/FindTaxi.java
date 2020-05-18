@@ -34,17 +34,23 @@ public class FindTaxi extends BaseForm {
     public FindTaxi(Resources res, String depart, String dest) {
         super("Taxi", new BoxLayout(BoxLayout.Y_AXIS));
         this.getToolbar().getStyle().setBgColor(0x36324D);
+        this.getToolbar().addCommandToOverflowMenu("Mode jour", res.getImage("back-command.png"), e -> {
+        this.refreshTheme();
+        this.getStyle().setBgImage(res.getImage("day0000.png"));
+        this.refreshTheme();
+        });
+        this.getToolbar().addCommandToOverflowMenu("Mode nuit", res.getImage("back-command.png"), e -> {
+        this.refreshTheme();
+        this.getStyle().setBgImage(res.getImage("BG999.png"));
+        this.refreshTheme();
+        });
+        this.getToolbar().addCommandToRightBar("Return", null, (evt) -> {
+        new NewsfeedForm(res).showBack();
+        });
         setUIID("Maps");
         MultiButton mb = new MultiButton("taxi");
         ArrayList<Vehicule> List = new ServicesVehicule().findPosition(depart, "taxi");
         super.installSidemenu(res);
-        Toolbar tb = new Toolbar(true);
-        setToolbar(tb);
-        getTitleArea().setUIID("Container");
-        getContentPane().setScrollVisible(false);
-        tb.addCommandToRightBar("Return", null, (evt) -> {
-         new NewsfeedForm(res).show();
-        });
         this.setScrollableY(true);
         if (List.size() > 0) {
             for (int i = 0; i < List.size(); i++) {
@@ -86,18 +92,7 @@ public class FindTaxi extends BaseForm {
             }
         }
 
-        this.getToolbar().addCommandToOverflowMenu("Mode jour", res.getImage("back-command.png"), e -> {
-            this.refreshTheme();
-            this.getStyle().setBgImage(res.getImage("day0000.png"));
-            this.refreshTheme();
 
-        });
-        this.getToolbar().addCommandToOverflowMenu("Mode nuit", res.getImage("back-command.png"), e -> {
-            this.refreshTheme();
-            this.getStyle().setBgImage(res.getImage("BG999.png"));
-            this.refreshTheme();
-
-        });
           
 
         this.show();
