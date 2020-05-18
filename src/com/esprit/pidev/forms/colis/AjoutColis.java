@@ -61,7 +61,6 @@ public class AjoutColis extends BaseForm
         
         super.installSidemenu(res);
         tb.addSearchCommand(e -> {});
-        
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
