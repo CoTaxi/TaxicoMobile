@@ -72,16 +72,17 @@ public class ReserveRdvMaintenanceForm extends BaseForm
         
         super.installSidemenu(res);
         tb.addCommandToRightBar("Return", null, (evt) -> {
-         //page tsawer
+         new MaintenanceForm(res).showBack();
         });
         
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
+        Label spacer3 = new Label();
         addTab(swipe, res.getImage("maintenance.png"), spacer1, "15 Ride", "10 Colis", "Welcome Back To TaxiCo.");
         addTab(swipe, res.getImage("maintenance2.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
-        addTab(swipe, res.getImage("maintenance3.png"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
+        addTab(swipe, res.getImage("maintenance3.png"), spacer3, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
 
         swipe.setUIID("Container");
         swipe.getContentPane().setUIID("Container");

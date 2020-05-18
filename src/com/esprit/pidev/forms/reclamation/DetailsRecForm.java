@@ -122,9 +122,6 @@ public class DetailsRecForm extends BaseForm{
             edit.setEnabled(false);
         }
         
-        this.getToolbar().addCommandToLeftBar("Retourner", null, (evt) -> {
-            new ReclamationListForm(theme).showBack();      
-        });
         edit.addActionListener(up->{
             String NewMsg = txt.getText().toString();
             if (NewMsg.length()==0) 

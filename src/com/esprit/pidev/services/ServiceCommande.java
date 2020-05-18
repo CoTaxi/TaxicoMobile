@@ -135,10 +135,10 @@ public class ServiceCommande {
             List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
             for (Map<String, Object> obj : list) {
                 int client = (int)Float.parseFloat(obj.get("client").toString());
-                
+                int idcommande = (int)Float.parseFloat(obj.get("idcommande").toString());
            
                 
-                commande.add(new Commande(client));
+                commande.add(new Commande(client,idcommande));
             }
 
         } catch (IOException ex) {

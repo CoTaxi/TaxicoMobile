@@ -55,9 +55,6 @@ public class Demande extends BaseForm
         super("Demande", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-           new ListeDemandes(matricule,res).show();
-        });  
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
         

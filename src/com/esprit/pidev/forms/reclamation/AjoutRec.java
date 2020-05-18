@@ -66,7 +66,7 @@ public class AjoutRec extends BaseForm
         
         super.installSidemenu(res);
         tb.addCommandToRightBar("Return", null, (evt) -> {
-         //page tsawer
+         new ReclamationForm(res).showBack();
         });
         
         Tabs swipe = new Tabs();

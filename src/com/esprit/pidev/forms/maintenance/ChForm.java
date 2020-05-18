@@ -22,6 +22,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -35,6 +36,7 @@ import com.esprit.pidev.services.ServiceCommande;
 import com.esprit.pidev.services.ServicesVehicule;
 import com.esprit.pidev.services.UserService;
 import com.mycompany.myapp.Forms.BaseForm;
+import com.mycompany.myapp.Forms.NewsfeedForm;
 import java.util.ArrayList;
 
 /**
@@ -44,15 +46,20 @@ import java.util.ArrayList;
 public class ChForm extends BaseForm{
     public ChForm (Resources res){
         super("Ch list", new BorderLayout());
+        this.getToolbar().addCommandToRightBar("Return", null, (evt) -> {
+        //new NewsfeedForm(res).showBack();
+        });
+        
         Accordion accr = new Accordion();
         this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
         this.setBgImage(res.getImage("chform2.jpg"));
+        super.installSidemenu(res);
         ArrayList<Vehicule> List2 = new ServicesVehicule().getPosition();
                     Button actualiser = new Button("Actualiser");
                     int height = Display.getInstance().convertToPixels(9f);
                     int width = Display.getInstance().convertToPixels(10f);
                     Label lab1 = new Label(List2.get(0).getPosition());
-                    TextField t = new TextField();
+                    TextField t = new TextField(null,"Position");
                     lab1.getStyle().setFgColor(0xffffff);
                     accr.getStyle().setBgImage(res.getImage("accordionfinal.png"));
                     accr.addContent(BoxLayout.encloseY(new Label(res.getImage("noslog2.png").fill(width, height)),lab1), BoxLayout.encloseY( t,actualiser));
@@ -72,6 +79,8 @@ public class ChForm extends BaseForm{
         Button btn = new Button("Annuler");
         ArrayList<Vehicule> List = new ServicesVehicule().getReservedCar();
         ArrayList<Commande> ListC = new ServiceCommande().getCommande(List.get(0).getId());
+        if(ListC.size()>0)
+        {
         ArrayList<User> ListU = new UserService().getClient(ListC.get(0).getClient());
         System.out.println(ListU.get(0).getNom());
         for (int i = 0; i<ListU.size(); i++) {
@@ -89,7 +98,9 @@ public class ChForm extends BaseForm{
             int tel =  ListU.get(i).getTel();
             String naissance =  ListU.get(i).getNaissance();
             int id = List.get(0).getId();
+            System.out.println("hetha id ---- "+List.get(0).getId());
             int idCommande = ListC.get(0).getIdCommande();
+            System.out.println("hetha idCommande ---- "+ListC.get(0).getIdCommande());
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_COMMENT);
             mBtn.getStyle().setBgTransparency(100);
             mBtn.addActionListener(zzz->{
@@ -143,7 +154,11 @@ public class ChForm extends BaseForm{
         }
         this.add(BorderLayout.NORTH,accr);
         this.add(CENTER, listRec);
-
+        }
+        else 
+        {
+         this.add(BorderLayout.NORTH,accr);
+        }
         //////////////////////////////////////////////////////////////////////////////
 //        Form hi = new Form("Rdv List", new BoxLayout(BoxLayout.Y_AXIS));
 //

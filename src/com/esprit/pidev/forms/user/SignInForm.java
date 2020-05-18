@@ -36,7 +36,7 @@ import com.esprit.pidev.services.UserService;
 import com.esprit.pidev.utils.Statics;
 import com.mycompany.myapp.Forms.BaseForm;
 import com.mycompany.myapp.Forms.NewsfeedForm;
-import com.mycompany.myapp.Forms.NosServices;
+import com.esprit.pidev.forms.colis.NosServices;
 
 /**
  * Sign in UI
@@ -122,6 +122,9 @@ public class SignInForm extends BaseForm {
                //new ChForm(res).show();
 
                //new  NosServices(res).show();
+               new ChForm(res).show();
+
+
                new ChForm(res).show();
 
            }

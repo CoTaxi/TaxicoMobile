@@ -56,8 +56,6 @@ public class ProfileForm extends BaseForm {
         
         getContentPane().setScrollVisible(false);
         super.installSidemenu(res);
-        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
-        this.setBgImage(res.getImage("bag.png"));
         Image img = res.getImage("mahdi.png");
         if(img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
             img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 3);

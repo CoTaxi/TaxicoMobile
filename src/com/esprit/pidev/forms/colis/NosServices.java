@@ -17,7 +17,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package com.mycompany.myapp.Forms;
+package com.esprit.pidev.forms.colis;
 
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -48,6 +48,7 @@ import com.esprit.pidev.forms.colis.Map;
 import com.esprit.pidev.forms.colis.combo;
 import com.esprit.pidev.forms.reclamation.AjoutRec;
 import com.esprit.pidev.forms.vehicule.AjoutVehicule;
+import com.mycompany.myapp.Forms.BaseForm;
 /**
  * The newsfeed form
  *
@@ -83,12 +84,12 @@ public class NosServices extends BaseForm {
            //System.out.println(ta.getText());
            if(ta.getText().equals("ENVOYER COLIS."))
            {
-               System.out.println("ENVOYER COLIS.");
+             new AjoutColis(res).show();
            }
            else if(ta.getText().equals("CONSULTER COLIS."))
            {
              System.out.println("CONSULTER COLIS.");
-             //  new AjoutForum().show();
+              new AfficherColis(res).show();
            }
            
         //    new ColisForm(res).show();
