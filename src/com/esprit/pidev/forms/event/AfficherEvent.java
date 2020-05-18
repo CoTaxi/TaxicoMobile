@@ -64,7 +64,8 @@ public class AfficherEvent extends BaseForm
         setToolbar(tb);
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
-        
+        this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(res.getImage("bag.png"));
         super.installSidemenu(res);
         tb.addCommandToRightBar("Return", null, (evt) -> {
          //page tsawer

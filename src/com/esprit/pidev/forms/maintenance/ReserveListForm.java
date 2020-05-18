@@ -67,7 +67,8 @@ public AdMobManager admob= new AdMobManager("ca-app-pub-4209362622009586/9753595
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(theme);
-
+this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        this.setBgImage(theme.getImage("bag.png"));
         
         Tabs swipe = new Tabs();
 
