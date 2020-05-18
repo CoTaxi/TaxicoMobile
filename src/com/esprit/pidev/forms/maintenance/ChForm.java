@@ -12,6 +12,7 @@ import com.codename1.components.MultiButton;
 import com.codename1.components.OnOffSwitch;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
+import com.codename1.ui.CheckBox;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -19,9 +20,11 @@ import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.pidev.models.Commande;
@@ -43,7 +46,7 @@ public class ChForm extends BaseForm{
         super("Ch list", new BorderLayout());
         Accordion accr = new Accordion();
         this.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
-        this.setBgImage(res.getImage("bg.png"));
+        this.setBgImage(res.getImage("chform.jpg"));
         ArrayList<Vehicule> List2 = new ServicesVehicule().getPosition();
                     Button actualiser = new Button("Actualiser");
                     int height = Display.getInstance().convertToPixels(9f);
@@ -86,17 +89,23 @@ public class ChForm extends BaseForm{
             int id = List.get(0).getId();
             int idCommande = ListC.get(0).getIdCommande();
             FontImage.setMaterialIcon(mBtn, FontImage.MATERIAL_COMMENT);
+            mBtn.getStyle().setBgTransparency(100);
             mBtn.addActionListener(zzz->{
                 
                 new RdvService().doing(ListC.get(0).getIdCommande());
                 new Chdetail(this, n, p, e,id,idCommande).show();
             });
             OnOffSwitch dispo = new OnOffSwitch();
+            CheckBox ckdispo = new CheckBox();
+            
+        ckdispo.setText("Dispo et/ou nn");
+//        ckdispo.getStyle().setBgColor(0x);
         dispo.setOff("Non");
         dispo.setOn("Oui");
         dispo.setValue(false);
-        dispo.addActionListener(l->{
-            if (dispo.isValue()) {
+        dispo.getStyle().setBgTransparency(100);
+        ckdispo.addActionListener(l->{
+            if (ckdispo.isSelected()) {
                     new ServicesVehicule().updateDispo(1,List.get(0).getId());
                 } else {
                     new ServicesVehicule().updateDispo(0,List.get(0).getId());
@@ -116,7 +125,15 @@ public class ChForm extends BaseForm{
 //            });
 
 //            SwipeableContainer swip = new SwipeableContainer(btn,mBtn);
-            listRec.addAll(mBtn,dispo);
+
+ Container cntr = new Container(new FlowLayout());
+ dispo.getStyle().setBgColor(0x000000);
+            cntr.add(ckdispo);
+            
+//            cntr.getStyle().setBgTransparency(100);
+            SwipeableContainer sousou=  new SwipeableContainer(cntr, mBtn);
+//            listRec.addAll(sousou);
+            listRec.addAll(mBtn,cntr);
             
 
             
