@@ -65,7 +65,9 @@ public class AjoutRec extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         //page tsawer
+        });
         
         Tabs swipe = new Tabs();
 

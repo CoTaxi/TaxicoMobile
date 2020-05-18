@@ -5,6 +5,7 @@
  */
 package com.esprit.pidev.forms.forum;
 
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -25,20 +26,17 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
-import com.esprit.pidev.forms.event.ShowDetailsEvent;
-import com.esprit.pidev.models.Event;
+import com.esprit.pidev.forms.colis.ShowDetailsColis;
 import com.esprit.pidev.models.Forum;
-import com.esprit.pidev.services.EventService;
+import com.esprit.pidev.services.ColisService;
 import com.esprit.pidev.services.ForumService;
-import com.esprit.pidev.services.ReclamationServices;
 import com.mycompany.myapp.Forms.BaseForm;
 import java.util.ArrayList;
 
@@ -54,15 +52,13 @@ public class AfficherBlog extends BaseForm
         super("Afficher Blog", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         //page tsawer
+        });  
         
         Tabs swipe = new Tabs();
 
@@ -149,17 +145,41 @@ public class AfficherBlog extends BaseForm
             btn_edit.addActionListener(l->{
                 new ModifierBlog(res, id, t, c, im).show();
             });
-            btn_delete.addActionListener(l->{
-                if( new ForumService().deleteForm(t))
+                btn_delete.addActionListener(l->{
+         
+ InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
+  Container coucou = new Container(new BorderLayout());
+            
+dialogverif.setLayout(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new SpanLabel("     Voulez vous vraiment Supprimer ce Blog ?"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+coucou.addComponent(BorderLayout.EAST,non);
+coucou.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,coucou);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+                
+                if(new ForumService().deleteForm(t))
                 {
-                    ToastBar.showInfoMessage("Votre Blog est supprimée avec succé");
+                    ToastBar.showInfoMessage("Votre Blog  est supprimée avec succé");
                 }else{
                     ToastBar.showErrorMessage("Erreur de suppression");
                 }
                // mBtn.remove();
                 sousou.remove();
                 this.refreshTheme();
-            });
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+dialogverif.show(top, bottom, height, width);
+ });  
         
         }
         Button ajout = new Button("Ajouter Blog");

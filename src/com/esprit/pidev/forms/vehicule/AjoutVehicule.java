@@ -33,6 +33,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.esprit.pidev.forms.reclamation.ReclamationListForm;
 import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.services.ServicesVehicule;
 import com.mycompany.myapp.Forms.BaseForm;
@@ -49,15 +50,13 @@ public class AjoutVehicule extends BaseForm
         super("Ajouter Vehicule", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+       tb.addCommandToRightBar("Return", null, (evt) -> {
+       //page tsawer
+        });
         
         Tabs swipe = new Tabs();
 

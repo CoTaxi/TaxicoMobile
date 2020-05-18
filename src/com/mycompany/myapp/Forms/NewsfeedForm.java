@@ -179,6 +179,7 @@ public class NewsfeedForm extends BaseForm {
                 this.removeComponent(to_cov);
                 this.removeComponent(searchcov);
                 searchcolis.setText("Envoyer Colis");
+                this.refreshTheme();
                 this.addAll(from_coli,to_coli, searchcolis);
                 this.refreshTheme();
             }

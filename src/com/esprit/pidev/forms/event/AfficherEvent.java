@@ -62,15 +62,13 @@ public class AfficherEvent extends BaseForm
         super("Afficher Evennement", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-        tb.addCommandToLeftBar("Return", null, (evt) -> {
-         //  new ColisForm(res).show();
-        });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         //page tsawer
+        });  
         
         Tabs swipe = new Tabs();
 

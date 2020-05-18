@@ -52,7 +52,7 @@ public class Demande extends BaseForm
 
     public Demande(int Id,String matricule,Resources res)
     {
-        super("Archive", BoxLayout.y());
+        super("Demande", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         tb.addCommandToLeftBar("Return", null, (evt) -> {
@@ -62,7 +62,9 @@ public class Demande extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           new ListeDemandes(matricule,res).showBack();
+        });  
         
         Tabs swipe = new Tabs();
 

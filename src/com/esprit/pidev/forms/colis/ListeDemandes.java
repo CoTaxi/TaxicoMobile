@@ -6,6 +6,8 @@ package com.esprit.pidev.forms.colis;
  * and open the template in the editor.
  */
 
+import com.codename1.components.InfiniteProgress;
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
@@ -31,6 +33,7 @@ import com.codename1.ui.TextArea;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -61,7 +64,9 @@ public class ListeDemandes extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+           new ListeVoituresForm(res).showBack();
+        });  
         
         Tabs swipe = new Tabs();
 
@@ -145,7 +150,24 @@ public class ListeDemandes extends BaseForm
         btn_edit.addActionListener(l->{
               new ModifierColis(id,res).show();
             });
+
             btn_delete.addActionListener(l->{
+         
+ InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
+ dialogverif.setLayout(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER));
+  Container c = new Container(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+                
                 if( new ColisService().deletecolis(id))
                 {
                     ToastBar.showInfoMessage("Votre Colis  est supprimée avec succé");
@@ -155,15 +177,20 @@ public class ListeDemandes extends BaseForm
                // mBtn.remove();
                 sousou.remove();
                 this.refreshTheme();
-            });
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+
+dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth() + pre.getWidth() / 6), 0);
+ });        
+InfiniteProgress.setDefaultMaterialDesignMode(true);       
+
         
 //        mb.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent evt) {
 //             
 //            }
-//        });
-        content.addAll(mb);        
+//        }); 
       
             }
 
@@ -205,7 +232,24 @@ public class ListeDemandes extends BaseForm
         btn_ed.addActionListener(m->{
               new ModifierColis(id,res).show();
             });
-            btn_del.addActionListener(e->{
+    btn_del.addActionListener(ok->{
+         
+ InteractionDialog dialogverif = new InteractionDialog("SUPPRESSION!");
+  Container c = new Container(new BorderLayout());
+            
+dialogverif.setLayout(new BorderLayout());
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+Button oui = new Button("Oui");
+Button non = new Button("Non");
+non.addActionListener((ee) -> dialogverif.dispose());
+c.addComponent(BorderLayout.EAST,non);
+c.addComponent(BorderLayout.WEST,oui);
+dialogverif.addComponent(BorderLayout.SOUTH,c);
+
+oui.addActionListener(tt->{
+    
+dialogverif.dispose();
+                
                 if( new ColisService().deletecolis(id))
                 {
                     ToastBar.showInfoMessage("Votre Colis  est supprimée avec succé");
@@ -215,7 +259,14 @@ public class ListeDemandes extends BaseForm
                // mBtn.remove();
                 sousou.remove();
                 this.refreshTheme();
-            });    
+         }); 
+Dimension pre = dialogverif.getContentPane().getPreferredSize();
+int height = Display.getInstance().convertToPixels(9f);
+int width = Display.getInstance().convertToPixels(10f);
+int top = Display.getInstance().convertToPixels(95f);
+int bottom = Display.getInstance().convertToPixels(0f);
+dialogverif.show(top, bottom, height, width);
+    });    
       
             }
 

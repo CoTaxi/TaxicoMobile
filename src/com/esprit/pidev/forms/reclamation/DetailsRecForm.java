@@ -51,15 +51,13 @@ public class DetailsRecForm extends BaseForm{
        super("Modifer votre réclamation", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
-//        tb.addCommandToLeftBar("Return", null, (evt) -> {
-//         //  new ColisForm(res).show();
-//        });  
         getTitleArea().setUIID("Container");
-        //setTitle("TaxiCo-Vehicule");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(theme);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+         new ReclamationListForm(theme).showBack();
+        });
         
         Tabs swipe = new Tabs();
 

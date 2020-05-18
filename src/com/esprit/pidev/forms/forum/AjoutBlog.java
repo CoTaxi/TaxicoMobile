@@ -39,6 +39,7 @@ import com.codename1.ui.validation.NumericConstraint;
 import com.codename1.ui.validation.RegexConstraint;
 import com.codename1.ui.validation.Validator;
 import com.esprit.pidev.forms.colis.AfficherColis;
+import com.esprit.pidev.forms.colis.ShowDetailsColis;
 import com.esprit.pidev.models.Colis;
 import com.esprit.pidev.models.Forum;
 import com.esprit.pidev.services.ColisService;
@@ -65,7 +66,9 @@ public class AjoutBlog extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+          new AfficherBlog(res).showBack();
+        });  
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();

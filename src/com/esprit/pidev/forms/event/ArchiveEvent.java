@@ -66,11 +66,12 @@ public class ArchiveEvent extends BaseForm
          //  new ColisForm(res).show();
         });  
         getTitleArea().setUIID("Container");
-        setTitle("TaxiCo-Event");
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+        tb.addCommandToRightBar("Return", null, (evt) -> {
+          new AfficherEvent(res).show();
+        });  
         
         Tabs swipe = new Tabs();
 

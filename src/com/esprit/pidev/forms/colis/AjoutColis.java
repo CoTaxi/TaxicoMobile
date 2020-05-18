@@ -60,7 +60,9 @@ public class AjoutColis extends BaseForm
         getContentPane().setScrollVisible(false);
         
         super.installSidemenu(res);
-        tb.addSearchCommand(e -> {});
+           tb.addCommandToRightBar("Return", null, (evt) -> {
+           //tsawer page
+        });  
         Tabs swipe = new Tabs();
 
         Label spacer1 = new Label();
