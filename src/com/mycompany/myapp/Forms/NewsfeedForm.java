@@ -35,11 +35,11 @@ public class NewsfeedForm extends BaseForm {
 
     public NewsfeedForm(Resources res) {
         super("Newsfeed", new BoxLayout(BoxLayout.Y_AXIS));
-
-         setUIID("Maps");
+        setTitle("Acceuil");
+        getContentPane().setScrollVisible(false);
         super.installSidemenu(res);
+        setUIID("Maps");
         //--------------------
-        Container layer = new Container();
         Button back = new Button("TitleCommand");
         //FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK);
         TextField from = new TextField("", "Depart Taxi", 40, TextField.ANY);
@@ -57,20 +57,8 @@ public class NewsfeedForm extends BaseForm {
         from.setUIID("FromToTextField");
         to.getHintLabel().setUIID("FromToTextFieldHint");
         to.setUIID("FromToTextField");
-        Container navigationToolbar = new Container();
-        navigationToolbar = BoxLayout.encloseY(back, BorderLayout.centerCenterEastWest(from, new Label(img.fill(width, height)), fromSelected), BorderLayout.centerCenterEastWest(to, new Label(img1.fill(width, height)), toSelected), BorderLayout.centerCenterEastWest(null, new Button("Trouver Un Taxi"), searchtaxi));
-        navigationToolbar.setUIID("WhereToToolbar");
-        navigationToolbar.getUnselectedStyle().setBgPainter((g1, rect) -> {
-            g1.setAlpha(255);
-            g1.setColor(0xffffff);
+        
 
-        });
-        layer.setLayout(new BorderLayout());
-        layer.add(NORTH, navigationToolbar);
-        navigationToolbar.setWidth(getDisplayWidth());
-        navigationToolbar.setHeight(getPreferredH());
-        navigationToolbar.setY(-navigationToolbar.getHeight());
-        layer.animateLayout(200);
 
 
 
@@ -141,6 +129,9 @@ public class NewsfeedForm extends BaseForm {
         swipe.hideTabs();
 
         ButtonGroup barGroup = new ButtonGroup();
+        
+        RadioButton all = RadioButton.createToggle("Tout", barGroup);
+        all.setUIID("SelectBar");
         RadioButton Services = RadioButton.createToggle("Taxi", barGroup);
         Services.setUIID("SelectBar");
         RadioButton Events = RadioButton.createToggle("Colis", barGroup);
@@ -149,7 +140,7 @@ public class NewsfeedForm extends BaseForm {
         Blog.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, Services, Events, Blog),
+                GridLayout.encloseIn(4,all, Services, Events, Blog),
                 FlowLayout.encloseBottom(arrow)
         ));
               
