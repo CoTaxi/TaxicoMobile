@@ -4,34 +4,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
             <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/reclamation/ReclamationForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/mycompany/myapp/Forms/NosServices.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/colis/Demande.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/reclamation/ReclamationListForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/reclamation/AjoutRec.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/colis/ListeDemandes.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/reclamation/DetailsRecForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/colis/ListeVoituresForm.java</file>
-
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/mycompany/myapp/MyApplication.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/mycompany/myapp/Forms/WalkthruForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/reclamation/ReclamationListForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/vehicule/FindTaxi.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/user/SignInForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/colis/Demande.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/utils/Statics.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/services/ColisService.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/mycompany/myapp/Forms/BaseForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/reclamation/DetailsRecForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/services/UserService.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/vehicule/AfficherVehicule.java</file>
             <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/services/ServicesVehicule.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/mycompany/myapp/Forms/ActivateForm.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/mycompany/myapp/Forms/DemoComponent.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/colis/AfficherColis.java</file>
-            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/mycompany/myapp/Forms/NewsfeedForm.java</file>
-
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/maintenance/MaintenanceForm.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/services/UserService.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/event/ShowDetailsEvent.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/vehicule/AjoutVehicule.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/event/AfficherEvent.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/maintenance/ReserveRdvMaintenanceForm.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/maintenance/ReserveListForm.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/services/RdvService.java</file>
+            <file>file:/C:/wamp64/www/TaxicoMobile/src/com/esprit/pidev/forms/colis/AffecterColis.java</file>
         </group>
     </open-files>
 </project-private>

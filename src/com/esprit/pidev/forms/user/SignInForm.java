@@ -117,14 +117,6 @@ public class SignInForm extends BaseForm {
                if(Statics.type.equals("client"))
                new  NewsfeedForm(res).show();
                else if(Statics.type.equals("chauffeur"))
-
-               new  NosServices(res).show();
-               //new ChForm(res).show();
-
-               //new  NosServices(res).show();
-               new ChForm(res).show();
-
-
                new ChForm(res).show();
 
            }

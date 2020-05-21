@@ -351,5 +351,19 @@ public void Notification(){
     public void localNotificationReceived(String notificationId){
         
     }
+        public ArrayList<Vehicule> vecmatricule(String matricule) {
+        String url = Statics.BASE_URL +"/T/vecmatricule/"+matricule;
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                vehicules = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return vehicules;
+    } 
 
 }

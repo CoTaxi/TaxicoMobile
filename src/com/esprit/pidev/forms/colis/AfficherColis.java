@@ -214,7 +214,7 @@ dialogverif.show(0, 0, Display.getInstance().getDisplayWidth() - (pre.getWidth()
 }
         
         this.addComponent(content);
-     //   this.setScrollableY(true);
+        this.refreshTheme();
     }
 });
 tb.addCommandToRightBar("", searchIcon, (e) -> {

@@ -162,7 +162,7 @@ public class ShowDetailsEvent extends BaseForm
                  red.setText("Il Ne Reste Que "+rest+" Places Disponible");
                  orange.setText("");
               }
-              else if(e.getCapacite()<=e.getPlace())
+              if(e.getCapacite()<=e.getPlace())
               {
                   red.setText("");
                   affect.setEnabled(false);

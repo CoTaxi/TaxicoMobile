@@ -12,6 +12,8 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.messaging.Message;
+import com.codename1.ui.Display;
 import com.codename1.ui.events.ActionListener;
 import com.esprit.pidev.models.Colis;
 import com.esprit.pidev.models.Forum;
@@ -121,5 +123,9 @@ public class ForumService {
         } catch (IOException ex) {
         }
         return forums;
+    }
+        public void sendEmail(){
+        Message m = new Message("Bonjour Equipe TaxiCo,\n A Propos Du Blog Posté .. ");
+        Display.getInstance().sendMessage(new String[] {"mehdi.hrairi@esprit.tn"}, "Blog", m);
     }
 }

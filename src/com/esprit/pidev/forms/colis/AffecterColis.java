@@ -131,20 +131,14 @@ public class AffecterColis extends BaseForm
         mb.setTextLine1("🚖 "+List.get(i).getMarque()+" , "+List.get(i).getModele());
         mb.setTextLine2("🗺 "+List.get(i).getPosition()+" , "+List.get(i).getDestination());
         mb.setTextLine4("🔠 "+List.get(i).getMatricule());
-        mb.addActionListener(new ActionListener() {
-          
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-              String  Depart = mb.getTextLine1(); // or anything you want it to be
-              String  Destination=mb.getTextLine2();
-                //show the profile form here
+        String mat =List.get(i).getMatricule();
+        mb.addActionListener(e-> {
              Dialog.show("Felicitation", "Votre Colis sera Affecté a cette voiture", "OK", null);
-             if (new ColisService().affecterColis(Id,mb.getTextLine4())) {
+             if (new ColisService().affecterColis(Id,mat)) {
                         Dialog.show("SUCCESS", "Colis Affecté", "OK", null);
                     } else {
                         Dialog.show("ERROR", "Server error", "OK", null);
-                    }
-            }
+                    }  
         });
         this.addAll(mb);
         this.setScrollableY(true);

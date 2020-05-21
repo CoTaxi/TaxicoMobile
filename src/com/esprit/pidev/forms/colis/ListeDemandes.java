@@ -41,7 +41,9 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.esprit.pidev.models.Colis;
+import com.esprit.pidev.models.Vehicule;
 import com.esprit.pidev.services.ColisService;
+import com.esprit.pidev.services.ServicesVehicule;
 import com.mycompany.myapp.Forms.BaseForm;
 import java.util.ArrayList;
 
@@ -200,7 +202,8 @@ InfiniteProgress.setDefaultMaterialDesignMode(true);
         this.setScrollableY(true);
         tri.addActionListener(l->
         {
-        ArrayList<Colis> Listtrie = new ColisService().TriColis();
+        ArrayList<Vehicule> mat = new ServicesVehicule().vecmatricule(matricule);
+        ArrayList<Colis> Listtrie = new ColisService().TriColis(mat.get(0).getId());
         this.removeComponent(content);
                 for (int i = 0; i < Listtrie.size(); i++) 
         {

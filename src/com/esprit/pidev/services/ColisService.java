@@ -247,8 +247,8 @@ return responseResult;
 
         return Colis;
     }
-public ArrayList<Colis> TriColis(  ) {
-            String url =Statics.BASE_URL +"/C/triColis";
+public ArrayList<Colis> TriColis(int id) {
+            String url =Statics.BASE_URL +"/C/triColis/"+id;
         request.setUrl(url);
         request.setPost(false);
         request.addResponseListener(new ActionListener<NetworkEvent>() {

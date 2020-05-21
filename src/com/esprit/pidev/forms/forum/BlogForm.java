@@ -104,7 +104,7 @@ public class BlogForm extends BaseForm
         add(LayeredLayout.encloseIn(swipe, radioContainer));
         
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton featured = RadioButton.createToggle("Colis", barGroup);
+        RadioButton featured = RadioButton.createToggle("Blog", barGroup);
         featured.setUIID("SelectBar");
 
       //-------------------------------------------------------------------------------
