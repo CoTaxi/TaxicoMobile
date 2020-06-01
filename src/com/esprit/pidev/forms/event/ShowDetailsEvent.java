@@ -222,12 +222,11 @@ delete.addActionListener(l->{
 this.addAll(cnom,cdate_debut,cdate_fin,cduree,cemplacement,orange,red);
 
   try {
-      String link="";
+      String link="C:\\Users\\mahdi\\Desktop\\taxico.mp4";
       
 Media video = MediaManager.createMedia(link, true);
  this.revalidate();
-this.addComponent(BorderLayout.CENTER,video.getVideoComponent());
-video.setNativePlayerMode(true);
+this.addComponent(video.getVideoComponent());
             video.play();
         } catch (IOException ex) {
         }
