@@ -45,6 +45,7 @@ public class eventForm extends BaseForm {
         this.setBgImage(res.getImage("bag.png"));
         addButton(res.getImage("consulterevent.png"), "Afficher events",res);
         //addButton(res.getImage("consulterrdv.png"), "Liste des rendez-vous",res);
+        
     }
     
    private void addButton(Image img, String title,Resources res) {
