@@ -238,7 +238,15 @@ public class ShowDetailsColis extends BaseForm
               int et=det.get(i).getEtat();
                   if((et==2))
                   {
-                  new  pickuplocation(res, Id);
+                   if(det.get(i).getPickup().equals("none"))
+                   {
+                        new  pickuplocation(res, Id);
+                   } 
+                   else
+                   {
+                       this.refreshTheme();
+                       ok.setEnabled(false);
+                   }
                   }
                   else 
                   {

@@ -75,6 +75,15 @@ public class Chat
         if(question.contains("reclamation")) {
            return "Nous vous prions de nous excuser de cet incident... Vous Pouvez Deposer Votre Reclamation Et On la Traitera Le Plus Tot Possible";
         }
+        if(question.contains("services")) {
+           return "Sur TaxiCo Vous Pouvez Reserver Un Taxi , Un Covoiturage Ou bien Envoyer Un Colis";
+        }
+        if(question.contains("prix")) {
+           return "Le Prix Dependera Du Traget pour les vehicules , et du prix pour l'envoi du colis";
+        }
+        if(question.contains("contact")) {
+           return "Vous Pouvez Nous Contacter Via Mail : Taxico@gmail.com Ou Bien Par Telephone 22 222 222";
+        }
         if(question.startsWith("say ")) {
             return question.substring(4);
         }

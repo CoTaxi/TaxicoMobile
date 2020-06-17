@@ -51,12 +51,12 @@ import java.util.ArrayList;
  *
  * @author ASUS
  */
-public class ListeDemandes extends BaseForm
+public class Archive extends BaseForm
 {
 
-    public ListeDemandes(String matricule,Resources res) 
+    public Archive(String matricule,Resources res) 
     {
-            super("Liste Des Demandes", BoxLayout.y());
+            super("Archive Des Livraisons", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
@@ -64,7 +64,7 @@ public class ListeDemandes extends BaseForm
         
         super.installSidemenu(res);
         tb.addCommandToRightBar("Return", null, (evt) -> {
-           new ListeVoituresForm(res).showBack();
+           new ListeDemandes(matricule,res).showBack();
         });  
         
         Tabs swipe = new Tabs();
@@ -124,7 +124,7 @@ public class ListeDemandes extends BaseForm
         for (int i = 0; i < List.size(); i++) 
         {
           
-               if(List.get(i).getEtat()!=3)
+               if(List.get(i).getEtat()==3)
             {    
         //FontImage.setMaterialIcon(btn, FontImage.MATERIAL_CHECK);
         final MultiButton mb = new MultiButton();
@@ -199,10 +199,6 @@ InfiniteProgress.setDefaultMaterialDesignMode(true);
         }
         content.revalidate();
         Button tri = new Button ("Trier");
-        Button archive = new Button ("Archive");
-        archive.addActionListener(l->{
-            new Archive(matricule, res).show();
-        });
         this.addAll(tri,content);
         this.setScrollableY(true);
         tri.addActionListener(l->
@@ -212,7 +208,7 @@ InfiniteProgress.setDefaultMaterialDesignMode(true);
         this.removeComponent(content);
                 for (int i = 0; i < Listtrie.size(); i++) 
         {
-            if(Listtrie.get(i).getEtat()!=3)
+            if(Listtrie.get(i).getEtat()==3)
             {
         final MultiButton mb = new MultiButton();
         Button btn_ed = new Button();
@@ -283,7 +279,6 @@ dialogverif.show(top, bottom, height, width);
         this.refreshTheme();
         });
 content1.revalidate();
-this.add(archive);
     }
     
     private void updateArrowPosition(Button b, Label arrow) {

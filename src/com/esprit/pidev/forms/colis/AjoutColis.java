@@ -5,9 +5,11 @@
  */
 package com.esprit.pidev.forms.colis;
 
+import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
+import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.ComboBox;
@@ -31,15 +33,19 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.layouts.TextModeLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.Constraint;
 import com.codename1.ui.validation.LengthConstraint;
 import com.codename1.ui.validation.NumericConstraint;
 import com.codename1.ui.validation.RegexConstraint;
 import com.codename1.ui.validation.Validator;
 import com.esprit.pidev.forms.vehicule.AfficherVehicule;
 import com.esprit.pidev.models.Colis;
+import com.esprit.pidev.models.User;
 import com.esprit.pidev.services.ColisService;
+import com.esprit.pidev.services.UserService;
 import com.esprit.pidev.utils.Statics;
 import com.mycompany.myapp.Forms.BaseForm;
+import java.util.ArrayList;
 
 /**
  *
@@ -111,23 +117,40 @@ public class AjoutColis extends BaseForm
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton featured = RadioButton.createToggle("Colis", barGroup);
         featured.setUIID("SelectBar");
-
-                ComboBox<String> cat = new ComboBox<>();
         Button btn = new Button("Envoyer Colis");
         TextModeLayout tl = new TextModeLayout(3, 2);
-        TextComponent tfDepart = new TextComponent().label("Depart") ;
+        AutoCompleteTextField tfDepart = new AutoCompleteTextField(
+             "Ariana","Béja","Ben Arous","Bizerte","Gabès","Gafsa",
+             "Jendouba","Kairouan","Kasserine","Kef","Mahdia","Manouba"
+             ,"Médenine","Monastir","Nabeul","Sfax","Siliana","Sousse",
+             "Tataouine","Tozeur","Tunis","Zaghouan"
+        );
+        tfDepart.setMinimumElementsShownInPopup(3);
+        tfDepart.getStyle().setFgColor(0x000000);
+        tfDepart.setHint("Depart");
+        AutoCompleteTextField tfDestination = new AutoCompleteTextField(
+             "Ariana","Béja","Ben Arous","Bizerte","Gabès","Gafsa",
+             "Jendouba","Kairouan","Kasserine","Kef","Mahdia","Manouba"
+             ,"Médenine","Monastir","Nabeul","Sfax","Siliana","Sousse",
+             "Tataouine","Tozeur","Tunis","Zaghouan"
+        );
+        tfDestination.setMinimumElementsShownInPopup(3);
+        tfDestination.getStyle().setFgColor(0x000000);
+        tfDestination.setHint("Destination");
         //.errorMessage("Input is essential in this field");
-        TextComponent tfDestination = new TextComponent().label("Destination");
         TextComponent tfNomExpediteur = new TextComponent().label("Nom Expediteur");
         TextComponent tfMailExpediteur = new TextComponent().label("Mail Expediteur");
-        TextComponent tfPoids = new TextComponent().label("Poids");
+        TextComponent tfPoids = new TextComponent().label("Poids(kg)");
         TextComponent tfNomDestinataire = new TextComponent().label("Nom Destinataire");
         TextComponent tfMailDestinataire = new TextComponent().label("Mail Destinataire");
         TextComponent tfTelDestinataire = new TextComponent().label("Tel Destinataire");
+        ArrayList<User> us = new UserService().lastcnx(Statics.sessionID);
+        tfNomDestinataire.text(us.get(0).getUsername());
+        tfMailDestinataire.text(us.get(0).getEmail());
         Validator val = new Validator();
         val.addConstraint(tfMailExpediteur, RegexConstraint.validEmail("Mail Expediteur"));
         val.addConstraint(tfMailDestinataire, RegexConstraint.validEmail("Mail Expediteur"));
-        val.addConstraint(tfTelDestinataire, new NumericConstraint(true), new LengthConstraint(8,"Telephone"));
+        val.addConstraint(tfTelDestinataire, new NumericConstraint(true), new LengthConstraint(8,"Tel"));
         val.addConstraint(tfPoids, new NumericConstraint(true));
        /* ArrayList<category> List = new CategoryService().AfficherCategorie();
         for (int i=0; i<List.size();i++){

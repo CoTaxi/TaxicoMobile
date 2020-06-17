@@ -147,6 +147,22 @@ public class ServicesVehicule {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return vehicules;
     }
+        public ArrayList<Vehicule> getvec(int Id) {
+        String url = Statics.BASE_URL + "/T/findbyid/"+Id;
+
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                vehicules = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return vehicules;
+    }
     public ArrayList<Vehicule> getPosition() {
         String url = Statics.BASE_URL +"/T/position/"+Statics.sessionID;
         req.setUrl(url);

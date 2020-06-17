@@ -53,7 +53,7 @@ public class combo extends Form
             r.setPost(false);
             r.setUrl("https://maps.googleapis.com/maps/api/place/autocomplete/json");
             r.addArgument("key","AIzaSyAvlZjEkXM2b-JwgAvHbq1ytphq2e96zJQ");
-            r.addArgument("input", "tunisia");
+            r.addArgument("input", text);
             NetworkManager.getInstance().addToQueueAndWait(r);
             Map<String,Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
             String[] res = Result.fromContent(result).getAsStringArray("//description");

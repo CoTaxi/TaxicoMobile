@@ -101,7 +101,7 @@ if (Display.getInstance().getLocationManager().isGPSDetectionSupported()) {
             Dialog.show("Error!", "Failed to start.  installed?", "OK", null);
         }}}
 mc.zoomToLayers();
-Button go = new Button("go");
+Button go = new Button("Envoyer Ma Position");
 go.addActionListener(l->{
        double lat = loc.getLatitude();
        double lng = loc.getLongitude();
@@ -109,6 +109,7 @@ go.addActionListener(l->{
        if(new ColisService().pickup(id,mloc))
        {
        Dialog.show("Information", "Votre lieu de recuperation a ete enregistre ", "OK", null);
+        new ShowDetailsColis(id, res).showBack();
        }
        else 
        Dialog.show("ERREUR", "Servor Error", "OK", null);

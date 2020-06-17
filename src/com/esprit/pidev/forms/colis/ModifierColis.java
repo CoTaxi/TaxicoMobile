@@ -8,6 +8,7 @@ package com.esprit.pidev.forms.colis;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
+import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.ComboBox;
@@ -119,9 +120,24 @@ public class ModifierColis extends BaseForm
         ComboBox<String> cat = new ComboBox<>();
         Button btn = new Button("Edit Colis");
         TextModeLayout tl = new TextModeLayout(3, 2);
-        TextComponent tfDepart = new TextComponent().label("Depart");
-        //.errorMessage("Input is essential in this field");
-        TextComponent tfDestination = new TextComponent().label("Destination");
+        AutoCompleteTextField tfDepart = new AutoCompleteTextField(
+             "Ariana","Béja","Ben Arous","Bizerte","Gabès","Gafsa",
+             "Jendouba","Kairouan","Kasserine","Kef","Mahdia","Manouba"
+             ,"Médenine","Monastir","Nabeul","Sfax","Siliana","Sousse",
+             "Tataouine","Tozeur","Tunis","Zaghouan"
+        );
+        tfDepart.setMinimumElementsShownInPopup(3);
+        tfDepart.getStyle().setFgColor(0x000000);
+        tfDepart.setHint("Depart");
+        AutoCompleteTextField tfDestination = new AutoCompleteTextField(
+             "Ariana","Béja","Ben Arous","Bizerte","Gabès","Gafsa",
+             "Jendouba","Kairouan","Kasserine","Kef","Mahdia","Manouba"
+             ,"Médenine","Monastir","Nabeul","Sfax","Siliana","Sousse",
+             "Tataouine","Tozeur","Tunis","Zaghouan"
+        );
+        tfDestination.setMinimumElementsShownInPopup(3);
+        tfDestination.getStyle().setFgColor(0x000000);
+        tfDestination.setHint("Destination");
         TextComponent tfNomExpediteur = new TextComponent().label("Nom Expediteur");
         TextComponent tfMailExpediteur = new TextComponent().label("Mail Expediteur");
         TextComponent tfPoids = new TextComponent().label("Poids");
@@ -139,8 +155,8 @@ public class ModifierColis extends BaseForm
         
           for (int i=0;i<det.size();i++)
               {
-              tfDestination.text(det.get(i).getDestination());
-              tfDepart.text(det.get(i).getDepart());
+              tfDestination.setText(det.get(i).getDestination());
+              tfDepart.setText(det.get(i).getDepart());
               tfNomExpediteur.text(det.get(i).getNomExpediteur());
               tfMailExpediteur.text(det.get(i).getMailExpediteur());
               tfPoids.text(Float.toString(det.get(i).getPoids()));
@@ -160,6 +176,7 @@ public class ModifierColis extends BaseForm
                     if (new ColisService().modifycolis(Id,col)) 
                     {
                         Dialog.show("SUCCESS", "Colis Modifié", "OK", null);
+                        new ShowDetailsColis(Id, res).showBack();
                     } 
                     else 
                     {

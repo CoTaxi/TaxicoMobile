@@ -135,7 +135,8 @@ public class AffecterColis extends BaseForm
         mb.addActionListener(e-> {
              Dialog.show("Felicitation", "Votre Colis sera Affecté a cette voiture", "OK", null);
              if (new ColisService().affecterColis(Id,mat)) {
-                        Dialog.show("SUCCESS", "Colis Affecté", "OK", null);
+                        Dialog.show("Colis Affecté", "Attendez La Comfirmation Du Chauffeur", "OK", null);
+                        new ShowDetailsColis(Id, res).showBack();
                     } else {
                         Dialog.show("ERROR", "Server error", "OK", null);
                     }  

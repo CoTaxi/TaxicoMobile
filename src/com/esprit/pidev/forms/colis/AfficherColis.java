@@ -136,7 +136,8 @@ public class AfficherColis extends BaseForm {
    Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
   // content.setScrollableY(true);   
    ArrayList<Colis> List = new ColisService().getAllColis(Statics.sessionID);
-   searchField.addDataChangeListener((i1, i2) -> { // <2>
+   searchField.addDataChangedListener((i1, i2) -> { // <2>
+    this.refreshTheme();  
     String t = searchField.getText();
     if(t.length() < 1) 
     {
@@ -151,6 +152,7 @@ public class AfficherColis extends BaseForm {
         t = t.toLowerCase();
         System.out.println(t);
         this.removeComponent(content1);
+        this.refreshTheme();
         this.removeComponent(content);
         this.refreshTheme();
         for (int i = 0; i < search.size(); i++) {
@@ -185,7 +187,7 @@ public class AfficherColis extends BaseForm {
   Container c = new Container(new BorderLayout());
             
 dialogverif.setLayout(new BorderLayout());
-dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment supprimer ce colis ?"));
 Button oui = new Button("Oui");
 Button non = new Button("Non");
 non.addActionListener((ee) -> dialogverif.dispose());
@@ -232,8 +234,8 @@ for (int i = 0; i < List.size(); i++) {
         Container cntr1 = new Container(new FlowLayout());
         cntr.add(btn_edit);
         cntr1.add(btn_delete);
-        mb.setTextLine1("🗺 Traget : "+List.get(i).getDepart()+" ➡ "+List.get(i).getDestination());
-        mb.setTextLine2("🔢 Poids : "+String.valueOf(List.get(i).getPoids()));
+        mb.setTextLine1(List.get(i).getDepart()+" ➡ "+List.get(i).getDestination());
+        mb.setTextLine2("🔢 Poids(Kg) : "+String.valueOf(List.get(i).getPoids()));
         mb.setTextLine3("👨 Client : "+String.valueOf(List.get(i).getNomExpediteur()));
         mb.setTextLine4(Integer.toString(List.get(i).getIdC()));
         mb.addActionListener(new ActionListener() {
@@ -255,7 +257,7 @@ for (int i = 0; i < List.size(); i++) {
   Container c = new Container(new BorderLayout());
             
 dialogverif.setLayout(new BorderLayout());
-dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment annuler rdv"));
+dialogverif.add(BorderLayout.CENTER, new Label("Voulez vous vraiment supprimer ce colis ?"));
 Button oui = new Button("Oui");
 Button non = new Button("Non");
 non.addActionListener((ee) -> dialogverif.dispose());

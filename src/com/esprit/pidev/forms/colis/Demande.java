@@ -201,7 +201,7 @@ public class Demande extends BaseForm
               if(det.get(i).getPickup().contains("="))
               {
                System.out.println("http://maps.google.com/?"+det.get(i).getPickup());
-               pickup.setText("http://maps.google.com/?"+det.get(i).getPickup());   
+               //pickup.setText("http://maps.google.com/?"+det.get(i).getPickup());   
                cpickup.addAll(lpickup,pickup,Driver);
               }
               else 
@@ -221,6 +221,7 @@ public class Demande extends BaseForm
               userdet.addAll(cnomexp,cmailexp,cnomdest,cmaildest);
               this.addAll(abcolis,colisdet,abuser,userdet);
               Driver.addActionListener(l->{
+                     
                      Form hi = new Form("Browser", new BorderLayout());
                      BrowserComponent browser = new BrowserComponent();
                      Location loc = LocationManager.getLocationManager().getCurrentLocationSync();
@@ -231,6 +232,9 @@ public class Demande extends BaseForm
                      browser.setURL("http://maps.google.com/?q=" + lat + "," + lng);
                    //  browser.setURL("https://www.codenameone.com/");
                      hi.add(BorderLayout.CENTER, browser);
+                     hi.getToolbar().addCommandToRightBar("Return", null, (evt) -> {
+                     new Demande(Id,matricule,res).showBack();
+                     });  
                      hi.show();
               });
               if((etat!=2)&&(etat!=3))
@@ -253,6 +257,7 @@ public class Demande extends BaseForm
         header("Authorization", "Basic " + Base64.encodeNoNewline((accountSID + ":" + authToken).getBytes())).
         getAsJsonMap();
                 Dialog.show("Livré", "Felicitation Vous Avez Livré Un Nouveau Colis (Archive)", "OK", null);
+                new Demande(Id, matricule, res).showBack();
                     }
                   else {
                         Dialog.show("ERROR", "Server error", "OK", null);
@@ -262,6 +267,7 @@ public class Demande extends BaseForm
               accept.addActionListener((l)->{
                   if (new ColisService().accepterColis(Id)) {
                         Dialog.show("Accepté", "Vous Avez Accepté La Livraison Du Colis", "OK", null);
+                        new Demande(Id, matricule, res).showBack();
                     } else {
                         Dialog.show("ERROR", "Server error", "OK", null);
                     }
@@ -270,6 +276,7 @@ public class Demande extends BaseForm
                   
                   if (new ColisService().refusererColis(Id)) {
                         Dialog.show("Reffusé", "Ce Colis Ne Fait Plus Partie De Votre Liste", "OK", null);
+                        new Demande(Id, matricule, res).showBack();
                     } else {
                         Dialog.show("ERROR", "Server error", "OK", null);
                     }

@@ -125,8 +125,6 @@ public class MyApplication {
             current.show();
             return;
         }
-        // new SplashForm(theme,theme1).show();
-      //  new WalkthruForm(theme1).show();
       
         showSplashAnimation();
     }
