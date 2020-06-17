@@ -61,6 +61,7 @@ public class AfficherEvent extends BaseForm
     {
         super("Afficher Evennement", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
+        Button trier=new Button("tri par capacite");
         setToolbar(tb);
         getTitleArea().setUIID("Container");
         getContentPane().setScrollVisible(false);
@@ -118,6 +119,7 @@ public class AfficherEvent extends BaseForm
         RadioButton featured = RadioButton.createToggle("Colis", barGroup);
         featured.setUIID("SelectBar");
 
+      this.add(trier);
       //-------------------------------------------------------------------------------
       
         Button passe = new Button("Consulter Les evennements Passes");
@@ -145,10 +147,41 @@ public class AfficherEvent extends BaseForm
     }
     passe.addActionListener(l->{
         new ArchiveEvent(res).show();
+        
     });
        this.addAll(content1,passe);
-      
-      
+       Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+      trier.addActionListener(l->{
+          ArrayList<Event> Listtrie = new EventService().TriEvent();
+        this.removeComponent(content1);
+                for (int i = 0; i < Listtrie.size(); i++) 
+        {
+            
+        final MultiButton mb = new MultiButton();
+        Button btn_ed = new Button();
+        Button btn_del = new Button();
+        FontImage.setMaterialIcon(btn_ed, FontImage.MATERIAL_EDIT);
+        FontImage.setMaterialIcon(btn_del, FontImage.MATERIAL_DELETE_OUTLINE);
+        Container cntr = new Container(new FlowLayout());
+        Container cntr1 = new Container(new FlowLayout());
+        cntr.add(btn_ed);
+        cntr1.add(btn_del);
+        mb.setTextLine1("🔠 Nom : "+Listtrie.get(i).getNom());
+        mb.setTextLine2("⏳ Duree : "+String.valueOf(Listtrie.get(i).getDuree()));
+        mb.setTextLine3("🗺 Emplacement : "+Listtrie.get(i).getEmplacement());
+        mb.setTextLine4(Integer.toString(Listtrie.get(i).getId()));
+        mb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+            new ShowDetailsEvent(Integer.valueOf(mb.getTextLine4()),res).show();
+            }
+        });
+        content.addAll(mb);
+         }
+                trier.setEnabled(false);
+                this.add(content);
+                this.refreshTheme();
+      });
       
     }
     

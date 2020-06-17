@@ -160,4 +160,18 @@ return responseResult;
 
         return Events;
     }
+    public ArrayList<Event> TriEvent() {
+            String url =Statics.BASE_URL +"/event/trier";
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                Events = parseEvents(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+        return Events;
+    }
 }
